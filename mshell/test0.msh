@@ -1,0 +1,4 @@
+help
+forcefail
+# this should not execute
+version

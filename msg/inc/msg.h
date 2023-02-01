@@ -1,15 +1,20 @@
 #pragma once
 #include <string>
+
+#pragma once
+#include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 struct Msg
 {
-  //verbose=3 enables emsg, wmsg and imsg
-  Msg(std::string _who="",int _verbose=3)
-    : w(_who+": "),
-      verbose(_verbose)
-  {}
+  static Msg* getInstance() {
+    if(!instance) instance = new Msg;
+    return instance;
+  }
+ 
+ ~Msg() {} //dtor
 
   void setWho(std::string _w) {  w = _w+": "; }
 
@@ -54,5 +59,22 @@ struct Msg
   //         >= 4 - errors,warnings,info,debug4
   //              - debug messages can be a various levels, debugN
   // ----------------------------------------------------------------
-  int  verbose;
+  int  verbose{3};
+  static Msg *instance;
+
+ private:
+  Msg() { w = ""; verbose = 3; }
+  // ------------------------------------------------------------------- 
+  //  Msg(std::string _who="",int _verbose=3)
+  //    : w(_who+": "),
+  //      verbose(_verbose)
+  //  {}
+  // ------------------------------------------------------------------- 
+  Msg(const Msg&) = delete; //copy
+  Msg(Msg&&) = delete; //move
+  Msg& operator=(const Msg&) = delete; //assign
+
 };
+
+extern std::unique_ptr <Msg> msg;
+
