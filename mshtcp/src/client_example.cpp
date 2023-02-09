@@ -1,4 +1,12 @@
+// --------------------------------------------------------------------
+// Derived from the original code ceated by erauper on 4/7/19.
+// See https://github.com/elhayra/tcp_server_client
+// Subsequently modified for my use
+// --------------------------------------------------------------------
+// Modifications: Jeff Nye (c) 2023, see jnutils/LICENSE and jnutils/README.md
+// --------------------------------------------------------------------
 // Client test top level
+// --------------------------------------------------------------------
 #include "tcp_client.h"
 #include <iostream>
 #include <signal.h>

@@ -1,4 +1,12 @@
 // --------------------------------------------------------------------
 // Jeff Nye (c) 2023, see jnutils/LICENSE and jnutils/README.md
 // --------------------------------------------------------------------
-#define MAX_PACKET_SIZE 4096
+#pragma once
+
+struct Testa
+{
+  Testa(int); 
+ ~Testa() {}
+
+  int invar{0};
+};
