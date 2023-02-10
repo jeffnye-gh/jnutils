@@ -8,7 +8,7 @@ Most of this is my code from scratch, in the few cases I have credited
 the original source to the best of my memory.
 
 You might find this useful.
-'''
+<pre>
 // --------------------------------------------------------------------------
 // This file is part of jnutils, made public 2023, (c) Jeff Nye
 //
@@ -26,4 +26,4 @@ You might find this useful.
 // along with jnutils; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 // ---------------------------------------------------------------------------
-'''
+</pre>
