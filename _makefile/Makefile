@@ -1,5 +1,6 @@
 # --------------------------------------------------------------------
-# Jeff Nye (c) 2023
+#  This file is part of jnutils, made public 2023, (c) Jeff Nye.
+#  See LICENSE in the root directory.
 # --------------------------------------------------------------------
 .PHONY: clean run
 
@@ -47,6 +48,8 @@ run:	$(TARGET_A) $(TARGET_B)
 	$(TARGET_B)
 
 # Helpful to diplay values of variables, e.g. make help-DEP
+# I first saw this in riscv-isa-sim makefile, useful documentation
+# mechanism with low effort
 help-%:
 	@echo $* = $($*)
 
