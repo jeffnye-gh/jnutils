@@ -1,0 +1,18 @@
+#setenv LD_LIBRARY_PATH /usr/local/tce-1.16/lib:$LD_LIBRARY_PATH
+#setenv LDFLAGS -L/usr/local/tce-1.16/local/lib
+
+setenv EDITOR /usr/bin/gvim
+setenv VISUAL /usr/bin/gvim
+
+#setenv QSYS_ROOTDIR /usr/local/altera_lite/16.0/quartus/sopc_builder/bin
+#setenv QUARTUS_ROOTDIR /usr/local/altera_lite/16.0/quartus/bin
+
+setenv PATH /usr/sbin:$PATH
+setenv PATH /usr/local/bin:$PATH
+setenv PATH /sbin:$PATH
+setenv PATH /usr/local/Trolltech/Qt-4.8.3-static/bin:$PATH
+#setenv PATH /usr/local/Trolltech/Qt-5.5.1/bin:$PATH
+#setenv PATH /usr/local/Trolltech/Qt-5.9/5.9/gcc_64/bin:$PATH
+setenv PATH /usr/local/tce-1.16/bin:$PATH
+#setenv PATH /usr/local/altera_lite/16.0/quartus/sopc_builder/bin:$PATH
+#setenv PATH /usr/local/altera_lite/16.0/quartus/bin:$PATH
