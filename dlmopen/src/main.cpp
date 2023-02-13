@@ -15,6 +15,7 @@
 // along with jnutils; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 // ---------------------------------------------------------------------------
+#include "protos.h"
 #include <dlfcn.h>
 #include <string>
 #include <iostream>
@@ -24,26 +25,31 @@ bool run_once(string msg,void *dl,char** av,int a,int b,int c)
 {
   cout<<endl<<"HERE "<<msg<<endl;
 
+  // void f(void)
   typedef void (vv_t) (void);
   typedef vv_t* vv_p;
 
+  // int f(void)
   typedef int (iv_t) (void);
   typedef iv_t* iv_p;
 
+  // int f(int)
   typedef int (ii_t) (int);
   typedef ii_t* ii_p;
 
+  // int f(int,char**)
   typedef int (iic_t) (int,char**);
   typedef iic_t* iic_p;
 
+  // void f(int)
   typedef int (vi_t) (int);
   typedef vi_t* vi_p;
 
-  vv_p func_hack0  = (vv_p)  dlsym(dl,"_Z5hack0v");
-  iv_p func_hack1  = (iv_p)  dlsym(dl, "_Z5hack1v");
-  ii_p func_hack2  = (ii_p)  dlsym(dl, "_Z5hack2i");
-  iic_p func_hack3 = (iic_p) dlsym(dl, "_Z5hack3iPPc");
-  vi_p func_hack4  = (vi_p)  dlsym(dl, "_Z5hack4i");
+  vv_p func_hack0  = (vv_p)  dlsym(dl, "hack0");
+  iv_p func_hack1  = (iv_p)  dlsym(dl, "hack1");
+  ii_p func_hack2  = (ii_p)  dlsym(dl, "hack2");
+  iic_p func_hack3 = (iic_p) dlsym(dl, "hack3");
+  vi_p func_hack4  = (vi_p)  dlsym(dl, "hack4");
 
   if(!func_hack0) { cout<<"could not find hack0"<<endl; return false; }
   if(!func_hack1) { cout<<"could not find hack1"<<endl; return false; }
