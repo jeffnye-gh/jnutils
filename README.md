@@ -1,13 +1,8 @@
 # jnutils
 
-A small collection of idioms, higher design patterns and structures that I 
-use often in my code, recorded here to save me typing them in every time 
-and as a central location for the source as I make improvements.
+Some small code snippets, examples, idioms, etc.  These are common to my code, 
+I put them here to save me typing them in every time.
 
-Most of this is my code from scratch, in the few cases I have credited
-the original source to the best of my memory.
-
-You might find this useful.
 <pre>
 // --------------------------------------------------------------------------
 // This file is part of jnutils, made public 2023, (c) Jeff Nye
