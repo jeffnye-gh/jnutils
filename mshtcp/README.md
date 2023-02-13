@@ -9,6 +9,7 @@ See also: https://github.com/elhayra/tcp_server_client. My code started
 as a fork of this code by Elhay Rauper, elhayra. I have changed and
 made additions to the original code for my purposes.
 
+<pre>
 The original license:
 # ----------------------------------------------------------------------
 MIT License
@@ -39,3 +40,4 @@ License for modifications:
 #  This file is part of jnutils, made public 2023, (c) Jeff Nye.
 #  See LICENSE in the root directory.
 # ----------------------------------------------------------------------
+</pre>
