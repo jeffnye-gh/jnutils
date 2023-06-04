@@ -50,6 +50,7 @@ struct Msg
   void mmsg(std::ostream& o,std::string p,std::string m)
     { o<<p<<w<<m<<std::endl; }
 
+  // ----------------------------------------------------------------
   //dmsg should be v level 4
   void dmsg(std::ostream& o,std::string m="",int v=4)
     { mmsg(o,"-D: ",m); }
@@ -64,6 +65,8 @@ struct Msg
   void  msg(std::string m)
     { std::cout<<m<<std::endl;  }
 
+  // ----------------------------------------------------------------
+  std::string tq(std::string s) { return "'"+s+"'"; }
   std::string w;
   // ----------------------------------------------------------------
   // verbose 0 - silent
