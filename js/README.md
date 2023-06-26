@@ -21,7 +21,7 @@ If you have the option use CORS. It is more modern and likely more secure.
 --------------
 ## JSONP
 When the accesses are strictly internal and known to be trusted, JSONP
-provides a very solution to COR errors. The data is wrapped so that it 
+provides a simple solution to COR errors. The data is wrapped so that it 
 is correct javascript, the wrapped data now appears as an extension to
 the script and is appended to the main script.
 
@@ -41,7 +41,7 @@ as a script appended to the main script.
 ## CORS 
 
 CORS uses a web proxy to validate accesses to local data. The example
-files are
+files are:
 
 ```
 cors/index.html   main html
