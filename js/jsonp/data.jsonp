@@ -1,0 +1,48 @@
+handleChartData({
+  "annotations": {
+    "includes": [],
+    "inline": []
+  },
+  "chart-type": "line",
+  "data": [
+    {
+      "label": "line-one",
+      "line_properties": {
+        "color": "red",
+        "dash_capstyle": "round",
+        "style": "dashdot",
+        "style_type": "named"
+      },
+      "visible": "true",
+      "x": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0],
+      "x_precision": ".2f",
+      "y": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 3.0, 2.0, 1.0],
+      "y_precision": ".2f"
+    },
+    {
+      "label": "line-two",
+      "line_properties": {
+        "color": "blue",
+        "dash_capstyle": "round",
+        "style": "solid",
+        "style_type": "named"
+      },
+      "visible": "true",
+      "x": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0],
+      "x_precision": ".2f",
+      "y": [0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 3.0, 3.0, 4.0, 4.0],
+      "y_precision": ".2f"
+    }
+  ],
+  "legend_position": "upper right",
+  "legend_visible": "true",
+  "title": "simple chart",
+  "x_label": "x label",
+  "x_tick_precision": ".2f",
+  "x_ticks": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0],
+  "y_label": "y label",
+  "y_tick_precision": ".2f",
+  "y_ticks": [],
+  "zoom": "1.0"
+});
+
