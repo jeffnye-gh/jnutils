@@ -53,12 +53,13 @@ CORS requires packages to be present. If npm is not already installed
 install it using apt, then install the javascript packages using npm.
 
 ```
-apt install npm nodejs
-npm install nodejs cors
+apt install npm nodejs 
+npm install nodejs cors express
 ```
 To run the example start a local server and browse to cors/index.html
 
 ```
+cd cors
 node server.js &
 <open browser and point to cors/index.html>
 ```
