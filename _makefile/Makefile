@@ -14,7 +14,7 @@ ALL_OBJ = $(subst src,obj,$(ALL_SRC:.cpp=.o))
 ALL_DEP = $(ALL_OBJ:.o=.d))
 # --------------------------------------------------------------
 DEP  = -MMD -MP
-DEF  = 
+DEF  = -DSTRING_DEFINE="\"v1.1.1\""
 INC  = -I./inc
 OPT  = -g
 STD  = -std=c++2a
