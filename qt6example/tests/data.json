@@ -1,0 +1,228 @@
+{
+  "environment" : 
+  {
+    "_top" : "/home/randyrando/workspace",
+    "strconst0" : "StringConstant_0",
+    "strconst1" : "StringConstant_1",
+    "strconst2" : "StringConstant_2",
+    "strconst3" : "StringConstant_3",
+    "hierpath00" : "HierPath_00",
+    "hierpath01" : "HierPath_01",
+    "hierpath02" : "HierPath_02",
+    "hierpath03" : "HierPath_03",
+    "hierpath04" : "HierPath_04",
+    "hierpath05" : "HierPath_05",
+    "hierpath06" : "HierPath_06",
+    "hierpath07" : "HierPath_07",
+    "hierpath08" : "HierPath_08",
+    "hierpath09" : "HierPath_09",
+    "hierpath10" : "HierPath_10",
+    "hierpath11" : "HierPath_11",
+    "hierpath12" : "HierPath_12",
+    "hierpath13" : "HierPath_13",
+    "hierpath14" : "HierPath_14",
+    "hierpath15" : "HierPath_15"
+  },
+  "batchqueues" : 
+  [
+    {
+      "maxslots" : 32,
+      "name" : "longterm",
+      "server" : "hydrogen"
+    },
+    {
+      "maxslots" : 16,
+      "name" : "midterm",
+      "server" : "hydrogen"
+    },
+    {
+      "maxslots" : 8,
+      "name" : "shortterm",
+      "server" : "helium"
+    },
+    {
+      "maxslots" : 4,
+      "name" : "interactive",
+      "server" : "lithium"
+    }
+  ],
+  "machines" : 
+  [
+    {
+      "ip" : "192.168.1.1",
+      "name" : "hydrogen"
+    },
+    {
+      "ip" : "127.0.0.1",
+      "name" : "localhost"
+    },
+    {
+      "ip" : "192.168.1.2",
+      "name" : "helium"
+    },
+    {
+      "ip" : "192.168.1.3",
+      "name" : "lithium"
+    }
+  ],
+  "tabcontrols" : 
+  [
+    {
+      "tabname" : "Tab1",
+      "controllist" : 
+      {
+        "PB1" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb1; \\",
+            "prefix t1_pb1_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb1; \\",
+            "suffix t1_pb1_2"
+          ]
+        },
+        "PB2" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb2; \\",
+            "prefix t1_pb2_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb2; \\",
+            "suffix t1_pb2_2"
+          ]
+        },
+        "PB3" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb3; \\",
+            "prefix t1_pb3_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb3; \\",
+            "suffix t1_pb3_2"
+          ]
+        },
+        "PB4" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb4; \\",
+            "prefix t1_pb4_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb4; \\",
+            "suffix t1_pb4_2"
+          ]
+        },
+        "PB5" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb5; \\",
+            "prefix t1_pb5_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb5; \\",
+            "suffix t1_pb5_2"
+          ]
+        },
+        "PB6" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb6; \\",
+            "prefix t1_pb6_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb6; \\",
+            "suffix t1_pb6_2"
+          ]
+        },
+        "PB7" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb7; \\",
+            "prefix t1_pb7_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb7; \\",
+            "suffix t1_pb7_2"
+          ]
+        },
+        "PB8" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb8; \\",
+            "prefix t1_pb8_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb8; \\",
+            "suffix t1_pb8_2"
+          ]
+        },
+        "PB9" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb9; \\",
+            "prefix t1_pb9_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb9; \\",
+            "suffix t1_pb9_2"
+          ]
+        },
+        "PB10" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb10; \\",
+            "prefix t1_pb10_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb10; \\",
+            "suffix t1_pb10_2"
+          ]
+        },
+        "PB11" : 
+        {
+          "prefix" : 
+          [
+            "prefix t1_pb11; \\",
+            "prefix t1_pb11_2"
+          ],
+          "suffix" : 
+          [
+            "suffix t1_pb11; \\",
+            "suffix t1_pb11_2"
+          ]
+        }
+      }
+    },
+    {
+      "tabname" : "Tab2",
+      "controllist" : {}
+    },
+    {
+      "tabname" : "Tab3",
+      "controllist" : {}
+    }
+  ]
+}
