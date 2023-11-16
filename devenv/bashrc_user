@@ -1,0 +1,55 @@
+## global
+#stty sane
+#umask 002
+#export EDITOR=vim
+#
+## project vars
+#export BASH_ENV=/home/$USER/.bashrc
+#export WS=/data/users/$USER
+##export MODS=/abc/xyz/modules
+##export EXTT=/abc/xyz/exttools
+#
+#export LM_LICENSE_FILE=/some/path/lic.server:
+## paths
+#export MODULEPATH=/abc/xyz/modules:$MODULEPATH
+#
+## git clone/wget for known host names
+#export https_proxy=http://some-proxy
+#
+#module purge -f
+#
+# example module list
+#module load vim
+#module load python
+#module load cmake
+#
+# --------------------------------------------------------------------------
+# aliases
+# FIXME: should it be qsh or qsub?
+#
+# -b [y|n]     treat script as binary or not
+# -v DISPLAY   export DISPLAY variables to the job
+# -V           export all var's in the qsub utility are exported to the job
+# -q <string>  submit the job to  queue <string>
+# -now [y|n]   with y start the job now, n: post to pending queue if it can not start now
+# -S <string>  specify the interpreting shell for the job
+# -N <string>  job name
+# --------------------------------------------------------------------------
+#export KSOLE="dbus-launch konsole --profile Interactive"
+#alias IS="qsub -b y -v DISPLAY -q Interactive $KSOLE --nofork"
+#alias IB="qsub      -q Interactive -now n -V -S /bin/bash"
+#alias IB="qsub      -q Regression  -now n -V -S /bin/bash"
+#alias IB="qsub      -q LongJobs    -now n -V -S /bin/bash"
+#alias IX="qsub -b y -q ShortJobs   -now n -V -S /bin/bash /bin/xterm"
+#alias TB="qsub -b y -q normal.q -now n -V -S /bin/bash ./test.py tst 15 30"
+#
+#alias vi="vim"
+#alias QSTAT="qstat -f -t -u '*'"
+#
+#unalias rm
+#
+#export PATH=/tools/riscv64-unknown-linux-gnu/latest/bin:$PATH
+
+
+
+

@@ -1,0 +1,21 @@
+# global
+stty sane
+umask 002
+export EDITOR=vim
+
+# project vars
+export BASH_ENV=/home/$USER/.bashrc
+export WS=/data/users/$USER
+export MODS=/tools/env/modules
+export EXTT=/exttools
+
+# paths
+export MODULEPATH=/tools/env/modules:$MODULEPATH
+
+# git clone/wget for known host names
+export https_proxy=http://a-proxy:01234
+
+module purge -f
+
+module load vim
+module load python
