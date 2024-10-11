@@ -6,5 +6,5 @@
 
 int main() {
   Server server;
-  return server.boot();
+  return server.start();
 }

@@ -11,8 +11,7 @@
 using boost::asio::ip::tcp;
 using namespace std;
 
-uint32_t Client::connect()
-{
+uint32_t Client::connect() {
   while (true) {
     try {
       boost::asio::io_context io_context;
@@ -20,12 +19,12 @@ uint32_t Client::connect()
       // Connect to the server
       tcp::resolver resolver(io_context);
       tcp::resolver::results_type endpoints
-         = resolver.resolve(Comms::get_ip(),Comms::get_port());
+         = resolver.resolve(Comms::get_ip(), Comms::get_port());
 
       tcp::socket socket(io_context);
       boost::asio::connect(socket, endpoints);
 
-      cout << "Connected to server!" << endl;
+      cout << "-I: Connected to server: "<<Comms::get_comms() << endl;
 
       while (true) {
         // Get the command from the user
@@ -33,34 +32,38 @@ uint32_t Client::connect()
         cout << prompt;
         getline(cin, command);
 
+        if (command == "shutdown") {
+          cout << "-I: Client shutting down..." << endl;
+          return 0;  // Exit the client
+        }
+
         if (command == "exit") {
-            break;
+          cout << "-I: Client exiting..." << endl;
+          return 0;  // Exit the client
         }
 
         // Send the command to the server
         boost::asio::write(socket, boost::asio::buffer(command + "\n"));
 
-        // Check if the command was 'sendblock' to receive data back
-        if (command == "sendblock") {
-          char data[2048];
-          boost::system::error_code error;
+        // Wait for the server's response for all commands
+        char data[2048];
+        boost::system::error_code error;
 
-          // Read the response from the server
-          size_t length = socket.read_some(boost::asio::buffer(data), error);
-          if (error == boost::asio::error::eof) {
-              break;  // Server closed connection
-          } else if (error) {
-              throw boost::system::system_error(error);  // Other errors
-          }
-
-          // Null-terminate the received data and print it
-          data[length] = '\0';
-          cout << "Received from server:\n" << data << endl;
+        // Read the response from the server
+        size_t length = socket.read_some(boost::asio::buffer(data), error);
+        if (error == boost::asio::error::eof) {
+            break;  // Server closed connection
+        } else if (error) {
+            throw boost::system::system_error(error); 
         }
+
+        // Null-terminate and display the received data
+        data[length] = '\0';
+        cout << "\n" << data << endl;
       }
     } catch (exception& e) {
-      cerr << "Connection failed: " << e.what() << endl;
-      cout << "Retrying in 5 seconds..." << endl;
+      cerr << "-W: Connection failed: " << e.what() << endl;
+      cout << "-I: Retrying in "<< Comms::retry_wait <<" seconds..." << endl;
       this_thread::sleep_for(chrono::seconds(Comms::retry_wait)); 
     }
   }

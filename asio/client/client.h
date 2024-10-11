@@ -14,6 +14,6 @@ struct Client
   uint32_t connect();
 
   void setPrompt(std::string s) { prompt = s; }
-  std::string prompt{"client> "};
+  std::string prompt{"asio> "};
 };
 
