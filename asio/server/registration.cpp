@@ -20,34 +20,38 @@ void Server::registration(tcp::socket &socket) {
 
   register_variables();
 }
-// -----------------------------------------------------------------------
-// -----------------------------------------------------------------------
+
 void Server::register_control_cmds(tcp::socket &socket) {
-
-  // STOP -------------------------------------
-  interpreter.register_command("stop", [this](ArgsType &args)
-  {
-    cout << "-I: Stopping server task..." << endl;
+  // STOP command -------------------------------------
+  interpreter.register_command("stop", [this,&socket](ArgsType &args) {
+    std::cout << "-I: Stopping server task..." << std::endl;
     busy_flag = false;
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
   });
 
-  // RESTART ----------------------------------
-  interpreter.register_command("restart",[this](ArgsType& args)
-  {
-    cout << "-I: Resuming server task..." << endl;
+  // RESTART command ----------------------------------
+  interpreter.register_command("restart", [this,&socket](ArgsType &args) {
+    std::cout << "-I: Resuming server task..." << std::endl;
     busy_flag = true;
+    
+    // If the stop_flag is set, the busy task has stopped, so restart it
+    if (stop_flag) {
+      stop_flag = false;  // Reset the stop flag to resume the task
+      std::thread busy_thread(&Server::busy_task, this);
+      busy_thread.detach();  // Detach the thread so it runs independently
+    }
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
   });
 
-  // SHUTDOWN ----------------------------------
-  interpreter.register_command("shutdown",[this](ArgsType &args)
-  {
-    cout << "-I: Shutting down server..." << endl;
+  // SHUTDOWN command ----------------------------------
+  interpreter.register_command("shutdown", [this,&socket](ArgsType &args) {
+    std::cout << "-I: Shutting down server..." << std::endl;
     shutdown_flag = true;
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
   });
-
-  boost::asio::write(socket, boost::asio::buffer("<1>"));
 
 }
+
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
 void Server::register_info_cmds(tcp::socket &socket) {

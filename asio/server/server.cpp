@@ -15,9 +15,10 @@ int Server::start() {
   try {
     boost::asio::io_context io_context;
     tcp::acceptor acceptor(io_context,
-              tcp::endpoint(tcp::v4(), Comms::tcpport));
+                           tcp::endpoint(tcp::v4(), Comms::tcpport));
 
-    cout << "-I: Server listening on port " << Comms::tcpport << endl;
+    std::cout << "-I: Server listening on connection: " 
+              << Comms::tcpport << std::endl;
 
     shutdown_flag = false;
 
@@ -25,10 +26,10 @@ int Server::start() {
       tcp::socket socket(io_context);
 
       // Wait for a client connection
-      cout << "-I: Waiting for client connection..." << endl;
+      std::cout << "-I: Waiting for client connection..." << std::endl;
       acceptor.accept(socket);
 
-      cout << "-I: Client connected." << endl;
+      std::cout << "-I: Client connected." << std::endl;
 
       // Start busy task in a separate thread
       std::thread busy_thread(&Server::busy_task, this);
@@ -39,19 +40,20 @@ int Server::start() {
           // Handle client connection and commands
           handle_client(socket, interpreter);
       } catch (std::exception& e) {
-          cerr << "-E: Client connection error: " << e.what() << endl;
+          std::cerr << "-E: Client connection error: "
+                    << e.what() << std::endl;
       }
 
       // Clean up after client disconnects
       stop_flag = true;
-      busy_thread.join();
-      stop_flag = false;  // Reset stop_flag for future clients
+      busy_thread.join();  // Wait for the busy thread to finish
+      stop_flag = false;   // Reset stop_flag for future clients
     }
 
-    cout << "-I: Server shutdown complete." << endl;
+    std::cout << "-I: Server shutdown complete." << std::endl;
     exit(0);
   } catch (std::exception& e) {
-      cerr << "-E: Server error: " << e.what() << endl;
+      std::cerr << "-E: Server error: " << e.what() << std::endl;
   }
 
   return 0;
