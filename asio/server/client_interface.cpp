@@ -1,9 +1,13 @@
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #include "server.h"
 
 #include <iostream>
 #include <boost/asio.hpp>
+using namespace std;
 
-// Function to split input into command and arguments
 void Server::handle_client(tcp::socket& socket, CmdInterp& interpreter) {
     try {
         char data[1024];
@@ -21,10 +25,10 @@ void Server::handle_client(tcp::socket& socket, CmdInterp& interpreter) {
             data[length] = '\0';
 
             // Execute the received command
-            interpreter.execute_command(std::string(data));
+            interpreter.execute_command(string(data));
         }
-    } catch (std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
+    } catch (exception& e) {
+        cerr << "Exception: " << e.what() << endl;
     }
 }
 

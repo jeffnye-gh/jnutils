@@ -1,114 +1,70 @@
-#include "common.h"
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #include "client.h"
+#include "common.h"
+#include <thread>
+#include <chrono>
+#include <string>
 
 using boost::asio::ip::tcp;
 using namespace std;
 
 uint32_t Client::connect()
 {
+  while (true) {
     try {
-        boost::asio::io_context io_context;
+      boost::asio::io_context io_context;
 
-        // Connect to the server on localhost:12345
-        tcp::resolver resolver(io_context);
-        tcp::resolver::results_type endpoints = 
-                       resolver.resolve(Comms::hostip,::to_string(Comms::tcpport));
+      // Connect to the server
+      tcp::resolver resolver(io_context);
+      tcp::resolver::results_type endpoints
+         = resolver.resolve(Comms::get_ip(),Comms::get_port());
 
-        tcp::socket socket(io_context);
-        boost::asio::connect(socket, endpoints);
+      tcp::socket socket(io_context);
+      boost::asio::connect(socket, endpoints);
 
-        cout << "Connected to server:"<<Comms::hostip <<":"
-                                <<::to_string(Comms::tcpport)<< endl;
+      cout << "Connected to server!" << endl;
 
-        while (true) {
-            // Get the command from the user
-            string command;
-            cout << prompt;
-            getline(cin, command);
+      while (true) {
+        // Get the command from the user
+        string command;
+        cout << prompt;
+        getline(cin, command);
 
-            if (command == "exit") { break; }
-
-            // Send the command to the server
-            boost::asio::write(socket, boost::asio::buffer(command + "\n"));
-
-            // Check if the command was 'sendblock' to receive data back
-            if (command == "sendblock") {
-                char data[1024];
-                boost::system::error_code error;
-
-                // Read the response from the server
-                size_t length = socket.read_some(boost::asio::buffer(data), error);
-                if (error == boost::asio::error::eof) {
-                    break; // Connection closed by server
-                } else if (error) {
-                    throw boost::system::system_error(error);
-                }
-
-                // Null-terminate the received data and print it
-                data[length] = '\0';
-                cout << "Received from server:\n" << data << endl;
-            }
+        if (command == "exit") {
+            break;
         }
-    } catch (exception &e) {
-        cerr << "Exception: " << e.what() << endl;
-    }
 
-    return 0;
+        // Send the command to the server
+        boost::asio::write(socket, boost::asio::buffer(command + "\n"));
+
+        // Check if the command was 'sendblock' to receive data back
+        if (command == "sendblock") {
+          char data[2048];
+          boost::system::error_code error;
+
+          // Read the response from the server
+          size_t length = socket.read_some(boost::asio::buffer(data), error);
+          if (error == boost::asio::error::eof) {
+              break;  // Server closed connection
+          } else if (error) {
+              throw boost::system::system_error(error);  // Other errors
+          }
+
+          // Null-terminate the received data and print it
+          data[length] = '\0';
+          cout << "Received from server:\n" << data << endl;
+        }
+      }
+    } catch (exception& e) {
+      cerr << "Connection failed: " << e.what() << endl;
+      cout << "Retrying in 5 seconds..." << endl;
+      this_thread::sleep_for(chrono::seconds(Comms::retry_wait)); 
+    }
+  }
+
+  return 0;
 }
 
-
-//#include "client.h"
-//
-//using boost::asio::ip::tcp;
-//
-//uint32_t Client::connect()
-//{
-//    try {
-//        boost::asio::io_context io_context;
-//
-//        // Connect to the server on localhost:12345
-//        tcp::resolver resolver(io_context);
-//        tcp::resolver::results_type endpoints = resolver.resolve("127.0.0.1", "12345");
-//
-//        tcp::socket socket(io_context);
-//        boost::asio::connect(socket, endpoints);
-//
-//        std::cout << "Connected to server!" << std::endl;
-//
-//        while (true) {
-//            // Get the command from the user
-//            std::string command;
-//            std::cout << prompt;
-//            std::getline(std::cin, command);
-//
-//            if (command == "exit") { break; }
-//
-//            // Send the command to the server
-//            boost::asio::write(socket, boost::asio::buffer(command + "\n"));
-//
-//            // Check if the command was 'fibo' to receive data back
-//            if (command.find("fibo") == 0) {
-//                char data[1024];
-//                boost::system::error_code error;
-//
-//                // Read the response from the server
-//                size_t length = socket.read_some(boost::asio::buffer(data), error);
-//                if (error == boost::asio::error::eof) {
-//                    break; // Connection closed by server
-//                } else if (error) {
-//                    throw boost::system::system_error(error);
-//                }
-//
-//                // Null-terminate the received data and print it
-//                data[length] = '\0';
-//                std::cout << "Received from server: " << data << std::endl;
-//            }
-//        }
-//    } catch (std::exception &e) {
-//        std::cerr << "Exception: " << e.what() << std::endl;
-//    }
-//
-//    return 0;
-//}
-//
-//

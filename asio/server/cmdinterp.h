@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #pragma once
 
 #include <boost/asio.hpp>
@@ -5,12 +9,12 @@
 #include <functional>
 #include <iostream>
 #include <map>
+#include <sstream>
 #include <string>
 #include <vector>
 
 using boost::asio::ip::tcp;
 
-// Command interpreter class that handles the execution of commands
 class CmdInterp {
 public:
     using FuncVoidType = std::function<void(const std::vector<std::string>&)>;

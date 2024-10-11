@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------
-#  This file is part of jnutils, made public 2023, (c) Jeff Nye.
+#  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
 #  See LICENSE in the root directory.
 # --------------------------------------------------------------------
 .PHONY: default only clean
@@ -30,13 +30,10 @@ LIBS = -lboost_system
 CFLAGS   = $(OPT) $(DEP) $(DEF) $(INC) 
 CPPFLAGS = $(CFLAGS) $(STD)
 
-# Target dependent variables
-$(TARG_SERVER) : LDFLAGS = -fPIC
+# Target dependent variables - not used
+$(TARG_SERVER) : LDFLAGS =
 $(TARG_CLIENT) : LDFLAGS = 
 # --------------------------------------------------------------
-#default: 
-#	@echo $(ALL_SRV_OBJ)
-
 default: only
 only: $(TARG_SERVER) $(TARG_CLIENT)
 # --------------------------------------------------------------

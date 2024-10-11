@@ -1,17 +1,10 @@
-//#include "common.h"
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #include "server.h"
-
-//#include <boost/asio.hpp>
-//
-//#include <iostream>
-//#include <cstdlib>
-//#include <cstring>
-//#include <thread>
-//#include <atomic>
 
 int main() {
   Server server;
-
   return server.boot();
-
 }
