@@ -20,7 +20,8 @@ void Server::registration(tcp::socket &socket) {
 
   register_variables();
 }
-
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 void Server::register_control_cmds(tcp::socket &socket) {
   // STOP command -------------------------------------
   interpreter.register_command("stop", [this,&socket](ArgsType &args) {
@@ -51,7 +52,6 @@ void Server::register_control_cmds(tcp::socket &socket) {
   });
 
 }
-
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
 void Server::register_info_cmds(tcp::socket &socket) {

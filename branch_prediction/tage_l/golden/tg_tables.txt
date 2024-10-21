@@ -1,0 +1,71 @@
+
+-I: tg cmp 1 hist len 4
+-I: tg cmp 2 hist len 6
+-I: tg cmp 3 hist len 10
+-I: tg cmp 4 hist len 16
+-I: tg cmp 5 hist len 26
+-I: tg cmp 6 hist len 42
+-I: tg cmp 7 hist len 67
+-I: tg cmp 8 hist len 107
+-I: tg cmp 9 hist len 172
+-I: tg cmp 10 hist len 275
+-I: tg cmp 11 hist len 440
+-I: tg cmp 12 hist len 640
+
+-I: tg table cmp:0
+-I: cmp:0 a:253 t:0059 c2:0 c1:4 v:1
+-I: cmp:0 a:25e t:005e c2:1 c1:6 v:1
+-I:   table #entries not default: 2
+
+-I: tg table cmp:1
+-I: cmp:1 a:25f t:005a c2:0 c1:4 v:1
+-I: cmp:1 a:290 t:005c c2:0 c1:2 v:1
+-I:   table #entries not default: 2
+
+-I: tg table cmp:2
+-I: cmp:2 a:4d t:003e c2:0 c1:5 v:1
+-I: cmp:2 a:1d5 t:009e c2:0 c1:2 v:1
+-I: cmp:2 a:235 t:0034 c2:0 c1:4 v:1
+-I: cmp:2 a:2da t:004f c2:0 c1:4 v:1
+-I:   table #entries not default: 4
+
+-I: tg table cmp:3
+-I: cmp:3 a:34d t:00e9 c2:0 c1:3 v:1
+-I:   table #entries not default: 1
+
+-I: tg table cmp:4
+-I:   table #entries not default: 0
+
+-I: tg table cmp:5
+-I:   table #entries not default: 0
+
+-I: tg table cmp:6
+-I:   table #entries not default: 0
+
+-I: tg table cmp:7
+-I:   table #entries not default: 0
+
+-I: tg table cmp:8
+-I:   table #entries not default: 0
+
+-I: tg table cmp:9
+-I:   table #entries not default: 0
+
+-I: tg table cmp:10
+-I:   table #entries not default: 0
+
+-I: tg table cmp:11
+-I:   table #entries not default: 0
+
+-I: bimodal table 
+-I:  bi:0x0234 tag:0x0000 v:1
+-I:  bi:0x0235 tag:0x0003 v:1
+-I:  bi:0x0239 tag:0x0003 v:1
+-I:  bi:0x023b tag:0x0003 v:1
+-I:  bi:0x0255 tag:0x0003 v:1
+-I:  bi:0x0259 tag:0x0000 v:1
+-I:  bi:0x025a tag:0x0000 v:1
+-I:  bi:0x025b tag:0x0000 v:1
+-I:  bi:0x025c tag:0x0000 v:1
+-I:  bi:0x025d tag:0x0003 v:1
+-I: bimodal #entries not default: a
