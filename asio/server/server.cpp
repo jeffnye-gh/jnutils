@@ -34,14 +34,14 @@ int Server::start() {
       // Start busy task in a separate thread
       std::thread busy_thread(&Server::busy_task, this);
 
+      // Register known commands
       registration(socket);
 
       try {
           // Handle client connection and commands
           handle_client(socket, interpreter);
       } catch (std::exception& e) {
-          std::cerr << "-E: Client connection error: "
-                    << e.what() << std::endl;
+          std::cerr << "-E: Client connection error: "<< e.what() << std::endl;
       }
 
       // Clean up after client disconnects

@@ -7,67 +7,92 @@
 #include <thread>
 #include <chrono>
 #include <string>
+#include <fstream>
 
 using boost::asio::ip::tcp;
 using namespace std;
 
-uint32_t Client::connect() {
-  while (true) {
-    try {
-      boost::asio::io_context io_context;
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+bool Client::isCommand(const string &str)
+{
+  if(str.empty()) return false;
 
-      // Connect to the server
-      tcp::resolver resolver(io_context);
-      tcp::resolver::results_type endpoints
-         = resolver.resolve(Comms::get_ip(), Comms::get_port());
+  auto it = std::find_if(str.begin(), str.end(), [](char ch) {
+    return !std::isspace(static_cast<unsigned char>(ch));
+  });
 
-      tcp::socket socket(io_context);
-      boost::asio::connect(socket, endpoints);
+  return !(it != str.end() && *it == '#');
+}
 
-      cout << "-I: Connected to server: "<<Comms::get_comms() << endl;
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+uint32_t Client::connect()
+{
+    stop_on_error = true;
 
-      while (true) {
-        // Get the command from the user
-        string command;
-        cout << prompt;
-        getline(cin, command);
+    std::string command_name;
+    std::vector<std::string> args;
+    std::string arg;
 
-        if (command == "shutdown") {
-          cout << "-I: Client shutting down..." << endl;
-          return 0;  // Exit the client
+    while (true) {
+        try {
+            boost::asio::io_context io_context;
+
+            // Connect to the server
+            tcp::resolver resolver(io_context);
+            tcp::resolver::results_type endpoints
+                = resolver.resolve(Comms::get_ip(), Comms::get_port());
+
+            tcp::socket socket(io_context);
+            boost::asio::connect(socket, endpoints);
+
+            cout << "-I: Connected to server: " << Comms::get_comms() << endl;
+
+            while (true) {
+                // Get the command from the user
+                string command;
+                cout << prompt;
+                getline(cin, command);
+
+                if(command.empty()) continue;
+
+                if (command == "shutdown") {
+                    cout << "-I: Client shutting down..." << endl;
+                    return 0;  // Exit the client
+                }
+
+                if (command == "exit") {
+                    cout << "-I: Client exiting..." << endl;
+                    return 0;  // Exit the client
+                }
+
+                std::istringstream iss(command);
+                iss >> command_name;
+                args.clear();
+
+                while(iss >> arg) args.push_back(arg);
+
+                if (command_name == "cset") {
+                    handle_cset(args);
+                    continue;
+                }
+
+                if (command_name == "csrc") {
+                    handle_csrc(socket,args);
+                    continue;
+                }
+
+                send_command(socket, command);
+            }
+        } catch (exception& e) {
+            cout << "-W: Connection failed: " << e.what() << endl;
+            cout << "-I: Retrying in " << Comms::retry_wait 
+                                       << " seconds..." << endl;
+            this_thread::sleep_for(chrono::seconds(Comms::retry_wait));
         }
-
-        if (command == "exit") {
-          cout << "-I: Client exiting..." << endl;
-          return 0;  // Exit the client
-        }
-
-        // Send the command to the server
-        boost::asio::write(socket, boost::asio::buffer(command + "\n"));
-
-        // Wait for the server's response for all commands
-        char data[2048];
-        boost::system::error_code error;
-
-        // Read the response from the server
-        size_t length = socket.read_some(boost::asio::buffer(data), error);
-        if (error == boost::asio::error::eof) {
-            break;  // Server closed connection
-        } else if (error) {
-            throw boost::system::system_error(error); 
-        }
-
-        // Null-terminate and display the received data
-        data[length] = '\0';
-        cout << "\n" << data << endl;
-      }
-    } catch (exception& e) {
-      cerr << "-W: Connection failed: " << e.what() << endl;
-      cout << "-I: Retrying in "<< Comms::retry_wait <<" seconds..." << endl;
-      this_thread::sleep_for(chrono::seconds(Comms::retry_wait)); 
     }
-  }
 
-  return 0;
+    return 0;
 }
 
