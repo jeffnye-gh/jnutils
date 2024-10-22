@@ -65,9 +65,31 @@ stop      - stop the server's (fake) periodic process
 restart   - resume the server's (fake) periodic process
 sendblock - a block of text from server to client
 ```
+# Formatted responses
+
+All command responses from the server use a similar structured format, using a colon
+separated string.
+
+This is the currently supported format:
+
+```
+<status>:<command>:<data type>:<remaining data>
+
+status is    : "-I" or "-E"  info or error
+
+commands are  : "INFO_REGS"  register info for formatting
+                "RET"        return code, 0 or 1
+                "G"          general form
+
+data type is : "NVP"         name value pairs
+               "STRING"
+
+For NVP 'remaining data' is a set of colon delimited name/value pairs.
+```
+
 # GDB commands
 
-ASIO mimics GDB but makes some simplifications to the RSP protocol.
+ASIO mimics GDB commands but does not rigidly implement the RSP protocol.
 
 ## Breakpoints and Watchpoints
 

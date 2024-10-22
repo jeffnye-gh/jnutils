@@ -59,6 +59,14 @@ private:
   void info_breakpoints(_STDARGS_);
   void info_variables(_STDARGS_);
 
+  std::string strResp(bool good,std::string s) {
+    return good ? "-I:G:STRING:"+s : "-E:G:STRING:"+s;
+  }
+
+  std::string retCode(bool good) {
+    return good ? "-I:RET:STRING:<1>" : "-E:RET:STRING:<0>";
+  }
+
   void too_few_args(std::string,_STDARGS_);
   void unknown_subcommand(std::string,_STDARGS_);
   void unimplemented_command(std::string,_STDARGS_);

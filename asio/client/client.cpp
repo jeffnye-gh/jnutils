@@ -50,6 +50,7 @@ uint32_t Client::connect()
             cout << "-I: Connected to server: " << Comms::get_comms() << endl;
 
             while (true) {
+
                 // Get the command from the user
                 string command;
                 cout << prompt;

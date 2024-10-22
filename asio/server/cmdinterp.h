@@ -51,7 +51,7 @@ struct CmdInterp {
     if (commands.find(command_name) != commands.end()) {
         commands[command_name](args);
     } else {
-        std::cerr << "Unknown command: " << command_name << std::endl;
+        //std::cerr << "Unknown command: " << command_name << std::endl;
         std::string response = "-E: Unknown command: " + command_name + "\n";
         boost::asio::write(socket, boost::asio::buffer(response));
     }
