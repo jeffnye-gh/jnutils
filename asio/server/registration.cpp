@@ -14,75 +14,31 @@ using namespace std;
 // COMMANDS
 // =======================================================================
 void Server::registration(tcp::socket &socket) {
-  register_variable_cmds(socket);
-  register_info_cmds(socket);
-  register_control_cmds(socket);
-
   register_variables();
+  register_cmds(socket);
 }
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
-void Server::register_control_cmds(tcp::socket &socket) {
-  // STOP command -------------------------------------
-  interpreter.register_command("stop", [this,&socket](ArgsType &args) {
-    std::cout << "-I: Stopping server task..." << std::endl;
-    busy_flag = false;
-    boost::asio::write(socket, boost::asio::buffer("<1>"));
-  });
+void Server::register_cmds(tcp::socket& socket) {
+  // Populate the map with command handlers
+  user_command_map = {
+    {"help", [this](tcp::socket& socket, ArgsType& args) { handle_help(socket, args); }},
+    {"?", [this](tcp::socket& socket, ArgsType& args) { handle_help(socket, args); }},
+    {"restart", [this](tcp::socket& socket, ArgsType& args) { handle_restart(socket, args); }},
+    {"sendblock", [this](tcp::socket& socket, ArgsType& args) { handle_sendblock(socket, args); }},
+    {"set", [this](tcp::socket& socket, ArgsType& args) { handle_set(socket, args); }},
+    {"show", [this](tcp::socket& socket, ArgsType& args) { handle_show(socket, args); }},
+    {"shutdown", [this](tcp::socket& socket, ArgsType& args) { handle_shutdown(socket, args); }},
+    {"stop", [this](tcp::socket& socket, ArgsType& args) { handle_stop(socket, args); }}
 
-  // RESTART command ----------------------------------
-  interpreter.register_command("restart", [this,&socket](ArgsType &args) {
-    std::cout << "-I: Resuming server task..." << std::endl;
-    busy_flag = true;
-    
-    // If the stop_flag is set, the busy task has stopped, so restart it
-    if (stop_flag) {
-      stop_flag = false;  // Reset the stop flag to resume the task
-      std::thread busy_thread(&Server::busy_task, this);
-      busy_thread.detach();  // Detach the thread so it runs independently
-    }
-    boost::asio::write(socket, boost::asio::buffer("<1>"));
-  });
+  };
 
-  // SHUTDOWN command ----------------------------------
-  interpreter.register_command("shutdown", [this,&socket](ArgsType &args) {
-    std::cout << "-I: Shutting down server..." << std::endl;
-    shutdown_flag = true;
-    boost::asio::write(socket, boost::asio::buffer("<1>"));
-  });
-
-}
-// -----------------------------------------------------------------------
-// -----------------------------------------------------------------------
-void Server::register_info_cmds(tcp::socket &socket) {
-  // HELP -------------------------------------
-  interpreter.register_mcommand({"help","?"},[this, &socket](ArgsType& args)
-  {
-    handle_help(socket,args);
-  });
-
-  // SENDBLOCK --------------------------------
-  interpreter.register_command("sendblock",[this, &socket](ArgsType &args)
-  {
-    //cout << "-I: Block send..." << endl;
-    handle_sendblock(socket,args);
-  });
-}
-// -----------------------------------------------------------------------
-// -----------------------------------------------------------------------
-void Server::register_variable_cmds(tcp::socket &socket)
-{
-  // SET --------------------------------------
-  interpreter.register_command("set",[this, &socket](ArgsType& args)
-  {
-    handle_set(socket, args);
-  });
-
-  // SHOW -------------------------------------
-  interpreter.register_command("show",[this, &socket](ArgsType& args)
-  {
-    handle_show(socket, args);
-  });
+  // Iterate over the map and register each command with the interpreter
+  for (const auto& [command_name, handler] : user_command_map) {
+    interpreter.register_command(command_name, [this, &socket, handler](ArgsType& args) {
+      handler(socket, args);
+    });
+  }
 }
 // =======================================================================
 // VARIABLES

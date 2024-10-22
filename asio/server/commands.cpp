@@ -21,6 +21,25 @@ void Server::handle_help(tcp::socket &socket, ArgsType &args)
   boost::asio::write(socket, boost::asio::buffer(response));
 }
 // =====================================================================
+// RRR
+// =====================================================================
+// ---------------------------------------------------------------------
+// RESTART - server control
+// ---------------------------------------------------------------------
+void Server::handle_restart(tcp::socket &socket, ArgsType &args)
+{
+    std::cout << "-I: Resuming server task..." << std::endl;
+    busy_flag = true;
+
+    // If the stop_flag is set, the busy task has stopped, so restart it
+    if (stop_flag) {
+      stop_flag = false;  // Reset the stop flag to resume the task
+      std::thread busy_thread(&Server::busy_task, this);
+      busy_thread.detach();  // Detach the thread so it runs independently
+    }
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
+}
+// =====================================================================
 // SSS
 // =====================================================================
 // SET
@@ -139,4 +158,21 @@ void Server::handle_show(tcp::socket &socket, ArgsType &args) {
 
     boost::asio::write(socket, boost::asio::buffer(response));
 }
-
+// ---------------------------------------------------------------------
+// SHUTDOWN - server control
+// ---------------------------------------------------------------------
+void Server::handle_shutdown(tcp::socket &socket, ArgsType &args)
+{
+    std::cout << "-I: Shutting down server..." << std::endl;
+    shutdown_flag = true;
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
+}
+// ---------------------------------------------------------------------
+// STOP - server control
+// ---------------------------------------------------------------------
+void Server::handle_stop(tcp::socket &socket, ArgsType &args)
+{
+    std::cout << "-I: Stopping server task..." << std::endl;
+    busy_flag = false;
+    boost::asio::write(socket, boost::asio::buffer("<1>"));
+}

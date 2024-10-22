@@ -65,7 +65,7 @@ void Server::busy_task() {
   while (!stop_flag) {
     if (busy_flag) {
       string prog = progress[progress_index&0x3];
-      cout << "Server process is busy: "<<prog<<"\r"; 
+      cout << "-I: Server process is busy: "<<prog<<"\r"; 
       cout.flush();
       ++progress_index;
       this_thread::sleep_for(std::chrono::seconds(1));

@@ -34,9 +34,7 @@ private:
 
   void registration(tcp::socket&);
   //Command registration - registration.cpp
-  void register_variable_cmds(tcp::socket&);
-  void register_control_cmds(tcp::socket&);
-  void register_info_cmds(tcp::socket&);
+  void register_cmds(tcp::socket&);
 
   //Variable registration - also registration.cpp
   void register_variables();
@@ -46,10 +44,14 @@ private:
 
   //Command implementation - commands.cpp
   void handle_help(tcp::socket& socket, ArgsType& args);
+  void handle_restart(tcp::socket& socket, ArgsType& args);
+  void handle_sendblock(tcp::socket& socket, ArgsType& args);
   void handle_set(tcp::socket& socket, ArgsType& args);
   void handle_show(tcp::socket& socket, ArgsType& args);
-  void handle_sendblock(tcp::socket& socket, ArgsType& args);
+  void handle_shutdown(tcp::socket& socket, ArgsType& args);
+  void handle_stop(tcp::socket& socket, ArgsType& args);
 
+  //
   static const std::vector<std::string> progress;
   std::map<std::string, VariableType> variables;
 
@@ -66,4 +68,6 @@ private:
   std::atomic<bool> busy_flag{true};
   std::atomic<bool> stop_flag{false};
 
+  std::map<std::string, std::function<void(tcp::socket&, ArgsType&)>> 
+       user_command_map;
 };
