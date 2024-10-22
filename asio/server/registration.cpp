@@ -18,28 +18,35 @@ void Server::registration(tcp::socket &socket) {
   register_cmds(socket);
 }
 // -----------------------------------------------------------------------
+#define IARGS tcp::socket& socket,ArgsType& args
+#define HARGS socket,args
 // -----------------------------------------------------------------------
 void Server::register_cmds(tcp::socket& socket) {
   // Populate the map with command handlers
   user_command_map = {
-    {"help", [this](tcp::socket& socket, ArgsType& args) { handle_help(socket, args); }},
-    {"?", [this](tcp::socket& socket, ArgsType& args) { handle_help(socket, args); }},
-    {"restart", [this](tcp::socket& socket, ArgsType& args) { handle_restart(socket, args); }},
-    {"sendblock", [this](tcp::socket& socket, ArgsType& args) { handle_sendblock(socket, args); }},
-    {"set", [this](tcp::socket& socket, ArgsType& args) { handle_set(socket, args); }},
-    {"show", [this](tcp::socket& socket, ArgsType& args) { handle_show(socket, args); }},
-    {"shutdown", [this](tcp::socket& socket, ArgsType& args) { handle_shutdown(socket, args); }},
-    {"stop", [this](tcp::socket& socket, ArgsType& args) { handle_stop(socket, args); }}
+    {"help",    [this](IARGS) { handle_help(HARGS); }},
+    {"?",       [this](IARGS) { handle_help(HARGS); }},
+    {"info",    [this](IARGS) { handle_info(HARGS); }},
+    {"restart", [this](IARGS) { handle_restart(HARGS); }},
+    {"set",     [this](IARGS) { handle_set(HARGS); }},
+    {"show",    [this](IARGS) { handle_show(HARGS); }},
+    {"shutdown",[this](IARGS) { handle_shutdown(HARGS); }},
+    {"stop",    [this](IARGS) { handle_stop(HARGS); }}
 
   };
 
   // Iterate over the map and register each command with the interpreter
   for (const auto& [command_name, handler] : user_command_map) {
-    interpreter.register_command(command_name, [this, &socket, handler](ArgsType& args) {
-      handler(socket, args);
-    });
+    interpreter.register_command(command_name,
+      [this, &socket, handler](ArgsType& args)
+        {
+          handler(socket, args);
+        }
+    );
   }
 }
+#undef IARGS
+#undef HARGS
 // =======================================================================
 // VARIABLES
 // =======================================================================

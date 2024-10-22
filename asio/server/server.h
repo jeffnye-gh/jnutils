@@ -42,16 +42,29 @@ private:
     variables[name] = value;
   }
 
-  //Command implementation - commands.cpp
-  void handle_help(tcp::socket& socket, ArgsType& args);
-  void handle_restart(tcp::socket& socket, ArgsType& args);
-  void handle_sendblock(tcp::socket& socket, ArgsType& args);
-  void handle_set(tcp::socket& socket, ArgsType& args);
-  void handle_show(tcp::socket& socket, ArgsType& args);
-  void handle_shutdown(tcp::socket& socket, ArgsType& args);
-  void handle_stop(tcp::socket& socket, ArgsType& args);
+  std::string tq(std::string s) { return "'"+s+"'"; }
 
-  //
+  //Command implementation - commands.cpp
+  #define _STDARGS_ tcp::socket &socket,ArgsType &args
+  void handle_help    (_STDARGS_);
+  void handle_info    (_STDARGS_);
+  void handle_restart (_STDARGS_);
+  void handle_regs    (_STDARGS_);
+  void handle_set     (_STDARGS_);
+  void handle_show    (_STDARGS_);
+  void handle_shutdown(_STDARGS_);
+  void handle_stop    (_STDARGS_);
+
+  void info_regs(_STDARGS_);
+  void info_breakpoints(_STDARGS_);
+  void info_variables(_STDARGS_);
+
+  void too_few_args(std::string,_STDARGS_);
+  void unknown_subcommand(std::string,_STDARGS_);
+  void unimplemented_command(std::string,_STDARGS_);
+  #undef  _STDARGS_ 
+
+  // --------------------------------------------------------------------
   static const std::vector<std::string> progress;
   std::map<std::string, VariableType> variables;
 
