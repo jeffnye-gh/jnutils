@@ -25,7 +25,7 @@ void Server::handle_client(tcp::socket& socket, CmdInterp& interpreter) {
       data[length] = '\0';
 
       // Execute the received command
-      interpreter.execute_command(string(data));
+      interpreter.execute_command(string(data),socket);
     }
   } catch (exception& e) {
       cerr << "Exception: " << e.what() << endl;

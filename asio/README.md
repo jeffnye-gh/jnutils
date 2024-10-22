@@ -5,7 +5,7 @@
 This is a simple example of client/server processes using Boost::ASIO as the
 comms library.
 
-The client as a few commands such as stop, restart, sendblock.
+The client has a few commands such as stop, restart, sendblock.
 
 The connection is somewhat resilient, if either client or server 
 disconnects the other will attempt to reconnection.

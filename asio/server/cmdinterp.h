@@ -36,7 +36,7 @@ struct CmdInterp {
   }
 
   // Execute the command based on the input
-  void execute_command(const std::string& input) {
+  void execute_command(const std::string& input, tcp::socket& socket) {
     std::istringstream iss(input);
     std::string command_name;
     iss >> command_name;
@@ -52,6 +52,8 @@ struct CmdInterp {
         commands[command_name](args);
     } else {
         std::cerr << "Unknown command: " << command_name << std::endl;
+        std::string response = "-E: Unknown command: " + command_name + "\n";
+        boost::asio::write(socket, boost::asio::buffer(response));
     }
   }
 
