@@ -1,0 +1,418 @@
+0x0280   bsatp      -     HRW     
+0x0242   bscause    -     HRW     
+0x0241   bsepc      -     HRW     
+0x0204   bsie       -     HRW     
+0x0244   bsip       -     HRW     
+0x0240   bsscratch  -     HRW     
+0x0200   bsstatus   -     HRW     
+0x0243   bstval     -     HRW     
+0x0205   bstvec     -     HRW     
+0x0c00   cycle      -     URO   Machine[1][2] Supervisor[1][2] Hypervisor[1][2] Counters[1] Debug[1]   Cycle counter for RDCYCLE instruction.
+0x0c80   cycleh     -     URO   Machine[1] Hypervisor[1]   Upper 32 bits of cycle, RV32I only.
+0x07b0   dcsr       -     DRW   Debug[1][2][3][4][5]   Debug control and status register.
+0x07b1   dpc        -     DRW   Debug[1][2][3][4][5][6][7][8][9]   Debug PC.
+0x07b2   dscratch   -       Debug[1]   
+0x07b2   dscratch0  -     DRW   Debug[1][2][3]   Debug scratch register 0.
+0x07b3   dscratch1  -     DRW   Debug[1][2][3]   Debug scratch register 1.
+0x0003   fcsr       -     URW   V-spec[1] Machine[1] F[1][2] Dep-table[1]   Floating-Point Control and Status
+0x0001   fflags   -     URW   Machine[1] F[1] Dep-table[1] Memory[1] V-spec[1] Debug[1]   Floating-Point Accrued Exceptions.
+0x0002   frm   -     URW   Machine[1] F[1] Dep-table[1] V-spec[1][2]   Floating-Point Dynamic Rounding Mode.
+0x06a8   hcontext   -     HRW   Debug[1][2]   Hypervisor-mode context register.
+0x0606   hcounteren   -     HRW   Hypervisor[1][2][3][4]   Hypervisor counter enable.
+0x0602   hedeleg   -     HRW   Hypervisor[1][2][3][4] Debug[1]   Hypervisor exception delegation register.
+0x060a   henvcfg   -     HRW   Machine[1] Hypervisor[1][2]   Hypervisor environment configuration register.
+0x061a   henvcfgh   -     HRW   Hypervisor[1][2]   Additional hypervisor env. conf. register, RV32 only.
+0x0680   hgatp   -     HRW   Hypervisor[1][2][3][4][5][6][7][8] Machine[1][2] Supervisor[1]   Hypervisor guest address translation and protection.
+0x0607   hgeie   -     HRW   Hypervisor[1][2][3]   Hypervisor guest external interrupt-enable register.
+0x0e12   hgeip   -     HRO   Hypervisor[1][2][3]   Hypervisor guest external interrupt pending.
+0x0603   hideleg   -     HRW   Hypervisor[1][2][3][4][5][6][7]   Hypervisor interrupt delegation register.
+0x0604   hie   -     HRW   Hypervisor[1][2][3][4][5][6]   Hypervisor interrupt-enable register.
+0x0644   hip   -     HRW   Hypervisor[1][2][3][4][5][6]   Hypervisor interrupt pending.
+0x0c0a   hpmcounter10   -         
+0x0c8a   hpmcounter10h   -         
+0x0c0b   hpmcounter11   -         
+0x0c8b   hpmcounter11h   -         
+0x0c0c   hpmcounter12   -         
+0x0c8c   hpmcounter12h   -         
+0x0c0d   hpmcounter13   -         
+0x0c8d   hpmcounter13h   -         
+0x0c0e   hpmcounter14   -         
+0x0c8e   hpmcounter14h   -         
+0x0c0f   hpmcounter15   -         
+0x0c8f   hpmcounter15h   -         
+0x0c10   hpmcounter16   -         
+0x0c90   hpmcounter16h   -         
+0x0c11   hpmcounter17   -         
+0x0c91   hpmcounter17h   -         
+0x0c12   hpmcounter18   -         
+0x0c92   hpmcounter18h   -         
+0x0c13   hpmcounter19   -         
+0x0c93   hpmcounter19h   -         
+0x0c14   hpmcounter20   -         
+0x0c94   hpmcounter20h   -         
+0x0c15   hpmcounter21   -         
+0x0c95   hpmcounter21h   -         
+0x0c16   hpmcounter22   -         
+0x0c96   hpmcounter22h   -         
+0x0c17   hpmcounter23   -         
+0x0c97   hpmcounter23h   -         
+0x0c18   hpmcounter24   -         
+0x0c98   hpmcounter24h   -         
+0x0c19   hpmcounter25   -         
+0x0c99   hpmcounter25h   -         
+0x0c1a   hpmcounter26   -         
+0x0c9a   hpmcounter26h   -         
+0x0c1b   hpmcounter27   -         
+0x0c9b   hpmcounter27h   -         
+0x0c1c   hpmcounter28   -         
+0x0c9c   hpmcounter28h   -         
+0x0c1d   hpmcounter29   -         
+0x0c9d   hpmcounter29h   -         
+0x0c03   hpmcounter3   -     URO   Hypervisor[1]   Performance-monitoring counter.
+0x0c1e   hpmcounter30   -         
+0x0c9e   hpmcounter30h   -         
+0x0c1f   hpmcounter31   -     URO   Hypervisor[1]   Performance-monitoring counter.
+0x0c9f   hpmcounter31h   -     URO   Hypervisor[1]   Upper 32 bits of hpmcounter31, RV32I only.
+0x0c83   hpmcounter3h   -     URO   Hypervisor[1]   Upper 32 bits of hpmcounter3, RV32I only.
+0x0c04   hpmcounter4   -     URO   Hypervisor[1]   Performance-monitoring counter.
+0x0c84   hpmcounter4h   -     URO   Hypervisor[1]   Upper 32 bits of hpmcounter4, RV32I only.
+0x0c05   hpmcounter5   -         
+0x0c85   hpmcounter5h   -         
+0x0c06   hpmcounter6   -         
+0x0c86   hpmcounter6h   -         
+0x0c07   hpmcounter7   -         
+0x0c87   hpmcounter7h   -         
+0x0c08   hpmcounter8   -         
+0x0c88   hpmcounter8h   -         
+0x0c09   hpmcounter9   -         
+0x0c89   hpmcounter9h   -         
+0x0600   hstatus   -     HRW   Hypervisor[1][2][3][4][5][6][7][8][9][10][11][12]   Hypervisor status register.
+0x0605   htimedelta   -     HRW   Hypervisor[1][2][3][4]   Delta for VS/VU-mode timer.
+0x0615   htimedeltah   -     HRW   Hypervisor[1][2][3][4]   Upper 32 bits of htimedelta, RV32I only.
+0x064a   htinst   -     HRW   Hypervisor[1][2][3][4][5][6]   Hypervisor trap instruction (transformed).
+0x0643   htval   -     HRW   Hypervisor[1][2][3][4][5][6][7]   Hypervisor bad guest physical address.
+0x0645   hvip   -     HRW   Hypervisor[1][2][3]   Hypervisor virtual interrupt pending.
+0x0c02   instret   -     URO   Machine[1][2] Supervisor[1][2] Hypervisor[1] Counters[1] Debug[1]   Instructions-retired counter for RDINSTRET instruction.
+0x0c82   instreth   -     URO   Machine[1]   Upper 32 bits of instret, RV32I only.
+0x0f12   marchid   -   mxlen   MRO   Machine[1][2]   Machine Architecture ID
+0x0380   mbase   -     MRW     Base register.
+0x0381   mbound   -     MRW     Bound register.
+0x0342   mcause   -   mxlen   MRW   Machine[1][2][3][4][5][6] Plic[1] Hypervisor[1][2] N[1] Debug[1][2][3]   Machine Exception Cause
+0x0342   mcause[mxlen-1]   interrupt   1       Interrupt (1) or Trap (0)
+0x0342   mcause[mxlen-2:0]   interrupt_code   -       Code identifying the last interrupt
+0x0342   mcause[mxlen-2:0]   exception_code   -       Code identifying the last exception.
+0x0f15   mconfigptr   -     MRO   Machine[1][2]   Pointer to configuration data structure.
+0x07a8   mcontext   -     MRW   Debug[1][2][3][4]   Machine-mode context register.
+0x0306   mcounteren   -   32   MRW   Machine[1][2] Supervisor[1] Hypervisor[1][2]   Counter Enable
+0x0306   mcounteren[0]   cy   1       Prevent access to 'cycle' counter from lower priveledge level
+0x0306   mcounteren[1]   tm   1       Prevent access to 'time' counter from lower priveledge level
+0x0306   mcounteren[2]   ir   1       Prevent access to 'instret' counter from lower priveledge level
+0x0306   mcounteren[31:3]   hpm   29       Prevent access to 'hpm3' to 'hpm31' counter from lower priveledge level
+0x0320   mcountinhibit   -   32   MRW   Machine[1][2]   Machine Counter Inhibit
+0x0320   mcountinhibit[0]   cy   1       Disable incrementing the 'cycle' counter
+0x0320   mcountinhibit[2]   ir   1       Disable incrementing the 'instret' counter
+0x0320   mcountinhibit[31:3]   hpm   29       Disable incrementing the 'hpm3' to 'hpm31' counter.
+0x0b00   mcycle   -   64   MRW   Machine[1][2][3]   Clock Cycles Executed Counter
+0x0b80   mcycleh   -   32   MRW   Machine[1][2]   Upper 32 bits of mcycle, RV32I only.
+0x0384   mdbase   -     MRW     Data base register.
+0x0385   mdbound   -     MRW     Data bound register.
+0x0302   medeleg   -   mxlen   MRW   Machine[1][2] Hypervisor[1][2][3] N[1][2][3] Debug[1]   Machine Exception Delegation
+0x030a   menvcfg   -     MRW   Machine[1]   Machine environment configuration register.
+0x031a   menvcfgh   -     MRW   Machine[1]   Additional machine env. conf. register, RV32 only.
+0x0341   mepc   -   mxlen   MRW   Machine[1][2][3][4][5][6] Hypervisor[1] N[1] Debug[1][2][3]   Machine Exception Program Counter
+0x0f14   mhartid   -   mxlen   MRO   Machine[1][2] Debug[1][2]   Hardware Thread ID
+0x0b0a   mhpmcounter10   -         
+0x0b8a   mhpmcounter10h   -         
+0x0b0b   mhpmcounter11   -         
+0x0b8b   mhpmcounter11h   -         
+0x0b0c   mhpmcounter12   -         
+0x0b8c   mhpmcounter12h   -         
+0x0b0d   mhpmcounter13   -         
+0x0b8d   mhpmcounter13h   -         
+0x0b0e   mhpmcounter14   -         
+0x0b8e   mhpmcounter14h   -         
+0x0b0f   mhpmcounter15   -         
+0x0b8f   mhpmcounter15h   -         
+0x0b10   mhpmcounter16   -         
+0x0b90   mhpmcounter16h   -         
+0x0b11   mhpmcounter17   -         
+0x0b91   mhpmcounter17h   -         
+0x0b12   mhpmcounter18   -         
+0x0b92   mhpmcounter18h   -         
+0x0b13   mhpmcounter19   -         
+0x0b93   mhpmcounter19h   -         
+0x0b14   mhpmcounter20   -         
+0x0b94   mhpmcounter20h   -         
+0x0b15   mhpmcounter21   -         
+0x0b95   mhpmcounter21h   -         
+0x0b16   mhpmcounter22   -         
+0x0b96   mhpmcounter22h   -         
+0x0b17   mhpmcounter23   -         
+0x0b97   mhpmcounter23h   -         
+0x0b18   mhpmcounter24   -         
+0x0b98   mhpmcounter24h   -         
+0x0b19   mhpmcounter25   -         
+0x0b99   mhpmcounter25h   -         
+0x0b1a   mhpmcounter26   -         
+0x0b9a   mhpmcounter26h   -         
+0x0b1b   mhpmcounter27   -         
+0x0b9b   mhpmcounter27h   -         
+0x0b1c   mhpmcounter28   -         
+0x0b9c   mhpmcounter28h   -         
+0x0b1d   mhpmcounter29   -         
+0x0b9d   mhpmcounter29h   -         
+0x0b03   mhpmcounter3   -   64   MRW   Machine[1]   Event Counters
+0x0b1e   mhpmcounter30   -         
+0x0b9e   mhpmcounter30h   -         
+0x0b1f   mhpmcounter31   -     MRW   Machine[1]   Machine performance-monitoring counter.
+0x0b9f   mhpmcounter31h   -   32   MRW   Machine[1]   Upper 32 bits of mhpmcounter31, RV32I only.
+0x0b83   mhpmcounter3h   -   32   MRW   Machine[1]   Upper 32 bits of mhpmcounter3, RV32I only.
+0x0b04   mhpmcounter4   -     MRW   Machine[1]   Machine performance-monitoring counter.
+0x0b84   mhpmcounter4h   -   32   MRW   Machine[1]   Upper 32 bits of mhpmcounter4, RV32I only.
+0x0b05   mhpmcounter5   -         
+0x0b85   mhpmcounter5h   -         
+0x0b06   mhpmcounter6   -         
+0x0b86   mhpmcounter6h   -         
+0x0b07   mhpmcounter7   -         
+0x0b87   mhpmcounter7h   -         
+0x0b08   mhpmcounter8   -         
+0x0b88   mhpmcounter8h   -         
+0x0b09   mhpmcounter9   -         
+0x0b89   mhpmcounter9h   -         
+0x032a   mhpmevent10   -         
+0x032b   mhpmevent11   -         
+0x032c   mhpmevent12   -         
+0x032d   mhpmevent13   -         
+0x032e   mhpmevent14   -         
+0x032f   mhpmevent15   -         
+0x0330   mhpmevent16   -         
+0x0331   mhpmevent17   -         
+0x0332   mhpmevent18   -         
+0x0333   mhpmevent19   -         
+0x0334   mhpmevent20   -         
+0x0335   mhpmevent21   -         
+0x0336   mhpmevent22   -         
+0x0337   mhpmevent23   -         
+0x0338   mhpmevent24   -         
+0x0339   mhpmevent25   -         
+0x033a   mhpmevent26   -         
+0x033b   mhpmevent27   -         
+0x033c   mhpmevent28   -         
+0x033d   mhpmevent29   -         
+0x0323   mhpmevent3   -   mxlen   MRW   Machine[1]   Event Counter Event Select
+0x033e   mhpmevent30   -         
+0x033f   mhpmevent31   -     MRW   Machine[1]   Machine performance-monitoring event selector.
+0x0324   mhpmevent4   -   mxlen   MRW     Machine performance-monitoring event selector.
+0x0325   mhpmevent5   -         
+0x0326   mhpmevent6   -         
+0x0327   mhpmevent7   -         
+0x0328   mhpmevent8   -         
+0x0329   mhpmevent9   -         
+0x0382   mibase   -     MRW     Instruction base register.
+0x0383   mibound   -     MRW     Instruction bound register.
+0x0303   mideleg   -   mxlen   MRW   Machine[1][2][3][4] Hypervisor[1][2][3][4][5] Plic[1] N[1][2][3]   Machine Interrupt Delegation
+0x0304   mie   -   mxlen   MRW   Machine[1][2][3] Hypervisor[1][2][3] Plic[1] Supervisor[1] N[1] Debug[1]   Machine Interrupt Enable
+0x0304   mie[0]   usi   1       Interrupt enable: User Software Interrupt
+0x0304   mie[1]   ssi   1       Interrupt enable: Supervisor Software Interrupt
+0x0304   mie[3]   msi   1       Interrupt enable: Machine Software Interrupt
+0x0304   mie[4]   uti   1       Interrupt enable: User Timer Interrupt
+0x0304   mie[5]   sti   1       Interrupt enable: Supervisor Timer Interrupt
+0x0304   mie[7]   mti   1       Interrupt enable: Machine Timer Interrupt
+0x0304   mie[8]   uei   1       Interrupt enable: User External Interrupt
+0x0304   mie[9]   sei   1       Interrupt enable: Supervisor External Interrupt
+0x0304   mie[11]   mei   1       Interrupt enable: Machine External Interrupt
+0x0304   mie[16]   platform_defined16   1       Interrupt enable: Optional platform defined interrupt source 0.
+0x0304   mie[17]   platform_defined17   1       Interrupt enable: Optional platform defined interrupt source 1
+0x0304   mie[18]   platform_defined18   1       Interrupt enable: Optional platform defined interrupt source 2
+0x0304   mie[19]   platform_defined19   1       Interrupt enable: Optional platform defined interrupt source 3
+0x0304   mie[20]   platform_defined20   1       Interrupt enable: Optional platform defined interrupt source 4
+0x0304   mie[21]   platform_defined21   1       Interrupt enable: Optional platform defined interrupt source 5
+0x0304   mie[22]   platform_defined22   1       Interrupt enable: Optional platform defined interrupt source 6
+0x0304   mie[23]   platform_defined23   1       Interrupt enable: Optional platform defined interrupt source 7
+0x0304   mie[24]   platform_defined24   1       Interrupt enable: Optional platform defined interrupt source 8
+0x0304   mie[25]   platform_defined25   1       Interrupt enable: Optional platform defined interrupt source 9
+0x0304   mie[26]   platform_defined26   1       Interrupt enable: Optional platform defined interrupt source 10
+0x0304   mie[27]   platform_defined27   1       Interrupt enable: Optional platform defined interrupt source 11
+0x0304   mie[28]   platform_defined28   1       Interrupt enable: Optional platform defined interrupt source 12
+0x0304   mie[29]   platform_defined29   1       Interrupt enable: Optional platform defined interrupt source 13
+0x0304   mie[30]   platform_defined30   1       Interrupt enable: Optional platform defined interrupt source 14
+0x0304   mie[31]   platform_defined31   1       Interrupt enable: Optional platform defined interrupt source 15
+0x0f13   mimpid   -   mxlen   MRO   Machine[1][2]   Machine Implementation ID
+0x0b02   minstret   -   64   MRW   Machine[1][2][3]   Number of Instructions Retired Counter
+0x0b82   minstreth   -   32   MRW   Machine[1][2]   Upper 32 bits of minstret, RV32I only.
+0x0346   mintstatus   -         
+0x0344   mip   -   mxlen   MRW   Machine[1][2][3] Hypervisor[1][2][3] Plic[1][2] Supervisor[1] N[1]   Machine Interrupt Pending
+0x0344   mip[0]   usi   1       Interrupt pending: User Software Interrupt
+0x0344   mip[1]   ssi   1       Interrupt pending: Supervisor Software Interrupt
+0x0344   mip[3]   msi   1       Interrupt pending: Machine Software Interrupt
+0x0344   mip[4]   uti   1       Interrupt pending: User Timer Interrupt
+0x0344   mip[5]   sti   1       Interrupt pending: Supervisor Timer Interrupt
+0x0344   mip[7]   mti   1       Interrupt pending: Machine Timer Interrupt
+0x0344   mip[8]   uei   1       Interrupt pending: User External Interrupt
+0x0344   mip[9]   sei   1       Interrupt pending: Supervisor External Interrupt
+0x0344   mip[11]   mei   1       Interrupt pending: Machine External Interrupt
+0x0344   mip[16]   platform_defined16   1       Interrupt pending: Optional platform defined interrupt source 0.
+0x0344   mip[17]   platform_defined17   1       Interrupt pending: Optional platform defined interrupt source 1
+0x0344   mip[18]   platform_defined18   1       Interrupt pending: Optional platform defined interrupt source 2
+0x0344   mip[19]   platform_defined19   1       Interrupt pending: Optional platform defined interrupt source 3
+0x0344   mip[20]   platform_defined20   1       Interrupt pending: Optional platform defined interrupt source 4
+0x0344   mip[21]   platform_defined21   1       Interrupt pending: Optional platform defined interrupt source 5
+0x0344   mip[22]   platform_defined22   1       Interrupt pending: Optional platform defined interrupt source 6
+0x0344   mip[23]   platform_defined23   1       Interrupt pending: Optional platform defined interrupt source 7
+0x0344   mip[24]   platform_defined24   1       Interrupt pending: Optional platform defined interrupt source 8
+0x0344   mip[25]   platform_defined25   1       Interrupt pending: Optional platform defined interrupt source 9
+0x0344   mip[26]   platform_defined26   1       Interrupt pending: Optional platform defined interrupt source 10
+0x0344   mip[27]   platform_defined27   1       Interrupt pending: Optional platform defined interrupt source 11
+0x0344   mip[28]   platform_defined28   1       Interrupt pending: Optional platform defined interrupt source 12
+0x0344   mip[29]   platform_defined29   1       Interrupt pending: Optional platform defined interrupt source 13
+0x0344   mip[30]   platform_defined30   1       Interrupt pending: Optional platform defined interrupt source 14
+0x0344   mip[31]   platform_defined31   1       Interrupt pending: Optional platform defined interrupt source 15
+0x0301   misa   -   mxlen   MRW   Machine[1][2][3][4][5][6][7] Supervisor[1][2] Hypervisor[1][2][3] Intro[1] V-spec[1] Debug[1][2][3]   Machine ISA
+0x0301   misa[mxlen-2:mxlen-1]   mxl   2       Encodes the native base integer ISA width.
+0x0301   misa[25:0]   extensions   26       Encodes the presence of the standard extensions, with a single bit per letter of the alphabet (bit 0 encodes presence of extension “A” , bit 1 encodes presence of extension “B”, through to bit 25 which encodes “Z”). The “I” bit will be set for RV32I, RV64I, RV128I base ISAs, and the “E” bit will be set for RV32E.
+0x0345   mnxti   -         
+0x0340   mscratch   -   mxlen   MRW   Machine[1][2] N[1]   Machine Mode Scratch Register
+0x0348   mscratchcsw   -         
+0x0349   mscratchcswl   -         
+0x0747   mseccfg   -     MRW   Machine[1][2]   Machine security configuration register.
+0x0757   mseccfgh   -     MRW   Machine[1]   Additional machine security conf. register, RV32 only.
+0x0300   mstatus   -   mxlen   MRW   Machine[1][2][3][4][5][6][7][8] Hypervisor[1][2][3][4][5][6][7][8][9] Supervisor[1][2] V-spec[1] N[1] Debug[1][2][3][4][5][6][7][8][9][10]   Machine Status
+0x0300   mstatus[mxlen-1]   sd   1     Extension Context   Read-only bit that summarizes whether either the FS, VS, or XS fields signal the presence of some dirty state that will require saving extended user context to memory.
+0x0300   mstatus[2]   sie   1     Interrupt-Enable Stack   Supervisor Interrupt Enable
+0x0300   mstatus[3]   mie   1     Interrupt-Enable Stack   Machine Interrupt Enable
+0x0300   mstatus[5]   spie   1     Interrupt-Enable Stack   Supervisor Prior Interrupt Enable
+0x0300   mstatus[6]   ube   1     Endianness Control   Control the endianness of memory accesses made from S-mode other than instruction fetches. (Instruction fetches are always little-endian).  Little endian Big endian
+0x0300   mstatus[7]   mpie   1     Interrupt-Enable Stack   Machine Prior Interrupt Enable
+0x0300   mstatus[8]   spp   1     Interrupt-Enable Stack   Supervisor Previous Privilege mode
+0x0300   mstatus[10:9]   vs   2     Extension Context   The VS field encodes the status of the vector extension state, including the vector registers v0–v31 and the CSRs vcsr, vxrm, vxsat, vstart, vl, vtype, and vlenb.  0x0300   mstatus[12:11]   mpp   2     Interrupt-Enable Stack   Machine Previous Privilege mode. Two-level stack
+0x0300   mstatus[14:13]   fs   2     Extension Context   The FS field encodes the status of the floating-point unit state, including the floating-point registers f0–f31 and the CSRs fcsr, frm, and fflags.
+0x0300   mstatus[16:15]   xs   2     Extension Context   The XS field encodes the status of additional user-mode extensions and associated state.
+0x0300   mstatus[17]   mprv   1     Memory Privilege   Modify Privilege
+0x0300   mstatus[18]   sum   1     Memory Privilege   The SUM (permit Supervisor User Memory access) bit modifies the privilege with which S-mode loads and stores access virtual memory.  S-mode memory accesses to pages that are accessible by U-mode will fault.  S-mode memory accesses to pages that are accessible by U-mode are permitted.
+0x0300   mstatus[19]   mxr   1     Memory Privilege   The MXR (Make eXecutable Readable) bit modifies the privilege with which loads access virtual memory.  Only loads from pages marked readable will succeed.  Loads from pages marked either readable or executable will succeed.
+0x0300   mstatus[20]   tvm   1     Virtualization Support   The TVM (Trap Virtual Memory) bit is a WARL field that supports intercepting supervisor virtual-memory management operations.
+0x0300   mstatus[21]   tw   1     Virtualization Support   The TW (Timeout Wait) bit is a WARL field that supports intercepting the WFI instruction.
+0x0300   mstatus[22]   tsr   1     Virtualization Support   The TSR (Trap SRET) bit is a WARL field that supports intercepting the supervisor exception return instruction, SRET.
+0x0300   mstatus[33:32]   uxl   2     Base ISA Control   Control the value of UXLEN for U-mode.
+0x0300   mstatus[35:34]   sxl   2     Base ISA Control   Control the value of SXLEN for S-mode.
+0x0300   mstatus[36]   sbe   1     Endianness Control   Control the endianness of memory accesses made from S-mode other than instruction fetches. (Instruction fetches are always little-endian).  Little endian Big endian
+0x0300   mstatus[37]   mbe   1     Endianness Control   Control the endianness of memory accesses made from M-mode other than instruction fetches. (Instruction fetches are always little-endian).  Little endian Big endian
+0x0310   mstatush   -     MRW   Machine[1][2][3] Hypervisor[1][2][3]   Additional machine status register, RV32 only.  0x0310   mstatush[4]   sbe   1     Endianness Control   Control the endianness of memory accesses made from S-mode other than instruction fetches. (Instruction fetches are always little-endian).  Little endian Big endian
+0x0310   mstatush[5]   mbe   1     Endianness Control   Control the endianness of memory accesses made from M-mode other than instruction fetches. (Instruction fetches are always little-endian).  Little endian Big endian MMIO   mtime   -   64     Machine[1][2][3] Debug[1][2]   Machine Timer MMIO   mtimecmp   -   64     Machine[1][2]   Machine Timer Compare
+0x034a   mtinst   -     MRW   Hypervisor[1][2][3][4][5][6]   Machine trap instruction (transformed).
+0x0343   mtval   -   mxlen   MRW   Machine[1][2][3] Hypervisor[1][2][3][4][5][6][7] N[1]   Machine Trap Value
+0x034b   mtval2   -     MRW   Hypervisor[1][2][3][4][5][6]   Machine bad guest physical address.
+0x0305   mtvec   -   mxlen   MRW   Machine[1][2] N[1]   Machine Trap Vector Base Address
+0x0305   mtvec[1:0]   mode   2       Address Mode (Direct or Vectored)
+0x0305   mtvec[mxlen-1:2]   base   -       Base Address
+0x0307   mtvt   -         
+0x0f11   mvendorid   -   32   MRO   Machine[1][2][3]   Machine Vendor ID
+0x03b0   pmpaddr0   -     MRW   Machine[1]   Physical memory protection address register.
+0x03b1   pmpaddr1   -     MRW   Machine[1]   Physical memory protection address register.
+0x03ba   pmpaddr10   -         
+0x03bb   pmpaddr11   -         
+0x03bc   pmpaddr12   -         
+0x03bd   pmpaddr13   -         
+0x03be   pmpaddr14   -         
+0x03bf   pmpaddr15   -     MRW   Machine[1]   Physical memory protection address register.
+0x03b2   pmpaddr2   -         
+0x03b3   pmpaddr3   -         
+0x03b4   pmpaddr4   -         
+0x03b5   pmpaddr5   -         
+0x03b6   pmpaddr6   -         
+0x03ef   pmpaddr63   -     MRW   Machine[1]   Physical memory protection address register.
+0x03b7   pmpaddr7   -         
+0x03b8   pmpaddr8   -         
+0x03b9   pmpaddr9   -         
+0x03a0   pmpcfg0   -     MRW   Machine[1]   Physical memory protection configuration.
+0x03a1   pmpcfg1   -     MRW   Machine[1]   Physical memory protection configuration, RV32 only.
+0x03ae   pmpcfg14   -     MRW   Machine[1]   Physical memory protection configuration.
+0x03af   pmpcfg15   -     MRW   Machine[1]   Physical memory protection configuration, RV32 only.
+0x03a2   pmpcfg2   -     MRW   Machine[1]   Physical memory protection configuration.
+0x03a3   pmpcfg3   -     MRW   Machine[1]   Physical memory protection configuration, RV32 only.
+0x0180   satp   -     SRW   Supervisor[1][2][3][4][5][6][7][8] Hypervisor[1][2][3][4][5][6][7] Priv-csrs[1] Machine[1][2] N[1] Debug[1]   Supervisor address translation and protection.
+0x0142   scause   -     SRW   Supervisor[1][2][3] Machine[1] Hypervisor[1][2][3]   Supervisor Exception Cause
+0x0142   scause[sxlen-1]   interrupt   1       Interrupt (1) or Trap (0)
+0x0142   scause[sxlen-2:0]   interrupt_code   -       Code identifying the last interrupt
+0x0142   scause[sxlen-2:0]   exception_code   -       Code identifying the last exception.
+0x05a8   scontext   -     SRW   Debug[1][2][3][4][5] Hypervisor[1]   Supervisor-mode context register.
+0x0106   scounteren   -     SRW   Supervisor[1][2] Hypervisor[1][2][3]   Counter Enable
+0x0102   sedeleg   -     SRW   N[1][2]   Supervisor Exception Delegation
+0x010a   senvcfg   -     SRW   Supervisor[1][2] Hypervisor[1]   Supervisor environment configuration register.
+0x0141   sepc   -     SRW   Supervisor[1][2][3] Machine[1] Hypervisor[1][2]   Supervisor Exception Program Counter
+0x0103   sideleg   -     SRW   N[1][2]   Supervisor Interrupt Delegation
+0x0104   sie   -     SRW   Supervisor[1][2][3] Hypervisor[1][2] Machine[1] N[1]   Supervisor Interrupt Enable
+0x0104   sie[0]   usi   1       Interrupt enable: User Software Interrupt
+0x0104   sie[1]   ssi   1       Interrupt enable: Supervisor Software Interrupt
+0x0104   sie[4]   uti   1       Interrupt enable: User Timer Interrupt
+0x0104   sie[5]   sti   1       Interrupt enable: Supervisor Timer Interrupt
+0x0104   sie[8]   uei   1       Interrupt enable: User External Interrupt
+0x0104   sie[9]   sei   1       Interrupt enable: Supervisor External Interrupt
+0x0146   sintstatus   -         
+0x0144   sip   -     SRW   Supervisor[1][2] Plic[1] Machine[1][2] Hypervisor[1][2] N[1]   Supervisor Interrupt Pending
+0x0144   sip[0]   usi   1       Interrupt enable: User Software Interrupt
+0x0144   sip[1]   ssi   1       Interrupt enable: Supervisor Software Interrupt
+0x0144   sip[4]   uti   1       Interrupt enable: User Timer Interrupt
+0x0144   sip[5]   sti   1       Interrupt enable: Supervisor Timer Interrupt
+0x0144   sip[8]   uei   1       Interrupt enable: User External Interrupt
+0x0144   sip[9]   sei   1       Interrupt enable: Supervisor External Interrupt
+0x0145   snxti   -         
+0x0140   sscratch   -     SRW   Supervisor[1][2] Hypervisor[1]   Supervisor Mode Scratch Register
+0x0148   sscratchcsw   -         
+0x0149   sscratchcswl   -         
+0x0100   sstatus   -     SRW   Hypervisor[1][2][3][4][5][6][7] Machine[1] Supervisor[1][2][3][4] N[1] Debug[1]   Supervisor Status
+0x0100   sstatus[2]   sie   1       Supervisor Interrupt Enable
+0x0100   sstatus[5]   spie   1       Supervisor Prior Interrupt Enable
+0x0100   sstatus[8]   spp   1       Supervisor Previous Privilege mode
+0x0100   sstatus[33:32]   uxl   2     Base ISA Control   Control the value of UXLEN for U-mode.
+0x0143   stval   -     SRW   Supervisor[1][2] Machine[1] Hypervisor[1][2][3][4][5][6][7]   Supervisor bad address or instruction.
+0x0105   stvec   -     SRW   Supervisor[1][2] Hypervisor[1]   Supervisor Trap Vector Base Address
+0x0105   stvec[1:0]   mode   2       Address Mode (Direct or Vectored)
+0x0105   stvec[sxlen-1:2]   base   -       Base Address
+0x0107   stvt   -         
+0x07a1   tdata1   -     MRW   Debug[1][2][3][4][5][6][7][8][9]   First Debug/Trace trigger data register.
+0x07a2   tdata2   -     MRW   Debug[1][2][3][4][5][6][7]   Second Debug/Trace trigger data register.
+0x07a3   tdata3   -     MRW   Debug[1][2][3][4]   Third Debug/Trace trigger data register.
+0x0c01   time   -     URO   Machine[1][2] Supervisor[1][2] Hypervisor[1][2] Counters[1] Debug[1][2]   Timer for RDTIME instruction.
+0x0c81   timeh   -     URO   Machine[1]   Upper 32 bits of time, RV32I only.
+0x07a0   tselect   -     MRW   Debug[1][2][3][4]   Debug/Trace trigger register select.
+0x0042   ucause   -     URW   N[1]   User Exception Cause
+0x0042   ucause[uxlen-1]   interrupt   1       Interrupt (1) or Trap (0)
+0x0042   ucause[uxlen-2:0]   interrupt_code   -       Code identifying the last interrupt
+0x0042   ucause[uxlen-2:0]   exception_code   -       Code identifying the last exception.
+0x0041   uepc   -     URW   N[1][2]   User Exception Program Counter
+0x0004   uie   -     URW   N[1][2]   User Interrupt Enable
+0x0004   uie[0]   usi   1       Interrupt enable: User Software Interrupt
+0x0004   uie[4]   uti   1       Interrupt enable: User Timer Interrupt
+0x0004   uie[8]   uei   1       Interrupt enable: User External Interrupt
+0x0046   uintstatus   -         
+0x0044   uip   -     URW   N[1][2] Plic[1]   User Interrupt Pending
+0x0044   uip[0]   usi   1       Interrupt pending: User Software Interrupt
+0x0044   uip[4]   uti   1       Interrupt pending: User Timer Interrupt
+0x0044   uip[8]   uei   1       Interrupt pending: User External Interrupt
+0x0045   unxti   -         
+0x0040   uscratch   -     URW   N[1]   User Mode Scratch Register
+0x0048   uscratchcsw   -         
+0x0049   uscratchcswl   -         
+0x0000   ustatus   -     URW   N[1][2]   User mode restricted view of mstatus
+0x0000   ustatus[1]   uie   1       User Interrupt Enable
+0x0000   ustatus[3]   upie   1       User Prior Interrupt Enable
+0x0043   utval   -     URW   N[1]   User Trap Value
+0x0005   utvec   -     URW   N[1]   User Trap Vector Base Address
+0x0005   utvec[1:0]   mode   2       Address Mode (Direct or Vectored)
+0x0005   utvec[uxlen-1:2]   base   -       Base Address
+0x0007   utvt   -         
+0x0c20   vl   -     URO   V-spec[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21][22][23][24][25][26][27][28][29][30][31] Machine[1]   
+0x0280   vsatp   -     HRW   Hypervisor[1][2][3][4][5] Machine[1] Supervisor[1] Debug[1]   Virtual supervisor address translation and protection.
+0x0242   vscause   -     HRW   Hypervisor[1][2][3][4]   Virtual supervisor trap cause.
+0x0241   vsepc   -     HRW   Hypervisor[1][2][3]   Virtual supervisor exception program counter.
+0x0204   vsie   -     HRW   Hypervisor[1][2]   Virtual supervisor interrupt-enable register.
+0x0244   vsip   -     HRW   Hypervisor[1][2]   Virtual supervisor interrupt pending.
+0x0240   vsscratch   -     HRW   Hypervisor[1][2]   Virtual supervisor scratch register.
+0x0200   vsstatus   -     HRW   Hypervisor[1][2][3][4][5][6][7] V-spec[1] Debug[1]   Virtual supervisor status register.
+0x0008   vstart   -     URW   V-spec[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21][22][23][24][25][26][27][28][29][30][31][32] Machine[1] Debug[1]   
+0x0243   vstval   -     HRW   Hypervisor[1][2][3]   Virtual supervisor bad address or instruction.
+0x0205   vstvec   -     HRW   Hypervisor[1][2]   Virtual supervisor trap handler base address.
+0x0c21   vtype   -     URO   V-spec[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21] Machine[1]   
+0x000a   vxrm   -     URW   V-spec[1][2][3][4][5][6][7][8][9][10] Machine[1]   
+0x0009   vxsat   -     URW   V-spec[1][2][3][4][5][6][7][8][9] Machine[1]

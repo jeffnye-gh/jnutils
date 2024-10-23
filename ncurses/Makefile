@@ -14,13 +14,13 @@ ALL_DEP = $(ALL_OBJ:.o=.d)
 # --------------------------------------------------------------
 DEP  = -MMD -MP
 DEF  = -DSTRING_DEFINE="\"v0.1.0\""
-INC  = -I. -Icommon
+INC  = -I./inc
 OPT  = -g
 STD  = -std=c++20
 WARN = -Wall
 LIBS = -lncurses
 
-CFLAGS   = $(OPT) $(DEP) $(DEF) $(INC) 
+CFLAGS   = $(OPT) $(STD) $(DEP) $(DEF) $(INC) 
 CPPFLAGS = $(CFLAGS) $(STD)
 LDFLAGS  =
 # --------------------------------------------------------------

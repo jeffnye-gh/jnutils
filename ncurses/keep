@@ -1,0 +1,27 @@
+
+0x0000   ustatus -     URW   
+0x0005   utvec   -     URW   
+
+0x0042   ucause  -     URW 
+0x0043   utval   -     URW 
+
+0x0300 	mstatus - 	mxlen
+0x0301 	misa 	   - 	mxlen 
+0x0302 	medeleg
+0x0303  mideleg   -   mxlen   MRW   Machine[1][2][3][4] Hypervisor[1][2][3][4][5] Plic[1] N[1][2][3]   Machine Interrupt Delegation
+0x0304 	mie 	- 	mxlen 
+0x0305 	mtvec 	- 	mxlen 
+0x0340 	mscratch 	- 	mxlen 
+0x0341 	mepc 	- 	mxlen
+0x0342 	mcause 	- 	mxlen
+0x0343 	mtval 	- 	mxlen
+0x0344 	mip 	- 	mxlen 
+
+0x0b00 	mcycle
+0x0b80 	mcycleh
+
+0x0f11 	mvendorid 	- 	32 
+0x0f12 	marchid 	- 	mxlen 
+0x0f13 	mimpid 	- 	mxlen 
+0x0f14 	mhartid 	- 	mxlen 
+
