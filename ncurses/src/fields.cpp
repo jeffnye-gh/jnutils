@@ -2,7 +2,8 @@
 #include <vector>
 
 using namespace std;
-
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initFields()
 {
   initXregFields();
@@ -15,6 +16,8 @@ void Jndbg::initFields()
   initStatusBarFields();
 }
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initXregFields()
 {
   for(size_t i=0;i<32;++i) {
@@ -49,7 +52,9 @@ void Jndbg::initXregFields()
   }
 }
 
+// -------------------------------------------------------------------
 //CSRs are a bit messy to initialize
+// -------------------------------------------------------------------
 void Jndbg::initCsrFields()
 {
   string zero_reset = "0x0000000000000000";
@@ -103,6 +108,8 @@ void Jndbg::initCsrFields()
   }
 }
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initBreakpointFields()
 {
   string uninit64 = "0x----------------";
@@ -126,22 +133,51 @@ void Jndbg::initBreakpointFields()
 
 }
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+void Jndbg::initWatchpointFields()
+{
+  string uninit64 = "0x----------------";
+
+  for(size_t i=0;i<16;++i) {
+    string label(::to_string(i));
+    label.resize(2,' ');
+
+    uint32_t ypos = WatchPointFieldInfo::WP_y+i;
+
+    WatchPointFieldInfo fi(64,true,false,
+                           label,uninit64,uninit64," ",
+                           WatchPointFieldInfo::WP_0_Lbl_x,ypos,
+                           WatchPointFieldInfo::WP_0_Enb_x,ypos,
+                           WatchPointFieldInfo::WP_0_Adr_x,ypos,
+                           WatchPointFieldInfo::WP_0_Dat_x,ypos,
+                           WatchPointFieldInfo::WP_0_Act_x,ypos,
+                           false);
+    fi.enable = "-"; //tristate: undefined(-), enabled(E), disabled(D)
+    watchpoints.insert(make_pair(i,fi));
+  }
+}
+
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initVariablesFields()
 {
 }
 
-void Jndbg::initWatchpointFields()
-{
-}
-
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initDisassemblyFields()
 {
 }
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initCommandFields()
 {
 }
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initStatusBarFields()
 {
 }

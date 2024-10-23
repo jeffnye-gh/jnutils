@@ -14,6 +14,8 @@ Jndbg::~Jndbg() {
     cleanup();
 }
 
+// newwin(int height, int width, int starty, int startx);
+
 void Jndbg::init() {
     initscr();
     cbreak();
@@ -29,39 +31,39 @@ void Jndbg::init() {
 }
 
 void Jndbg::initWindows() {
-    xregs_win = newwin(18, 55, 0, 1);
+    xregs_win = newwin(XREGS_W_h, XREGS_W_w, XREGS_W_y, XREGS_W_x);
     wbkgd(xregs_win, COLOR_PAIR(1));
     drawBorders(xregs_win, "XRegs");
 
-    csrs_win = newwin(18, 75, 0, 56);
+    csrs_win = newwin(CSRS_W_h, CSRS_W_w, CSRS_W_y, CSRS_W_x);
     wbkgd(csrs_win, COLOR_PAIR(1));
     drawBorders(csrs_win, "Csrs");
 
-    bp_win = newwin(18, 30, 18, 1);
+    bp_win = newwin(BPS_W_h, BPS_W_w, BPS_W_y, BPS_W_x);
     wbkgd(bp_win, COLOR_PAIR(1));
     drawBorders(bp_win, "Breakpoints");
 
-    wp_win = newwin(18, 46, 18, 31);
+    wp_win = newwin(WPS_W_h, WPS_W_w, WPS_W_y, WPS_W_x);
     wbkgd(wp_win, COLOR_PAIR(1));
     drawBorders(wp_win, "Watchpoints");
 
-    vars_win = newwin(18, 54, 18, 77);
+    vars_win = newwin(VARS_W_h, VARS_W_w, VARS_W_y, VARS_W_x);
     wbkgd(vars_win, COLOR_PAIR(1));
     drawBorders(vars_win, "Variables");
 
-    dis_win = newwin(12, 65, 36, 1);
+    dis_win = newwin(DIS_W_h, DIS_W_w, DIS_W_y, DIS_W_x);
     wbkgd(dis_win, COLOR_PAIR(1));
     drawBorders(dis_win, "Disassembly");
 
-    call_win = newwin(12, 65, 36, 66);
+    call_win = newwin(CALL_W_h, CALL_W_w, CALL_W_y, CALL_W_x);
     wbkgd(call_win, COLOR_PAIR(1));
     drawBorders(call_win, "Call Stack");
 
-    cmd_win = newwin(11, 130, 48, 1);
+    cmd_win = newwin(CMD_W_h, CMD_W_w, CMD_W_y, CMD_W_x);
     wbkgd(cmd_win, COLOR_PAIR(1));
     drawBorders(cmd_win, "Command");
 
-    status_win = newwin(1, 130, 59, 1);
+    status_win = newwin(STAT_W_h, STAT_W_w, STAT_W_y, STAT_W_x);
     wbkgd(status_win, COLOR_PAIR(1));
     wprintw(status_win, "Status: Ready");
     wrefresh(status_win);

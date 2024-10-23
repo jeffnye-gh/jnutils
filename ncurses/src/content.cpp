@@ -2,7 +2,8 @@
 #include <iostream>
 
 using namespace std;
-
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawXregsContent() {
   if(is_init) {
     wclear(xregs_win);
@@ -19,6 +20,8 @@ void Jndbg::drawXregsContent() {
 
 }
 
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawCsrsContent() {
   if(is_init) {
     wclear(csrs_win);
@@ -34,12 +37,14 @@ void Jndbg::drawCsrsContent() {
 
   wrefresh(csrs_win);
 }
+
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawBreakpointContent() {
   if(is_init) {
     wclear(bp_win);
+    drawBorders(bp_win, "Breakpoints");
   }
-
-  drawBorders(bp_win, "Breakpoints");
 
   for(auto &[key,fi] : breakpoints) {
     mvwprintw(bp_win, fi.label_y,  fi.label_x, "%s", fi.label.c_str());
@@ -48,11 +53,30 @@ void Jndbg::drawBreakpointContent() {
     mvwprintw(bp_win, fi.active_y, fi.active_x,"%s", fi.active.c_str());
   }
   
- 
   wrefresh(bp_win);
 }
 
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
+void Jndbg::drawWatchpointContent() {
+  if(is_init) {
+    wclear(wp_win);
+    drawBorders(wp_win, "Watchpoints");
+  }
 
+  for(auto &[key,fi] : watchpoints) {
+    mvwprintw(wp_win, fi.label_y,  fi.label_x, "%s", fi.label.c_str());
+    mvwprintw(wp_win, fi.enable_y, fi.enable_x,"%s", fi.enable.c_str());
+    mvwprintw(wp_win, fi.addr_y,   fi.addr_x,  "%s", fi.addr.c_str());
+    mvwprintw(wp_win, fi.data_y,   fi.data_x,  "%s", fi.data.c_str());
+    mvwprintw(wp_win, fi.active_y, fi.active_x,"%s", fi.active.c_str());
+  }
+
+  wrefresh(wp_win);
+}
+
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawVariablesContent() {
     wclear(vars_win);
     drawBorders(vars_win, "Variables");
@@ -61,14 +85,8 @@ void Jndbg::drawVariablesContent() {
     wrefresh(vars_win);
 }
 
-void Jndbg::drawWatchpointContent() {
-    wclear(wp_win);
-    drawBorders(wp_win, "Watchpoints");
-    mvwprintw(wp_win, 1, 2, "0 0x00000000 0x12345678");
-    // Add more watchpoints...
-    wrefresh(wp_win);
-}
-
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawDisassemblyContent() {
     wclear(dis_win);
     drawBorders(dis_win, "Disassembly");

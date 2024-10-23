@@ -185,3 +185,61 @@ struct BreakPointFieldInfo : public FieldInfo
 
 };
 
+struct WatchPointFieldInfo : public BreakPointFieldInfo
+{
+  WatchPointFieldInfo(size_t _size,
+                      bool _is_uninit,
+                      bool _is_active,
+                      std::string _label,
+                      std::string _addr,
+                      std::string _data,
+                      std::string _active,
+                      uint32_t _label_x,
+                      uint32_t _label_y,
+                      uint32_t _enb_x,
+                      uint32_t _enb_y,
+                      uint32_t _addr_x,
+                      uint32_t _addr_y,
+                      uint32_t _data_x,
+                      uint32_t _data_y,
+                      uint32_t _active_x,
+                      uint32_t _active_y,
+                      bool _enabled)
+    : BreakPointFieldInfo(_size,
+                _is_uninit,
+                _is_active,
+                _label,
+                _data,
+                _active,
+                _label_x,
+                _label_y,
+                _enb_x,
+                _enb_y,
+                _data_x,
+                _data_y,
+                _active_x,
+                _active_y,
+                _enabled),
+      addr(_addr),
+      addr_x(_addr_x),
+      addr_y(_addr_y)
+  { }
+
+  std::string addr;
+  uint32_t addr_x;
+  uint32_t addr_y;
+
+  static constexpr uint32_t WP_y = 1;
+
+  static constexpr uint32_t WP_0_Lbl_x = 2;
+  static constexpr uint32_t WP_0_Enb_x = 5;
+  static constexpr uint32_t WP_0_Adr_x = 7;
+  static constexpr uint32_t WP_0_Dat_x = 26;
+  static constexpr uint32_t WP_0_Act_x = 45;
+
+};
+
+
+struct VariablesFieldInfo : public FieldInfo
+{
+};
