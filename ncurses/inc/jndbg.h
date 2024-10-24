@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include <string>
+#include <vector>
 #include <map>
 
 //struct FieldInfo {
@@ -99,6 +100,8 @@ private:
   std::map<std::string,CsrFieldInfo>        csrs;
   std::map<uint32_t,BreakPointFieldInfo> breakpoints;
   std::map<uint32_t,WatchPointFieldInfo> watchpoints;
+
+  static const std::vector<std::string> example_disasm;
 
   static constexpr uint32_t XREGS_W_x = 1;
   static constexpr uint32_t XREGS_W_y = 0;

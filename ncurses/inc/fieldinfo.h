@@ -243,3 +243,9 @@ struct WatchPointFieldInfo : public BreakPointFieldInfo
 struct VariablesFieldInfo : public FieldInfo
 {
 };
+
+struct DisasmblyFieldInfo : public FieldInfo
+{
+  static constexpr uint32_t DIS_y = 1;
+  static constexpr uint32_t DIS_x = 2;
+};
