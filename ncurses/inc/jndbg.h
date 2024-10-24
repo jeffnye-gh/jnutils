@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #pragma once
 #include "fieldinfo.h"
 
@@ -5,43 +9,6 @@
 #include <string>
 #include <vector>
 #include <map>
-
-//struct FieldInfo {
-//  FieldInfo(size_t s=64) 
-//    : is_uninit(true),
-//      is_inactive(true),
-//      size(s),
-//      label("???"),
-//      data(size == 32 ? uninit32 : uninit64),
-//      active(inactive)
-//  {}
-//
-//  bool is_uninit;
-//  bool is_inactive;
-//
-//  size_t size;
-//  std::string label;
-//  std::string data;
-//  std::string active;
-//
-//  static constexpr std::string uninit64{"0x----------------"};
-//  static constexpr std::string uninit32{"0x--------"};
-//  static constexpr std::string inactive{"-"};
-//
-//};
-//
-//struct XregFieldInfo : public FieldInfo
-//{
-//  XregFieldInfo() : FieldInfo() {}
-//  uint32_t label_x;
-//  uint32_t label_y;
-//  uint32_t data_x;
-//  uint32_t data_y;
-//  uint32_t active_x;
-//  uint32_t active_y;
-//  std::string active;
-//};
-
 
 struct Jndbg
 {
@@ -96,12 +63,16 @@ private:
 
   bool is_init{false};
 
-  std::map<std::string,XregFieldInfo>       xregs;
-  std::map<std::string,CsrFieldInfo>        csrs;
-  std::map<uint32_t,BreakPointFieldInfo> breakpoints;
-  std::map<uint32_t,WatchPointFieldInfo> watchpoints;
+  std::map<std::string,XregFieldInfo>     xregs;
+  std::map<std::string,CsrFieldInfo>      csrs;
+  std::map<uint32_t,BreakPointFieldInfo>  breakpoints;
+  std::map<uint32_t,WatchPointFieldInfo>  watchpoints;
+  std::map<uint32_t,VariablesFieldInfo>   variables;
+  std::map<uint32_t,DisassemblyFieldInfo> disassembly;
 
-  static const std::vector<std::string> example_disasm;
+  static const std::map<uint32_t,std::string> example_disassembly;
+  static const std::map<std::string,std::pair<std::string,std::string> >
+                                                             example_variables;
 
   static constexpr uint32_t XREGS_W_x = 1;
   static constexpr uint32_t XREGS_W_y = 0;

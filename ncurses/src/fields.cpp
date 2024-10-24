@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #include "jndbg.h"
 #include <vector>
 
@@ -159,15 +163,78 @@ void Jndbg::initWatchpointFields()
 }
 
 // -------------------------------------------------------------------
+const map<string,pair<string,string> > Jndbg::example_variables = {
+  { "_mshEcho",              { "bool",     "true"               } },
+  { "_my64b_long_name",      { "uint64_t", "0x123456789abcdef0" } },
+  { "_my32b_mid_name",       { "uint32_t", "0x12345678"         } },
+  { "bitstreamBuffer",       { "uint8_t",  "null"               } },
+  { "macroblockWidth",       { "int32_t",  "0x00000010"         } },
+  { "quantizationParameter", { "int32_t",  "0x00000024"         } },
+  { "profileIdc",            { "int32_t",  "0x00000066"         } },
+  { "isCABACEnabled",        { "bool",     "true"               } }
+};
+// -------------------------------------------------------------------
 // -------------------------------------------------------------------
 void Jndbg::initVariablesFields()
 {
+  uint32_t ypos = VariablesFieldInfo::Var_y;
+
+  for(auto &[key,val] : example_variables) {
+
+    size_t size = 32;
+
+    if(val.first == "uint8_t" || val.first == "int8_t") {
+      size = 8;
+    } else if(val.first == "uint64_t" || val.first == "int64_t") {
+      size = 64;
+    } else if(val.first == "uint128_t" || val.first == "int128_t") {
+      size = 128;
+    } else if(val.first == "double") {
+      size = 64;
+    }
+
+    VariablesFieldInfo fi(size, false, false,
+                          key, //label
+                          val.first, //type
+                          val.second, //data
+                          "-", //active
+                          VariablesFieldInfo::VAR_0_Lbl_x,ypos,
+                          VariablesFieldInfo::VAR_0_Typ_x,ypos,
+                          VariablesFieldInfo::VAR_0_Dat_x,ypos,
+                          VariablesFieldInfo::VAR_0_Act_x,ypos);
+    variables.insert(make_pair(ypos,fi));
+    ++ypos;
+  
+  }
 }
+
+// -------------------------------------------------------------------
+const map<uint32_t,string> Jndbg::example_disassembly = {
+{ 0x800040ca,"d9258593      addi  x11, x11, -0x26e" },
+{ 0x800040ce,"467d          c.li  x12, 0x1f" },
+{ 0x800040d0,"0a9000ef      jal x1, 0x80004978 <memcpy>" },
+{ 0x800040d4,"00001517      auipc x10, 0x1" },
+{ 0x800040d8,"d4c53983      ld  x19, -0x2b4(x10)" },
+{ 0x800040dc,"00001517      auipc x10, 0x1" },
+{ 0x800040e0,"d4c53a03      ld  x20, -0x2b4(x10)" },
+{ 0x800040e4,"00001517      auipc x10, 0x1" },
+{ 0x800040e8,"d4c53503      ld  x10, -0x2b4(x10)" },
+{ 0x800040ec,"e9ce          c.sdsp  x19, 0xd0(x2)" }
+};
 
 // -------------------------------------------------------------------
 // -------------------------------------------------------------------
 void Jndbg::initDisassemblyFields()
 {
+  uint32_t ypos = VariablesFieldInfo::Var_y;
+
+  for(auto &[key,val] : example_disassembly) {
+    DisassemblyFieldInfo fi(key,val,
+                            DisassemblyFieldInfo::DIS_Lbl_x,ypos,
+                            DisassemblyFieldInfo::DIS_Dat_x,ypos);
+    ++ypos;
+    disassembly.insert(make_pair(key,fi));
+  }
 }
 
 // -------------------------------------------------------------------

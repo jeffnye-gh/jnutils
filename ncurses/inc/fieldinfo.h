@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------
+//  This file is part of jnutils, made public 2023, (c) 2023-2024 Jeff Nye.
+//  See LICENSE in the root directory.
+// -------------------------------------------------------------------------
 #pragma once
 #include <cstdint>
 #include <string>
@@ -242,10 +246,77 @@ struct WatchPointFieldInfo : public BreakPointFieldInfo
 
 struct VariablesFieldInfo : public FieldInfo
 {
+  VariablesFieldInfo(size_t _size,
+                     bool _is_uninit,
+                     bool _is_active,
+                     std::string _label,
+                     std::string _type,
+                     std::string _data,
+                     std::string _active,
+                     uint32_t _label_x,
+                     uint32_t _label_y,
+                     uint32_t _type_x,
+                     uint32_t _type_y,
+                     uint32_t _data_x,
+                     uint32_t _data_y,
+                     uint32_t _active_x,
+                     uint32_t _active_y)
+    : FieldInfo(_size,
+                _is_uninit,
+                _is_active,
+                _label,
+                _data,
+                _active,
+                _label_x,
+                _label_y,
+                _data_x,
+                _data_y,
+                _active_x,
+                _active_y),
+      type(_type),
+      type_x(_type_x),
+      type_y(_type_y)
+  {}
+
+  std::string type;
+  uint32_t type_x;
+  uint32_t type_y;
+
+  static constexpr uint32_t Var_y = 1;
+
+  static constexpr uint32_t VAR_0_Lbl_x = 2;
+  static constexpr uint32_t VAR_0_Typ_x = 5;
+  static constexpr uint32_t VAR_0_Dat_x = 26;
+  static constexpr uint32_t VAR_0_Act_x = 45;
+ 
 };
 
-struct DisasmblyFieldInfo : public FieldInfo
+struct DisassemblyFieldInfo 
 {
+  DisassemblyFieldInfo(uint32_t _pc,
+                     std::string _data,
+                     uint32_t _label_x,
+                     uint32_t _label_y,
+                     uint32_t _data_x,
+                     uint32_t _data_y)
+    : label  (_pc),
+      data   (_data),
+      label_x(_label_x),
+      label_y(_label_y),
+      data_x (_data_x),
+      data_y (_data_y)
+  {}
+
+  uint32_t label;
+  std::string data;
+
+  uint32_t label_x;
+  uint32_t label_y;
+
+  uint32_t data_x;
+  uint32_t data_y;
+
   static constexpr uint32_t DIS_y = 1;
-  static constexpr uint32_t DIS_x = 2;
+  static constexpr uint32_t DIS_Lbl_x = 2;
+  static constexpr uint32_t DIS_Dat_x = 16;
 };
