@@ -291,7 +291,7 @@ struct VariablesFieldInfo : public FieldInfo
  
 };
 
-struct DisassemblyFieldInfo 
+struct DisassemblyFieldInfo  : public FieldInfo
 {
   DisassemblyFieldInfo(uint32_t _pc,
                      std::string _data,
@@ -299,24 +299,113 @@ struct DisassemblyFieldInfo
                      uint32_t _label_y,
                      uint32_t _data_x,
                      uint32_t _data_y)
-    : label  (_pc),
-      data   (_data),
-      label_x(_label_x),
-      label_y(_label_y),
-      data_x (_data_x),
-      data_y (_data_y)
+    : FieldInfo(
+      0,         //size
+      true,      //uninit
+      false,     //active
+      "",        //label
+      _data,
+      "",        //active
+      _label_x,
+      _label_y,
+      _data_x,
+      _data_y,
+      0,         //active_y
+      0),        //active_y
+      label(_pc)
   {}
 
   uint32_t label;
-  std::string data;
-
-  uint32_t label_x;
-  uint32_t label_y;
-
-  uint32_t data_x;
-  uint32_t data_y;
-
   static constexpr uint32_t DIS_y = 1;
   static constexpr uint32_t DIS_Lbl_x = 2;
   static constexpr uint32_t DIS_Dat_x = 16;
+};
+
+struct CallStackFieldInfo  : public FieldInfo
+{
+  CallStackFieldInfo(uint32_t _index,
+                     std::string _data,
+                     uint32_t _label_x,
+                     uint32_t _label_y,
+                     uint32_t _data_x,
+                     uint32_t _data_y)
+    : FieldInfo(
+      0,         //size
+      true,      //uninit
+      false,     //active
+      "",        //label
+      _data,
+      "",        //active
+      _label_x,
+      _label_y,
+      _data_x,
+      _data_y,
+      0,        //active_x
+      0),       //active_y
+      label(_index)
+  {}
+
+  uint32_t label;
+  static constexpr uint32_t CALL_y = 1;
+  static constexpr uint32_t CALL_Lbl_x = 2;
+  static constexpr uint32_t CALL_Dat_x = 7;
+};
+
+struct CommandFieldInfo  : public FieldInfo
+{
+  CommandFieldInfo(uint32_t _index,
+                   std::string _data,
+                   uint32_t _label_x,
+                   uint32_t _label_y,
+                   uint32_t _data_x,
+                   uint32_t _data_y)
+    : FieldInfo(
+      0,         //size
+      true,      //uninit
+      false,     //active
+      "",        //label
+      _data,
+      "",        //active
+      _label_x,
+      _label_y,
+      _data_x,
+      _data_y,
+      0,        //active_x
+      0),       //active_y
+      label(_index)
+  {}
+
+  uint32_t label;
+  static constexpr uint32_t CMD_y = 1;
+  static constexpr uint32_t CMD_Lbl_x = 2; //label is not used in display
+  static constexpr uint32_t CMD_Dat_x = 2;
+};
+
+struct StatusFieldInfo
+{
+  StatusFieldInfo( std::string _msg,
+                   std::string _flags,
+                   uint32_t _msg_x,
+                   uint32_t _msg_y,
+                   uint32_t _flags_x,
+                   uint32_t _flags_y)
+      : msg(_msg),
+        flags(_flags),
+        msg_x(_msg_x),
+        msg_y(_msg_y),
+        flags_x(_flags_x),
+        flags_y(_flags_y)
+  {}
+
+  std::string msg;
+  std::string flags;
+
+  uint32_t msg_x;
+  uint32_t msg_y;
+  uint32_t flags_x;
+  uint32_t flags_y;
+
+  static constexpr uint32_t STAT_y = 0;
+  static constexpr uint32_t STAT_Msg_x = 1;
+  static constexpr uint32_t STAT_Flg_x = 2;
 };

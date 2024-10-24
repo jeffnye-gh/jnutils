@@ -115,25 +115,65 @@ void Jndbg::drawDisassemblyContent() {
   wrefresh(dis_win);
 }
 
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawCallStackContent() {
+  if(is_init) {
     wclear(call_win);
     drawBorders(call_win, "Call Stack");
-    mvwprintw(call_win, 1, 2, "#0 main () at main.cpp:15");
-    // Add more call stack...
-    wrefresh(call_win);
+  }
+
+  for(auto &[key,fi] : callstack) {
+    stringstream ss;
+    ss << setw(2)<<fi.label;
+    string label = ss.str()+"#";
+    mvwprintw(call_win,fi.label_y, fi.label_x, "%s", label.c_str());
+    mvwprintw(call_win,fi.data_y,  fi.data_x,  "%s", fi.data.c_str());
+  }
+
+  wrefresh(call_win);
 }
 
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::drawCommandContent() {
+  if(is_init) {
     wclear(cmd_win);
     drawBorders(cmd_win, "Command");
-    mvwprintw(cmd_win, 2, 2, "asio> help");
-    // Add more commands...
-    wrefresh(cmd_win);
+  }
+
+  for(auto &[key,fi] : command) {
+    mvwprintw(cmd_win,fi.data_y,fi.data_x,"%s", fi.data.c_str());
+  }
+
+  wrefresh(cmd_win);
 }
 
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 void Jndbg::updateStatusBar() {
-    wclear(status_win);
-    mvwprintw(status_win, 0, 2, "STATUS: Connected to server 127.0.0.1:12345");
+  wclear(status_win);
+
+  int height, width;
+  getmaxyx(status_win,height,width);
+
+  width -= 2; //border
+  uint32_t ypos = StatusFieldInfo::STAT_y;
+
+  for(auto &fi : status) {
+
+    mvwhline(status_win, ypos, 0, ' ', width); //clear
+    wmove(status_win, ypos, 0);
+
+    string msg = "STATUS: "+fi.msg;
+    size_t flags_x = width - fi.flags.length();
+
+    mvwprintw(status_win,ypos,StatusFieldInfo::STAT_Msg_x,"%s", msg.c_str());
+    mvwprintw(status_win,ypos,flags_x,       "%s", fi.flags.c_str());
+    wmove(status_win, ypos, 0);
     wrefresh(status_win);
+  }
+
+  wrefresh(status_win);
 }
 

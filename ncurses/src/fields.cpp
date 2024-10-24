@@ -16,6 +16,7 @@ void Jndbg::initFields()
   initWatchpointFields();
   initBreakpointFields();
   initDisassemblyFields();
+  initCallStackFields();
   initCommandFields();
   initStatusBarFields();
 }
@@ -239,14 +240,78 @@ void Jndbg::initDisassemblyFields()
 
 // -------------------------------------------------------------------
 // -------------------------------------------------------------------
+const map<uint32_t,string> Jndbg::example_callstack = {
+{ 0,"0x000100e6 in main () at main.c:15" },
+{ 1,"0x000100bc in start () at crt0.S:98" },
+{ 2,"0x000100b8 in _start () at crt0.S:94" },
+{ 3,"0x00010084 in __libc_start_main () at libc_start.c:72" },
+{ 4,"0x0001005c in __start () at entry.S:58" },
+{ 5,"0x0000fff0 in __stack_chk_fail () at stack_chk_fail.c:38" },
+{ 6,"0x0000ff90 in __call_exitprocs () at exit.c:101" },
+{ 7,"0x0000fe70 in _exit () at syscall.c:35" },
+{ 8,"0x0000fc50 in __libc_exit_fini () at exit_fini.c:22" },
+{ 9,"0x0000fba0 in __terminate_program () at terminate.c:19" }
+};
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+void Jndbg::initCallStackFields()
+{
+  uint32_t ypos = CallStackFieldInfo::CALL_y;
+
+  for(auto &[key,val] : example_callstack) {
+    CallStackFieldInfo fi(key,val,
+                            CallStackFieldInfo::CALL_Lbl_x,ypos,
+                            CallStackFieldInfo::CALL_Dat_x,ypos);
+    ++ypos;
+    callstack.insert(make_pair(key,fi));
+  }
+}
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+const map<uint32_t,string> Jndbg::example_commands = {
+{0, "asio> target sim" },
+{1, "    Connected to the target." },
+{2, "asio> file my_program.elf" },
+{3, "    Reading symbols from my_program.elf...done." },
+{4, "asio> break main" },
+{5, "    Breakpoint 1 at 0x100e6: file main.c, line 15." },
+{6, "asio> run" },
+{7, "    Starting program: /path/to/my_program.elf" },
+{8, "    Breakpoint 1, main () at main.c:15" }
+//{9, "15        int x = 42;" }
+};
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 void Jndbg::initCommandFields()
 {
+  uint32_t ypos = CommandFieldInfo::CMD_y;
+
+  for(auto &[key,val] : example_commands) {
+    CommandFieldInfo fi(key,val,
+                        CommandFieldInfo::CMD_Lbl_x,ypos,
+                        CommandFieldInfo::CMD_Dat_x,ypos);
+    ++ypos;
+    command.insert(make_pair(key,fi));
+  }
 }
 
 // -------------------------------------------------------------------
+map<string,string> Jndbg::example_status = {
+  {"MSG",  "Connected to server 127.0.0.1:12345"},
+  {"FLAGS","HALTED"}
+};
 // -------------------------------------------------------------------
 void Jndbg::initStatusBarFields()
 {
+  uint32_t ypos = StatusFieldInfo::STAT_y;
+
+  string msg   = example_status["MSG"];
+  string flags = example_status["FLAGS"]; 
+
+  StatusFieldInfo fi(msg,flags,
+                     StatusFieldInfo::STAT_Msg_x,ypos,
+                     StatusFieldInfo::STAT_Flg_x,ypos);
+  status.push_back(fi);
 }
 
 

@@ -47,6 +47,7 @@ private:
   void initWatchpointFields();
   void initBreakpointFields();
   void initDisassemblyFields();
+  void initCallStackFields();
   void initCommandFields();
   void initStatusBarFields();
 
@@ -69,10 +70,16 @@ private:
   std::map<uint32_t,WatchPointFieldInfo>  watchpoints;
   std::map<uint32_t,VariablesFieldInfo>   variables;
   std::map<uint32_t,DisassemblyFieldInfo> disassembly;
+  std::map<uint32_t,CallStackFieldInfo>   callstack;
+  std::map<uint32_t,CommandFieldInfo>     command;
+  std::vector<StatusFieldInfo> status;
 
   static const std::map<uint32_t,std::string> example_disassembly;
   static const std::map<std::string,std::pair<std::string,std::string> >
                                                              example_variables;
+  static const std::map<uint32_t,std::string> example_callstack;
+  static const std::map<uint32_t,std::string> example_commands;
+  static std::map<std::string,std::string> example_status;
 
   static constexpr uint32_t XREGS_W_x = 1;
   static constexpr uint32_t XREGS_W_y = 0;
