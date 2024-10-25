@@ -4,21 +4,31 @@
 // -------------------------------------------------------------------------
 #include "jndbg.h"
 #include <iostream>
+#include <chrono>
+#include <filesystem>
 
+using namespace std::chrono_literals;
 using namespace std;
+const string Jndbg::XREGS_WATCH_FILE = "./data/xregs.txt";
+const string Jndbg::CSRS_WATCH_FILE  = "./data/csrs.txt";
+const string Jndbg::EXE_WATCH_FILE   = "./data/execution.txt";
 
 Jndbg::Jndbg(int width, int height)
     : main_width(width), main_height(height), dis_height(12), cmd_height(6),
       dis_y(height - dis_height - cmd_height - 3),
       xregs_win(nullptr), csrs_win(nullptr), vars_win(nullptr),
       wp_win(nullptr), bp_win(nullptr), dis_win(nullptr), 
-      call_win(nullptr), cmd_win(nullptr), status_win(nullptr) {}
+      call_win(nullptr), cmd_win(nullptr), status_win(nullptr)
+  {
+    xreg_update_count = 0;
+    xregsGolden.open("results/jndbg_xregs_results.txt");
+  }
 
 Jndbg::~Jndbg() {
+    xregsGolden.close();
+    stopFileWatchers();
     cleanup();
 }
-
-// newwin(int height, int width, int starty, int startx);
 
 void Jndbg::init() {
     initscr();
@@ -31,7 +41,6 @@ void Jndbg::init() {
     refresh();
     initWindows();
     initFields();
-    //initContent();
 }
 
 void Jndbg::initWindows() {
@@ -154,5 +163,57 @@ void Jndbg::resizeDisassembly(int new_height) {
     drawBorders(dis_win, "Disassembly");
     drawBorders(call_win, "Call Stack");
     drawBorders(cmd_win, "Command");
+}
+
+void Jndbg::addFileWatcher(const std::string& filePath, std::function<void()> callback) {
+    fileWatchers[filePath] = callback;
+    // Only set the last write time if the file exists
+    if (std::filesystem::exists(filePath)) {
+        lastWriteTime[filePath] = std::filesystem::last_write_time(filePath);
+    } else {
+        // If the file does not exist, ensure it's not tracked initially
+        lastWriteTime.erase(filePath);
+    }
+}
+
+void Jndbg::startFileWatchers() {
+    running = true;
+    watcherThread = std::thread(&Jndbg::watchFiles, this);
+}
+
+void Jndbg::stopFileWatchers() {
+    running = false;
+    if (watcherThread.joinable()) {
+        watcherThread.join();
+    }
+}
+
+void Jndbg::watchFiles() {
+  while (running) {
+    for (auto& [filePath, callback] : fileWatchers) {
+      try {
+        // Check if the file exists
+        if (std::filesystem::exists(filePath)) {
+          auto currentWriteTime = std::filesystem::last_write_time(filePath);
+          // Check if we have a last write time recorded, or if the file has been modified
+          if (lastWriteTime.find(filePath) == lastWriteTime.end() || 
+            currentWriteTime != lastWriteTime[filePath]) {
+            lastWriteTime[filePath] = currentWriteTime;
+            // Trigger the callback for file changes
+            if (callback) {
+                callback();
+            }
+          }
+        } else {
+            // If the file does not exist, remove its last write time entry
+            lastWriteTime.erase(filePath);
+        }
+      } catch (const std::filesystem::filesystem_error& e) {
+          // Handle filesystem errors gracefully
+          std::cerr << "Error watching file: " << filePath << " - " << e.what() << std::endl;
+      }
+    }
+    std::this_thread::sleep_for(1s); // Check every 1 second
+  }
 }
 

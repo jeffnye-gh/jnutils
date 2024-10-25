@@ -407,5 +407,6 @@ struct StatusFieldInfo
 
   static constexpr uint32_t STAT_y = 0;
   static constexpr uint32_t STAT_Msg_x = 1;
+  static constexpr uint32_t STAT_Upd_x = 9;
   static constexpr uint32_t STAT_Flg_x = 2;
 };

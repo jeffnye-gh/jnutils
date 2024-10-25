@@ -24,7 +24,11 @@ void Jndbg::drawXregsContent() {
   wrefresh(xregs_win);
 
 }
-
+// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
+void Jndbg::clearXregActives() {
+  for(auto &[key,fi] : xregs) fi.active = "-";
+}
 // ------------------------------------------------------------------------
 // ------------------------------------------------------------------------
 void Jndbg::drawCsrsContent() {
@@ -150,6 +154,16 @@ void Jndbg::drawCommandContent() {
 }
 
 // ------------------------------------------------------------------------
+void Jndbg::wr_status(string s) {
+  int height, width;
+  getmaxyx(status_win,height,width);
+
+  uint32_t ypos = StatusFieldInfo::STAT_y;
+  wmove(status_win, ypos, 0);
+  mvwhline(status_win, ypos, StatusFieldInfo::STAT_Upd_x, ' ', width-18); //clear
+  mvwprintw(status_win,ypos,StatusFieldInfo::STAT_Upd_x,"%s", s.c_str());
+  wrefresh(status_win);
+}
 // ------------------------------------------------------------------------
 void Jndbg::updateStatusBar() {
   wclear(status_win);
