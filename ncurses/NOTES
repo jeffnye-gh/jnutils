@@ -1,0 +1,19 @@
+
+what this needs is a bidirectional handshake between jndbg
+and the data generator. 
+
+three files, the data file, a 'produced' file, and a 'consumed' file
+
+produced is a single byte written by the producer after
+data has been written.
+
+the consumer wakes up on produced, deletes produced
+and consumes the data. the consumer creates the 'consumed'
+key file.
+
+consumed is a single byte written by the consumer after
+data has been processes.
+
+the producer wakes up on 'consumed', deletes consumed,
+generates data, writes 'produced'.
+
