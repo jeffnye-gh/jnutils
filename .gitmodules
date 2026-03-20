@@ -1,3 +1,6 @@
 [submodule "gdb/gdb-server"]
 	path = gdb/gdb-server
 	url = https://github.com/UoS-EEC/gdb-server.git
+[submodule "gdb/spdlog"]
+	path = gdb/spdlog
+	url = https://github.com/gabime/spdlog.git
