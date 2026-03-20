@@ -1,0 +1,7648 @@
+{
+  "-changelog" : 
+  {
+    "0_entry" : 
+    {
+      "author" : "Jeff Nye",
+      "comment" : "initial",
+      "date" : "2016.08.27"
+    },
+    "1_entry" : 
+    {
+      "author" : "Jeff Nye",
+      "comment" : "ins semantics changes : XYZ rd, rs ; rd<-rs",
+      "date" : "2016.12.14"
+    }
+  },
+  "-fileformat" : 
+  {
+    "format" : "ASPEN_MDL",
+    "version" : "0.0.1",
+    "writtenby" : "AspenApi v0.0.1"
+  },
+  "machines" : 
+  [
+    {
+      "-config" : "smain",
+      "-name" : "SIMD",
+      "-version" : "0.0.1",
+      "actions" : {},
+      "encoderules" : [],
+      "instructions" :
+      [
+        {
+          "-mnemonic" : "ABS",
+          "-opc" : "SIMD_ABS_16b_0",
+          "action" : "",
+          "description" : "The absolute value of s2 is written to s1.",
+          "encoding" :
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 32
+          },
+          "funcunits" :
+          [
+            ".U"
+          ],
+          "notations" :
+          [
+            {
+              "name" : "",
+              "type" : "",
+              "value" : ""
+            }
+          ],
+          "operands" :
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" :
+          [
+            "void ISA::SIMD_ABS_16b_0 (Gpr &s1,Gpr &s2)",
+            "{",
+            "    s1 = s2 < 0 ? -s2 : s2;",
+            "}"
+          ],
+          "shortdesc" : "SIMD ABSOLUTE VALUE",
+          "state" :
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" :
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ADDU",
+          "-opc" : "SIMD_ADDU_16b_1",
+          "action" : "",
+          "description" : "s2 is added to s1 using unsigned semantics, the result is written to s1.",
+          "encoding" :
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 32
+          },
+          "funcunits" :
+          [
+            ".U"
+          ],
+          "notations" :
+          [
+            {
+              "name" : "",
+              "type" : "",
+              "value" : ""
+            }
+          ],
+          "operands" :
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" :
+          [
+            "void ISA::SIMD_ADDU_16b_1 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1._unsigned() + s2._unsigned();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED ADDITION",
+          "state" :
+          {
+            "def" :
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" :
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        }
+      ],
+      "instructionwords" : [],
+      "memory" : [],
+      "namedbits" : {},
+      "opcodes" :
+      {
+        "SIMD_ABS_16b_0"  : "8'b00000000",
+        "SIMD_ADDU_16b_1" : "8'b00000001"
+      },
+      "pins" : [],
+      "pipelines" : [],
+      "properties" : [],
+      "registerfiles" : [],
+      "syntax" : {}
+    },
+    {
+      "-config" : "cmain",
+      "-name" : "CP",
+      "-version" : "0.0.2",
+      "actions" : 
+      {
+        "BR" : "",
+        "BR[REL]" : "",
+        "LDB[+]" : "",
+        "LDB[+]++" : "",
+        "LDB[0]" : "",
+        "LDH[+]" : "",
+        "LDH[+]++" : "",
+        "LDH[0]" : "",
+        "LDW[+]" : "",
+        "LDW[+]++" : "",
+        "LDW[0]" : "",
+        "NOP" : "",
+        "STB[+]" : "",
+        "STB[+]++" : "",
+        "STB[0]" : "",
+        "STH[+]" : "",
+        "STH[+]++" : "",
+        "STH[0]" : "",
+        "STW[+]" : "",
+        "STW[+]++" : "",
+        "STW[0]" : ""
+      },
+      "encoderules" : 
+      [
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "V15" : "4'b1111"
+          },
+          "msb" : 4,
+          "regfile" : "UIMM",
+          "rulename" : "CC_V15",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "CSR" : "5'b00000",
+            "FPCSR" : "5'b00110",
+            "HG_POSN" : "5'b00111",
+            "IER" : "5'b00001",
+            "IRP" : "5'b00010",
+            "LBR" : "5'b00011",
+            "SBR" : "5'b00100",
+            "SP" : "5'b00101"
+          },
+          "msb" : 4,
+          "regfile" : "CREGS",
+          "rulename" : "CREG",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "LBR" : "5'b00011"
+          },
+          "msb" : 4,
+          "regfile" : "CREGS",
+          "rulename" : "CR_LBR",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "SBR" : "5'b00100"
+          },
+          "msb" : 4,
+          "regfile" : "CREGS",
+          "rulename" : "CR_SBR",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "SP" : "5'b00101"
+          },
+          "msb" : 4,
+          "regfile" : "CREGS",
+          "rulename" : "CR_SP",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "R0" : "4'b0000",
+            "R1" : "4'b0001",
+            "R10" : "4'b1010",
+            "R11" : "4'b1011",
+            "R12" : "4'b1100",
+            "R13" : "4'b1101",
+            "R14" : "4'b1110",
+            "R15" : "4'b1111",
+            "R2" : "4'b0010",
+            "R3" : "4'b0011",
+            "R4" : "4'b0100",
+            "R5" : "4'b0101",
+            "R6" : "4'b0110",
+            "R7" : "4'b0111",
+            "R8" : "4'b1000",
+            "R9" : "4'b1001"
+          },
+          "msb" : 3,
+          "regfile" : "GPRS",
+          "rulename" : "GPR",
+          "width" : 4
+        },
+        {
+          "lsb" : 0,
+          "msb" : 3,
+          "regfile" : "SIMM",
+          "rulename" : "S4",
+          "width" : 4
+        },
+        {
+          "lsb" : 0,
+          "msb" : 7,
+          "regfile" : "SIMM",
+          "rulename" : "S8",
+          "width" : 8
+        },
+        {
+          "lsb" : 0,
+          "msb" : 2,
+          "regfile" : "UIMM",
+          "rulename" : "U3",
+          "width" : 3
+        },
+        {
+          "lsb" : 0,
+          "msb" : 3,
+          "regfile" : "UIMM",
+          "rulename" : "U4",
+          "width" : 4
+        },
+        {
+          "lsb" : 0,
+          "msb" : 4,
+          "regfile" : "UIMM",
+          "rulename" : "U5",
+          "width" : 5
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "V0" : "4'b0000",
+            "V1" : "4'b0001",
+            "V10" : "4'b1010",
+            "V11" : "4'b1011",
+            "V12" : "4'b1100",
+            "V13" : "4'b1101",
+            "V14" : "4'b1110",
+            "V15" : "4'b1111",
+            "V2" : "4'b0010",
+            "V3" : "4'b0011",
+            "V4" : "4'b0100",
+            "V5" : "4'b0101",
+            "V6" : "4'b0110",
+            "V7" : "4'b0111",
+            "V8" : "4'b1000",
+            "V9" : "4'b1001"
+          },
+          "msb" : 3,
+          "regfile" : "UIMM",
+          "rulename" : "VREG",
+          "width" : 4
+        },
+        {
+          "lsb" : 0,
+          "map" : 
+          {
+            "VU0" : "5'b00000",
+            "VU1" : "5'b00001",
+            "VU10" : "5'b01010",
+            "VU11" : "5'b01011",
+            "VU12" : "5'b01100",
+            "VU13" : "5'b01101",
+            "VU14" : "5'b01110",
+            "VU15" : "5'b01111",
+            "VU2" : "5'b00010",
+            "VU3" : "5'b00011",
+            "VU4" : "5'b00100",
+            "VU5" : "5'b00101",
+            "VU6" : "5'b00110",
+            "VU7" : "5'b00111",
+            "VU8" : "5'b01000",
+            "VU9" : "5'b01001"
+          },
+          "msb" : 4,
+          "regfile" : "UIMM",
+          "rulename" : "VUNIT",
+          "width" : 5
+        }
+      ],
+      "instructions" : 
+      [
+        {
+          "-mnemonic" : "ABS",
+          "-opc" : "OPC_ABS_16b_0",
+          "action" : "",
+          "description" : "The absolute value of s2 is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ABS_16b_0 (Gpr &s1,Gpr &s2)",
+            "{",
+            "    s1 = s2 < 0 ? -s2 : s2;",
+            "}"
+          ],
+          "shortdesc" : "ABSOLUTE VALUE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ADDU",
+          "-opc" : "OPC_ADDU_16b_1",
+          "action" : "",
+          "description" : "s2 is added to s1 using unsigned semantics, the result is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ADDU_16b_1 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1._unsigned() + s2._unsigned();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED ADDITION",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ADDU",
+          "-opc" : "OPC_ADDU_16b_2",
+          "action" : "",
+          "description" : " s2 is zero extended and added to s1 using unsigned semantics, the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ADDU_16b_2 (Gpr s1,U4 &s2)",
+            "{",
+            "  s1 = s1._unsigned() + s2;",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED ADDITION, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ADD",
+          "-opc" : "OPC_ADD_16b_3",
+          "action" : "",
+          "description" : "Constant s2 is zero extended and added to the signed value in s1. The result is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ADD_16b_3 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 += s2;",
+            "}"
+          ],
+          "shortdesc" : "SIGNED ADDITION, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ADD",
+          "-opc" : "OPC_ADD_16b_4",
+          "action" : "",
+          "description" : "s2 is added to s1 and the result is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ADD_16b_4 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 += s2;",
+            "}"
+          ],
+          "shortdesc" : "SIGNED ADDITION",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "ANDN",
+          "-opc" : "OPC_ANDN_16b_5",
+          "action" : "",
+          "description" : " s2 is ANDed with s1, the bit inverse of the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ANDN_16b_5 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = ~(s1 & s2);",
+            "}"
+          ],
+          "shortdesc" : "BITWISE AND/NOT",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "AND",
+          "-opc" : "OPC_AND_16b_6",
+          "action" : "",
+          "description" : " s2 is zero extended and ANDed with s1, the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_AND_16b_6 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 &= s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE AND, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "AND",
+          "-opc" : "OPC_AND_16b_7",
+          "action" : "",
+          "description" : " s2 ANDed with s1, the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_AND_16b_7 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 &= s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE AND",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BEQ",
+          "-opc" : "OPC_BEQ_16b_8",
+          "action" : "BR[REL]",
+          "description" : " s1 is sign extended and added to the PC. If the EQ bit of the CSR is set the  result is written to the PC, initiating a PC relative branch. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BEQ_16b_8 (S8 s1)",
+            "{",
+            "  if(cregs[CSR].bit(EQ)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH EQUAL, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BEQ",
+          "-opc" : "OPC_BEQ_16b_9",
+          "action" : "BR",
+          "description" : " If the EQ bit of the CSR is set s1 is written to the PC, initiating an absolute  branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BEQ_16b_9 (Gpr &s1)",
+            "{",
+            "  if(cregs[CSR].bit(EQ)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH EQUAL, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "BGE",
+          "-opc" : "OPC_BGE_16b_10",
+          "action" : "BR[REL]",
+          "description" : " If the EQ or GT bit of the CSR is set s1 is sign extended and added to the PC, initiating a PC relative branch.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BGE_16b_10 (S8 s1)",
+            "{",
+            "  if(!cregs[CSR].bit(LT)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH GREATER OR EQUAL, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "GT,EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BGE",
+          "-opc" : "OPC_BGE_16b_11",
+          "action" : "BR",
+          "description" : " If the EQ or GT bit of the CSR is set s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BGE_16b_11 (Gpr &s1)",
+            "{",
+            "  if(!cregs[CSR].bit(LT)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH GREATER OR EQUAL, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "GT,EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "BGT",
+          "-opc" : "OPC_BGT_16b_12",
+          "action" : "BR[REL]",
+          "description" : " If the GT bit of the CSR is set s1 is signed extended and added to the PC, initiating a PC relative branch. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BGT_16b_12 (S8 s1)",
+            "{",
+            "  if(cregs[CSR].bit(GT)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH GREATER, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "GT"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BGT",
+          "-opc" : "OPC_BGT_16b_13",
+          "action" : "BR",
+          "description" : "If the GT bit of the CSR is set s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BGT_16b_13 (Gpr &s1)",
+            "{",
+            "  if(cregs[CSR].bit(GT)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH GREATER, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "GT"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "BKPT",
+          "-opc" : "OPC_BKPT_16b_14",
+          "action" : "",
+          "description" : " On execution of a BKPT instruction the pipeline enters an idle state. No   further instructions are fetched or executed until an external event occurs. ",
+          "encoding" : 
+          {
+            "fields" : "opc[15:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : [],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BKPT_16b_14 (void)",
+            "{",
+            "  PC = PC;",
+            "}"
+          ],
+          "shortdesc" : "BREAK POINT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "noopr",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BLE",
+          "-opc" : "OPC_BLE_16b_15",
+          "action" : "BR[REL]",
+          "description" : " If the EQ or LT bit of the CSR is set s1 is signed extended and added to the PC, initiating a PC relative branch. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BLE_16b_15 (S8 s1)",
+            "{",
+            "  if(!cregs[CSR].bit(GT)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH LESS OR EQUAL, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "LT,EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BLE",
+          "-opc" : "OPC_BLE_16b_16",
+          "action" : "BR",
+          "description" : " If the EQ or LT bit of the CSR is set s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BLE_16b_16 (Gpr &s1)",
+            "{",
+            "  if(!cregs[CSR].bit(GT)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH LESS OR EQUAL, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "LT,EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "BLT",
+          "-opc" : "OPC_BLT_16b_17",
+          "action" : "BR[REL]",
+          "description" : " If the LT bit of the CSR is set s1 is signed extended and added to the PC, initiating a PC relative branch. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BLT_16b_17 (S8 s1)",
+            "{",
+            "  if(cregs[CSR].bit(LT)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH LESS, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "LT"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+			{
+			"-mnemonic" : "BLT",
+          "-opc" : "OPC_BLT_16b_18",
+          "action" : "BR",
+          "description" : " If the LT bit of the CSR is set s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BLT_16b_18 (Gpr &s1)",
+            "{",
+            "  if(cregs[CSR].bit(LT)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH LESS, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "LT"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "BNE",
+          "-opc" : "OPC_BNE_16b_19",
+          "action" : "BR[REL]",
+          "description" : " s1 is sign extended and added to the PC. If the EQ bit of the CSR is not set the result is written to the PC, initiating a PC relative branch.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BNE_16b_19 (S8 s1)",
+            "{",
+            "  if(!cregs[CSR].bit(EQ)) PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH NOT EQUAL, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "BNE",
+          "-opc" : "OPC_BNE_16b_20",
+          "action" : "BR",
+          "description" : " If the EQ of the CSR is not set s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_BNE_16b_20 (Gpr &s1)",
+            "{",
+            "  if(!cregs[CSR].bit(EQ)) PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "BRANCH NOT EQUAL, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : 
+            [
+              "EQ"
+            ]
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "B",
+          "-opc" : "OPC_B_16b_21",
+          "action" : "BR[REL]",
+          "description" : " s1 is sign extended and added to the current PC value. The result is written to the PC, initiating a PC relative branch.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_B_16b_21 (S8 s1)",
+            "{",
+            "  PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "UNCONDITIONAL BRANCH, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "B",
+          "-opc" : "OPC_B_16b_22",
+          "action" : "BR",
+          "description" : "s1 is written to the PC, initiating an absolute branch.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_B_16b_22 (Gpr &s1)",
+            "{",
+            "  PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "UNCONDITIONAL BRANCH, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "CALL",
+          "-opc" : "OPC_CALL_16b_24",
+          "action" : "BR",
+          "description" : " CALL initiates a branch to a sub-routine. s1 is written to the PC, initiating an absolute branch.  The return address is calculated as three instruction words from the current PC.)",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CALL_16b_24 (Gpr &s1)",
+            "{",
+            "  Register newPC = ((PC>>1)+3)<<1;",
+            "  dmem->stword(cregs[SP],newPC);",
+            "  cregs[SP] -= 4;",
+            "  PC = s1;",
+            "}"
+          ],
+          "shortdesc" : "CALL SUBROUTINE, REG, ABSOLUTE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "CALL",
+          "-opc" : "OPC_CALL_23",
+          "action" : "BR[REL]",
+          "description" : " CALL initiates a branch to a sub-routine. s1 is sign extended and added to the current PC value. The result is written to the PC, initiating a PC relative branch.  The return address is calculated as three instruction words from the current PC. The return address is written to the stack pointer location. The stack pointer is post-decremented.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[7:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "S8",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CALL_23 (S8 s1)",
+            "{",
+            "  Register newPC = ((PC>>1)+3)<<1;",
+            "  dmem->stword(cregs[SP],newPC);",
+            "  cregs[SP] -= 4;",
+            "  PC += s1;",
+            "}"
+          ],
+          "shortdesc" : "CALL SUBROUTINE, S8 IMM, PC REL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1si",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMPU",
+          "-opc" : "OPC_CMPU_16b_25",
+          "action" : "",
+          "description" : " s1 and s2 are compared using unsigned semantics and the CSR is updated with the results.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMPU_16b_25 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  cregs[CSR].setBit(EQ,s1._unsigned() == s2._unsigned());",
+            "  cregs[CSR].setBit(LT,s1._unsigned() <  s2._unsigned());",
+            "  cregs[CSR].setBit(GT,s1._unsigned() >  s2._unsigned());",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED COMPARE",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ",
+              "LT",
+              "GT"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMPU",
+          "-opc" : "OPC_CMPU_16b_26",
+          "action" : "",
+          "description" : " s2 is zero extended. s1 and s2 are then compared using unsigned semantics and the CSR is updated with the results.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMPU_16b_26 (Gpr &s1,U4 s2)",
+            "{",
+            "  cregs[CSR].setBit(EQ,s1._unsigned() == s2);",
+            "  cregs[CSR].setBit(LT,s1._unsigned() <  s2);",
+            "  cregs[CSR].setBit(GT,s1._unsigned() >  s2);",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED COMPARE, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ",
+              "LT",
+              "GT"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMP",
+          "-opc" : "OPC_CMP_16b_27",
+          "action" : "",
+          "description" : " Signed comparison of s1 and s2 is performed and the results are written to the CSR. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMP_16b_27 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  cregs[CSR].setBit(EQ,s1 == s2);",
+            "  cregs[CSR].setBit(LT,s1 <  s2);",
+            "  cregs[CSR].setBit(GT,s1 >  s2);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED COMPARE",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ",
+              "LT",
+              "GT"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMP",
+          "-opc" : "OPC_CMP_16b_28",
+          "action" : "",
+          "description" : " s2 is signed extended. A signed comparison of s1 and s2 is performed and the results are written to the CSR. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "S4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMP_16b_28 (Gpr &s1,S4 s2)",
+            "{",
+            "  cregs[CSR].setBit(EQ,s1 == s2);",
+            "  cregs[CSR].setBit(LT,s1 <  s2);",
+            "  cregs[CSR].setBit(GT,s1 >  s2);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED COMPARE, S4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ",
+              "LT",
+              "GT"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1si",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVEQ",
+          "-opc" : "OPC_CMVEQ_16b_29",
+          "action" : "",
+          "description" : " If the CSR[EQ] bit is set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVEQ_16b_29 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(cregs[CSR].bit(EQ)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, EQUAL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVEQ",
+          "-opc" : "OPC_CMVEQ_16b_30",
+          "action" : "",
+          "description" : " If the CSR[EQ] bit is set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVEQ_16b_30 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(cregs[CSR].bit(EQ)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, EQUAL IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVGE",
+          "-opc" : "OPC_CMVGE_16b_31",
+          "action" : "",
+          "description" : " If CSR[LT] bit is not set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVGE_16b_31 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(!cregs[CSR].bit(LT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, GREATER THAN OR EQUAL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVGE",
+          "-opc" : "OPC_CMVGE_16b_32",
+          "action" : "",
+          "description" : " If the CSR[GE] bit or the CSR[EQ] bit is set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVGE_16b_32 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(!cregs[CSR].bit(LT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, GREATER THAN OR EQUAL IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVGT",
+          "-opc" : "OPC_CMVGT_16b_33",
+          "action" : "",
+          "description" : " If the CSR[GT] bit is set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVGT_16b_33 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(cregs[CSR].bit(GT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, GREATER THAN",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVGT",
+          "-opc" : "OPC_CMVGT_16b_34",
+          "action" : "",
+          "description" : " If the CSR[GT] bit is set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVGT_16b_34 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(cregs[CSR].bit(GT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, GREATER THAN IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVLE",
+          "-opc" : "OPC_CMVLE_16b_35",
+          "action" : "",
+          "description" : " If the CSR[LT] bit or the CSR[EQ] bit is set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVLE_16b_35 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(!cregs[CSR].bit(GT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, LESS THAN OR EQUAL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVLE",
+          "-opc" : "OPC_CMVLE_16b_36",
+          "action" : "",
+          "description" : " If the CSR[LT] bit or the CSR[EQ] bit is set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVLE_16b_36 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(!cregs[CSR].bit(GT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, LESS THAN OR EQUAL IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVLT",
+          "-opc" : "OPC_CMVLT_16b_37",
+          "action" : "",
+          "description" : " If the CSR[LT] bit is set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVLT_16b_37 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(cregs[CSR].bit(LT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, LESS THAN",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVLT",
+          "-opc" : "OPC_CMVLT_16b_38",
+          "action" : "",
+          "description" : " If the CSR[LT] bit is set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVLT_16b_38 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(cregs[CSR].bit(LT)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, LESS THAN IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVNE",
+          "-opc" : "OPC_CMVNE_16b_39",
+          "action" : "",
+          "description" : " If the CSR[EQ] bit is not set s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVNE_16b_39 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(!cregs[CSR].bit(EQ)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, NOT EQUAL",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "CMVNE",
+          "-opc" : "OPC_CMVNE_16b_40",
+          "action" : "",
+          "description" : " If the CSR[EQ] bit is not set s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_CMVNE_16b_40 (Gpr &s1,U4 s2)",
+            "{",
+            "  if(!cregs[CSR].bit(EQ)) s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "CONDITIONAL MOVE, NOT EQUAL IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "DCBNZ",
+          "-opc" : "OPC_DCBNZ_16b_41",
+          "action" : "BR",
+          "description" : " s1 is used as a loop counter. s2 contains the address of the first instruction of the loop. s1 is predecremented. If s1 is not zero a branch to s2 is initiated. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_DCBNZ_16b_41 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(--s1 != 0) PC = s2;",
+            "  else          PC = (PC+1)>>1;",
+            "}"
+          ],
+          "shortdesc" : "DECREMENT, COMPARE, BRANCH NON-ZERO",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "DIVU",
+          "-opc" : "OPC_DIVU_16b_42",
+          "action" : "",
+          "description" : " s1 is divided by s2 using unsigned semantics and the result is written to s1. If s2 is zero, s1 is not modified. Divide by zero is signaled by setting the CSR[DV0] bit.   This is a non-blocking multicycle instruction. The result is written back 8 cycles after execution.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_DIVU_16b_42 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(s2 != 0) s1 = s1._unsigned() / s2._unsigned();",
+            "  else        cregs[CSR].setBit(DV0,1);",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED INTEGER DIVIDE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "16",
+            "loaduse" : "0",
+            "throughput" : "16"
+          }
+        },
+        {
+          "-mnemonic" : "DIV",
+          "-opc" : "OPC_DIV_16b_43",
+          "action" : "",
+          "description" : "s1 is divided by s2 and the result is written to s1. If s1 is zero, s2 is not modified. Divide by zero is signaled by setting the CSR[DV0] bit. This is a non-blocking multicycle instruction. The result is written back 8 cycles after execution. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_DIV_16b_43 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(s2 != 0) s1 /= s2;",
+            "  else        cregs[CSR].setBit(DV0,1);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED INTEGER DIVIDE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "16",
+            "loaduse" : "0",
+            "throughput" : "16"
+          }
+        },
+        {
+          "-mnemonic" : "HWLP",
+          "-opc" : "OPC_HWLP_16b_44",
+          "action" : "BR",
+          "description" : " The definition of this instruction is incomplete.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_HWLP_16b_44 (Gpr &s1,Gpr &s2) ",
+            "{",
+            "  //TBD",
+            "}"
+          ],
+          "shortdesc" : "HARDWARE LOOP",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "2",
+            "latency" : "3",
+            "loaduse" : "0",
+            "throughput" : "3"
+          }
+        },
+        {
+          "-mnemonic" : "LDBU",
+          "-opc" : "OPC_LDBU_16b_45",
+          "action" : "LDB[+]",
+          "description" : " Load unsigned byte. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDBU_16b_45 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldubyte(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED BYTE, LBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDBU",
+          "-opc" : "OPC_LDBU_16b_46",
+          "action" : "LDB[+]",
+          "description" : " Load unsigned byte. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDBU_16b_46 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = dmem->ldubyte(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED BYTE, LBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDBU",
+          "-opc" : "OPC_LDBU_16b_47",
+          "action" : "LDB[+]++",
+          "description" : " Load unsigned byte. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1. Subsequent to the load s2 is added to the LBR and the result is written to the LBR.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDBU_16b_47 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldubyte(cregs[LBR]+s2);",
+            "  cregs[LBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED BYTE, LBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDBU",
+          "-opc" : "OPC_LDBU_16b_48",
+          "action" : "LDB[0]",
+          "description" : " Load unsigned byte. The load address is specified by s2. The load data is zero extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDBU_16b_48 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldubyte(s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED BYTE, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDB",
+          "-opc" : "OPC_LDB_16b_49",
+          "action" : "LDB[+]",
+          "description" : " Load signed byte. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "LDB .U  *+LBR(R0)[s1(R4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDB_16b_49 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldbyte(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED BYTE, LBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDB",
+          "-opc" : "OPC_LDB_16b_50",
+          "action" : "LDB[+]",
+          "description" : " Load signed byte. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "LDB .U  *+LBR(R0)[s1(U4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDB_16b_50 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = dmem->ldbyte(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED BYTE, LBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDB",
+          "-opc" : "OPC_LDB_16b_51",
+          "action" : "LDB[+]++",
+          "description" : " Load signed byte. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1. Subsequent to the load s2 is added to the LBR and the result is written to the LBR.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDB_16b_51 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldbyte(cregs[LBR]+s2);",
+            "  cregs[LBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED BYTE, LBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDB",
+          "-opc" : "OPC_LDB_16b_52",
+          "action" : "LDB[0]",
+          "description" : " Load signed byte. The load address is contained in s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDB_16b_52 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldbyte(s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED BYTE, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDHU",
+          "-opc" : "OPC_LDHU_16b_53",
+          "action" : "LDH[+]",
+          "description" : " Load unsigned half. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDHU_16b_53 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->lduhalf(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED HALF, LBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDHU",
+          "-opc" : "OPC_LDHU_16b_54",
+          "action" : "LDH[+]",
+          "description" : " Load unsigned half. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDHU_16b_54 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = dmem->lduhalf(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED HALF, LBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDHU",
+          "-opc" : "OPC_LDHU_16b_55",
+          "action" : "LDH[+]++",
+          "description" : " Load unsigned half. The load address is calculated by addition of the LBR with s2. The load data is zero extended and written to s1. Subsequent to the load s2 is added to the LBR and the result is written to the LBR.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDHU_16b_55 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->lduhalf(cregs[LBR]+s2);",
+            "  cregs[LBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED HALF, LBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDHU",
+          "-opc" : "OPC_LDHU_16b_56",
+          "action" : "LDH[0]",
+          "description" : " Load unsigned half. The load address is specified by s1. The load data is zero extended and written to s2.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDHU_16b_56 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->lduhalf(s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD UNSIGNED HALF, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDH",
+          "-opc" : "OPC_LDH_16b_57",
+          "action" : "LDH[+]",
+          "description" : " Load signed half. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDH_16b_57 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldhalf(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED HALF, LBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDH",
+          "-opc" : "OPC_LDH_16b_58",
+          "action" : "LDH[+]",
+          "description" : " Load signed half. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDH_16b_58 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = dmem->ldhalf(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED HALF, LBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDH",
+          "-opc" : "OPC_LDH_16b_59",
+          "action" : "LDH[+]++",
+          "description" : " Load signed half. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1. Subsequent to the load s2 is added to the LBR and the result is written to the LBR.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDH_16b_59 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldhalf(cregs[LBR]+s2);",
+            "  cregs[LBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED HALF, LBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDH",
+          "-opc" : "OPC_LDH_16b_60",
+          "action" : "LDH[0]",
+          "description" : " Load signed half. The load address is contained in s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDH_16b_60 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldhalf(s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD SIGNED HALF, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDRF",
+          "-opc" : "OPC_LDRF_16b_61",
+          "action" : "",
+          "description" : "Pop values from the stack and put data into registers s1 through s2, inclusive. Unspecified behavior results if s1 is larger than s2.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDRF_16b_61 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(s1 <= s2) {",
+            "    for(unsigned int r=s1.address(); r<=s2.address(); ++r) {",
+            "      cregs[SP] -= 4;",
+            "      gprs[r] = dmem->ldword(cregs[SP]);",
+            "    }",
+            "  }",
+            "}"
+          ],
+          "shortdesc" : "LOAD REGISTER FILE RANGE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDW",
+          "-opc" : "OPC_LDW_16b_62",
+          "action" : "LDW[+]",
+          "description" : " Load word. The load address is calculated by addition of the LBR with s2. The load data is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDW_16b_62 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldword(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD WORD, LBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDW",
+          "-opc" : "OPC_LDW_16b_63",
+          "action" : "LDW[+]",
+          "description" : " Load word. The load address is calculated by addition of the LBR with s2. The load data is sign extended and written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDW_16b_63 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = dmem->ldword(cregs[LBR]+s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD WORD, LBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDW",
+          "-opc" : "OPC_LDW_16b_64",
+          "action" : "LDW[+]++",
+          "description" : " Load word. The load address is calculated by addition of the LBR with s2. The load data written to s1. Subsequent to the load s2 is added to the LBR and the result is written to the LBR.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_LBR",
+              "name" : "LBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDW_16b_64 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldword(cregs[LBR]+s2);",
+            "  cregs[LBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "LOAD WORD, LBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "lbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LDW",
+          "-opc" : "OPC_LDW_16b_65",
+          "action" : "LDW[0]",
+          "description" : " Load word. The load address is contained in s1. The load data is written to s2.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LDW_16b_65 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = dmem->ldword(s2);",
+            "}"
+          ],
+          "shortdesc" : "LOAD WORD, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "1",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LMOD",
+          "-opc" : "OPC_LMOD_16b_66",
+          "action" : "",
+          "description" : " s2 is scanned from MSB to LSB. The index of the first one encountered is written to s1. Examples: If s2 = 0xFFFFFFFF, LMOD writes 0 into s1 If s2 = 0x0FFFFFFF, LMOD writes 4 into s1. If s2 = 0x00000000, LMOD writes 32 into s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LMOD_16b_66 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  unsigned int test = 1;",
+            "  int width = s2.width() - 1;",
+            "  int i;",
+            "  for(i=0; i<=width; ++i)",
+            "    if(s2.bit(width-i) == test) break;",
+            "  s1 = i;",
+            "}"
+          ],
+          "shortdesc" : "LEFT MOST ONE DETECT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "LMZD",
+          "-opc" : "OPC_LMZD_16b_67",
+          "action" : "",
+          "description" : " s2 is scanned from MSB to LSB. The index of the first zero encountered is written to s1. Examples: If s2 = 0x00000000, LMOD writes 0 into s1 If s2 = 0xF0000000, LMOD writes 4 into s1. If s2 = 0xFFFFFFFF, LMOD writes 32 into s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_LMZD_16b_67 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  unsigned int test = 0;",
+            "  int width = s2.width() - 1;",
+            "  int i;",
+            "  for(i=0; i<=width; ++i)",
+            "    if(s2.bit(width-i) == test)  break;",
+            "  s1 = i;",
+            "}"
+          ],
+          "shortdesc" : "LEFT MOST ZERO DETECT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MODU",
+          "-opc" : "OPC_MODU_16b_68",
+          "action" : "",
+          "description" : " Performs unsigned modulo of s1 with s2. The result is written to s1.  If s2 is zero CSR[DV0] is set and s1 is unmodified.  This is a non-blocking multi-cycle instruction. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MODU_16b_68 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = (s2==0) ? s2 : s1._unsigned() % s2._unsigned();",
+            "  if(s2==0) cregs[CSR].setBit(DV0,1);",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED MODULO",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "16",
+            "loaduse" : "0",
+            "throughput" : "16"
+          }
+        },
+        {
+          "-mnemonic" : "MOD",
+          "-opc" : "OPC_MOD_16b_69",
+          "action" : "",
+          "description" : " Performs signed modulo of s1 with s2. The result is written to s1. The result retains the sign of s1 and if negative is written as a two's compliment value.  If s2 is zero CSR[DV0] is set and s1 is not modified.  This is a non-blocking multi-cycle instruction. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MOD_16b_69 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = (s2==0) ? s1 : s1 % s2;",
+            "  if(s2==0) cregs[CSR].setBit(DV0,1);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED MODULO",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "16",
+            "loaduse" : "0",
+            "throughput" : "16"
+          }
+        },
+        {
+          "-mnemonic" : "MPY2U",
+          "-opc" : "OPC_MPY2U_16b_70",
+          "action" : "",
+          "description" : " The low/high halves of s1 are multiplied by the low/high halves of s2 using unsigned semantics. The low 16 bits of each result are written to the low/high halves of s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY2U_16b_70 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register mlo = s1.lo() * s2.lo();",
+            "  Register mhi = s1.hi() * s2.hi();",
+            "  s1 = (mhi.lo() << 16) | mlo.lo();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED 16x16|16x16 = 16|16 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY2",
+          "-opc" : "OPC_MPY2_16b_71",
+          "action" : "",
+          "description" : " The low/high halves of s1 are multiplied by the low/high halves of s2. The low 16 bits of each result are written to the low/high halves of s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY2_16b_71 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register mlo = s1.lo() * s2.lo();",
+            "  Register mhi = s1.hi() * s2.hi();",
+            "  s1 = (mhi.lo() << 16) | mlo.lo();",
+            "}"
+          ],
+          "shortdesc" : "SIGNED 16x16|16x16 = 16|16 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY32HU",
+          "-opc" : "OPC_MPY32HU_16b_72",
+          "action" : "",
+          "description" : "s1 is multiplied by s2 using unsigned semantics, the high 32 bits of the 64b result are written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY32HU_16b_72 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register tmp = s1._unsigned()*s2._unsigned();",
+            "  s1 = tmp.range(63,32);",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED MULTIPLY, 32Bx32B, MSB RESULT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY32H",
+          "-opc" : "OPC_MPY32H_16b_73",
+          "action" : "",
+          "description" : "s1 is multiplied by s2, the high 32 bits of the 64b result are written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY32H_16b_73 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register tmp = s1*s2;",
+            "  s1 = tmp.range(63,32);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED MULTIPLY, 32Bx32B, MSB RESULT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY32L",
+          "-opc" : "OPC_MPY32L_16b_74",
+          "action" : "",
+          "description" : "s1 is multiplied by s2, the low 32 bits of the 64b result are written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY32L_16b_74 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register tmp = s1*s2;",
+            "  s1 = tmp.range(31,0);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED MULTIPLY, 32Bx32B, LSB RESULT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY4U",
+          "-opc" : "OPC_MPY4U_16b_75",
+          "action" : "",
+          "description" : " Each byte of s1 is multiplied by the corresponding byte in s2 using unsigned semantics. The low 8 bits of each result are written to the corresponding byte in s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY4U_16b_75 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register b0 = s1.range( 7, 0) * s2.range( 7, 0);",
+            "  Register b1 = s1.range(15, 8) * s2.range(15, 8);",
+            "  Register b2 = s1.range(23,16) * s2.range(23,16);",
+            "  Register b3 = s1.range(31,24) * s2.range(31,24);",
+            "  s1 =  b3.range(7,0) << 24",
+            "     |  b2.range(7,0) << 16",
+            "     |  b1.range(7,0) <<  8",
+            "     |  b0.range(7,0);",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED 4x8x8 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY4",
+          "-opc" : "OPC_MPY4_16b_76",
+          "action" : "",
+          "description" : " Each byte of s1 is multiplied by the corresponding byte in s2. The low 8 bits of each result are written to the corresponding byte in s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY4_16b_76 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  Register b0 = s1.range( 7, 0) * s2.range( 7, 0);",
+            "  Register b1 = s1.range(15, 8) * s2.range(15, 8);",
+            "  Register b2 = s1.range(23,16) * s2.range(23,16);",
+            "  Register b3 = s1.range(31,24) * s2.range(31,24);",
+            "  s1 =  b3.range(7,0) << 24",
+            "     |  b2.range(7,0) << 16",
+            "     |  b1.range(7,0) <<  8",
+            "     |  b0.range(7,0);",
+            "}"
+          ],
+          "shortdesc" : "SIGNED 4x8x8 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPYHU",
+          "-opc" : "OPC_MPYHU_16b_77",
+          "action" : "",
+          "description" : " The high half of s1 is multiplied by the high half of s2 using unsigned semantics. The 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPYHU_16b_77 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  //FIXME :: need hi unsigned",
+            "  s1 = s1.hi() * s2.hi();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED 16x16 MULTIPLY, HIGH HALF WORDS",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPYH",
+          "-opc" : "OPC_MPYH_16b_78",
+          "action" : "",
+          "description" : " The high half of s1 is multiplied by the high half of s2. The 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPYH_16b_78 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1.hi() * s2.hi();",
+            "}"
+          ],
+          "shortdesc" : "SIGNED 16x16 MULTIPLY, HIGH HALF WORDS",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPYLHU",
+          "-opc" : "OPC_MPYLHU_16b_79",
+          "action" : "",
+          "description" : " The low half of s2 is multiplied by the high half of s1 using unsigned semantics. The 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPYLHU_16b_79 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  //FIXME :: need hi/lo unsigned",
+            "  s1 = s1.hi() * s2.lo();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED 16x16 MULTIPLY, LOW HALF TO HIGH HALF",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPYLH",
+          "-opc" : "OPC_MPYLH_16b_80",
+          "action" : "",
+          "description" : " The low half of s2 is multiplied by the high half of s1. The 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPYLH_16b_80 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1.hi() * s2.lo();",
+            "}"
+          ],
+          "shortdesc" : "SIGNED 16x16 MULTIPLY, LOW HALF TO HIGH HALF",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPYU",
+          "-opc" : "OPC_MPYU_16b_81",
+          "action" : "",
+          "description" : " The low half of s1 is multiplied by the low half of s2 using unsigned semantics. The 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPYU_16b_81 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  //FIXME :: nned lo unsigned",
+            "  s1 = s1.lo() * s2.lo();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED 16x16 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MPY",
+          "-opc" : "OPC_MPY_16b_82",
+          "action" : "",
+          "description" : " The low 16 bits of s1 are multiplied by the low 16 bits of s2 and the 32 bit result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MPY_16b_82 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1.lo() * s2.lo();",
+            "}"
+          ],
+          "shortdesc" : "SIGNED 16x16 MULTIPLY",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MVCSR",
+          "-opc" : "OPC_MVCSR_16b_83",
+          "action" : "",
+          "description" : " Bit 0 of GPR s1 is written to bit s2 of the CSR.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MVCSR_16b_83 (Gpr &s1,U4 s2)",
+            "{",
+            "  //cregs[CSR].setBit(s2._unsigned(),s1.bit(0));",
+            "}"
+          ],
+          "shortdesc" : "MOVE GPR BIT TO CSR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MVCSR",
+          "-opc" : "OPC_MVCSR_16b_84",
+          "action" : "",
+          "description" : " Bit s2 of the CSR is written to bit 0 of GPR s1. The remaining bits of s1 are cleared.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MVCSR_16b_84 (Gpr &s1,U4 s2)",
+            "{",
+            "//  s1 = 0;",
+            "//  s1.setBit(0,cregs[CSR].bit(s2));",
+            "}"
+          ],
+          "shortdesc" : "MOVE CSR BIT TO GPR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MVC",
+          "-opc" : "OPC_MVC_16b_85",
+          "action" : "",
+          "description" : " The contents of control register s2 are zero extended and written to GPR s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[6:0],s1[3:0],s2[4:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "CREG",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MVC_16b_85 (Gpr &s1,Creg &s2)",
+            "{",
+            "  s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "MOVE CONTROL REGISTER TO GPR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+				"-mnemonic" : "MVC",
+				"-opc" : "OPC_MVC_16b_86",
+				"action" : "",
+				"description" : " GPR s2 is written to control register s1.",
+				"encoding" : 
+				{
+					"fields" : "opc[6:0],s1[4:0],s2[3:0]",
+					"width" : 16
+				},
+				"funcunits" : 
+				[
+					".U"
+				],
+				"notations" : 
+				[
+					""
+				],
+				"operands" : 
+				[
+					{
+						"encoderule" : "CREG",
+						"name" : "s1"
+					},
+					{
+						"encoderule" : "GPR",
+						"name" : "s2"
+					}
+				],
+				"prefix" : "",
+				"pseudocode" : 
+				[
+					"void ISA::OPC_MVC_16b_86 (Creg &s1,Gpr &s2)",
+					"{",
+					"  s1 = s2;",
+					"}"
+				],
+				"shortdesc" : "MOVE GPR TO CONTROL REGISTER",
+				"state" : 
+				{
+					"def" : [],
+					"use" : []
+				},
+				"suffix" : "",
+				"syntax" : "2r",
+				"timing" : 
+				{
+					"branchdelay" : "0",
+					"latency" : "1",
+					"loaduse" : "0",
+					"throughput" : "1"
+				}
+			},
+			{
+				"-mnemonic" : "MVKU",
+          "-opc" : "OPC_MVKU_16b_87",
+          "action" : "",
+          "description" : " Constant s2 is zero extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MVKU_16b_87 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = 0;",
+            "  s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "MOVE U4 IMM TO GPR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MVK",
+          "-opc" : "OPC_MVK_16b_88",
+          "action" : "",
+          "description" : " s2 is sign extended and written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "S4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MVK_16b_88 (Gpr &s1,S4 s2)",
+            "{",
+            "  struct { int32_t s2:4; } s;",
+            "  s1 = s.s2 = s2;",
+            "}"
+          ],
+          "shortdesc" : "MOVE S4 IMM TO GPR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1si",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "MV",
+          "-opc" : "OPC_MV_16b_89",
+          "action" : "",
+          "description" : " s2 is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_MV_16b_89 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s2;",
+            "}"
+          ],
+          "shortdesc" : "MOVE GPR TO GPR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "NOP",
+          "-opc" : "OPC_NOP_16b_90",
+          "action" : "NOP",
+          "description" : " s1+1 is the number of 'NOP' delay slot cycles to insert. For example 'NOP 0x0' inserts 1 cycle.",
+          "encoding" : 
+          {
+            "fields" : "opc[11:0],s1[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "U5",
+              "name" : "s1"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_NOP_16b_90 (U5 &s1)",
+            "{",
+            "  //The first NOP is executed here...",
+            "  if(s1 == 0) return;",
+            "  //... the remaining are pushed on",
+            "  //the event Q.",
+            "  addEvent(NOP_EVT,s1);",
+            "}"
+          ],
+          "shortdesc" : "NO OPERATION",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "NOT",
+          "-opc" : "OPC_NOT_16b_91",
+          "action" : "",
+          "description" : "The bit inverse of s2 is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_NOT_16b_91 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = ~s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE INVERSION",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "OR",
+          "-opc" : "OPC_OR_16b_92",
+          "action" : "",
+          "description" : "s2 is ORed with s1. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_OR_16b_92 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 |= s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE OR",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "OR",
+          "-opc" : "OPC_OR_16b_93",
+          "action" : "",
+          "description" : " s2 is zero extended and ORed with s1. The result is written to s1.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_OR_16b_93 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 |= s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE OR, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "RET",
+          "-opc" : "OPC_RET_16b_94",
+          "action" : "BR",
+          "description" : " Return from subroutine. The stack pointer is incremented, a load is performed from the stack pointer address. The load data is written to the PC, initiating a branch. ",
+          "encoding" : 
+          {
+            "fields" : "opc[15:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_RET_16b_94 (void)",
+            "{",
+            "  PC = dmem->ldword(++cregs[SP]);",
+            "}"
+          ],
+          "shortdesc" : "RETURN FROM SUBROUTINE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "noopr",
+          "timing" : 
+          {
+            "branchdelay" : "3",
+            "latency" : "4",
+            "loaduse" : "0",
+            "throughput" : "4"
+          }
+        },
+        {
+          "-mnemonic" : "ROT",
+          "-opc" : "OPC_ROT_16b_95",
+          "action" : "",
+          "description" : " s1 is rotated left by the amount specified in bits 4:0 of s2. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_ROT_16b_95 (Gpr &s1,Gpr &s2)",
+            "{",
+            "//  uap_t r = s1.range(4,0);",
+            "//  s2 = (s2<<r) | (s2._unsigned()>> (32-r));",
+            "}"
+          ],
+          "shortdesc" : "ROTATE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "RSUB",
+          "-opc" : "OPC_RSUB_16b_96",
+          "action" : "",
+          "description" : " s1 is subtracted from the zero extended s2 value. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_RSUB_16b_96 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = s2 - s1;",
+            "}"
+          ],
+          "shortdesc" : "REVERSE SUBTRACT",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SEXT",
+          "-opc" : "OPC_SEXT_16b_97",
+          "action" : "",
+          "description" : " s2 defines a byte within s1. The MSB of this byte is sign extended. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[8:0],s1[3:0],s2[2:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U3",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SEXT_16b_97 (Gpr &s1,U3 s2)",
+            "{",
+            "  uap_t bit = ((s2+1)*8);",
+            "  s1 = s1.sign_extend(bit);",
+            "}"
+          ],
+          "shortdesc" : "SIGN EXTEND",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHL",
+          "-opc" : "OPC_SHL_16b_98",
+          "action" : "",
+          "description" : " s1 is shifted left by s2, the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHL_16b_98 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 <<= s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT LEFT, U4 IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHL",
+          "-opc" : "OPC_SHL_16b_99",
+          "action" : "",
+          "description" : " s1 is shifted left by s2, the result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHL_16b_99 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 <<= s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT LEFT",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHRU",
+          "-opc" : "OPC_SHRU_16b_100",
+          "action" : "",
+          "description" : " Performs a logical shift right of s1 by s2. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHRU_16b_100 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1._unsigned() >> s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT RIGHT, UNSIGNED",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHRU",
+          "-opc" : "OPC_SHRU_16b_101",
+          "action" : "",
+          "description" : " Performs a logical shift right of s1 by s2. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHRU_16b_101 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = s1._unsigned() >> s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT RIGHT, UNSIGNED, U4 IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHR",
+          "-opc" : "OPC_SHR_16b_102",
+          "action" : "",
+          "description" : " Performs an arithmetic shift right of s1 by s2. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHR_16b_102 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 >>= s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT RIGHT, SIGNED",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SHR",
+          "-opc" : "OPC_SHR_16b_103",
+          "action" : "",
+          "description" : " Performs an arithmetic shift right of s1 by s2. The result is written to s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SHR_16b_103 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 >>= s2;",
+            "}"
+          ],
+          "shortdesc" : "SHIFT RIGHT, SIGNED, U4 IMM",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STB",
+          "-opc" : "OPC_STB_16b_104",
+          "action" : "STB[+]++",
+          "description" : " Store byte. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. Subsequent to the store s2 is added to the SBR and the result is written to the SBR. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STB_16b_104 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stbyte(cregs[SBR]+s2,s1);",
+            "  cregs[SBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "STORE BYTE, SBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STB",
+          "-opc" : "OPC_STB_16b_105",
+          "action" : "STB[0]",
+          "description" : " Store byte. s2 is the store address. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STB_16b_105 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stbyte(s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE BYTE, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STB",
+          "-opc" : "OPC_STB_16b_106",
+          "action" : "STB[+]",
+          "description" : " Store byte. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STB .U  *+SBR(R0)[s1(R4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STB_16b_106 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stbyte(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE BYTE, SBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STB",
+          "-opc" : "OPC_STB_16b_107",
+          "action" : "STB[+]",
+          "description" : " Store byte. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STB .U  *+SBR(R0)[s1(U4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STB_16b_107 (Gpr &s1,U4 s2)",
+            "{",
+            "  dmem->stbyte(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE BYTE, SBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STH",
+          "-opc" : "OPC_STH_16b_108",
+          "action" : "STH[+]++",
+          "description" : " Store half. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. Subsequent to the store s2 is added to the SBR and the result is written to the SBR. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STH_16b_108 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->sthalf(cregs[SBR]+s2,s1);",
+            "  cregs[SBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "STORE HALF, SBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STH",
+          "-opc" : "OPC_STH_16b_109",
+          "action" : "STH[0]",
+          "description" : " Store half. s2 is the store address. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STH_16b_109 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->sthalf(s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE HALF, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STH",
+          "-opc" : "OPC_STH_16b_110",
+          "action" : "STH[+]",
+          "description" : " Store half. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STH .U  *+SBR(R0)[s1(R4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STH_16b_110 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->sthalf(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE HALF, SBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STH",
+          "-opc" : "OPC_STH_16b_111",
+          "action" : "STH[+]",
+          "description" : " Store half. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STH .U  *+SBR(R0)[s1(U4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STH_16b_111 (Gpr &s1,U4 s2)",
+            "{",
+            "  dmem->sthalf(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE HALF, SBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STRF",
+          "-opc" : "OPC_STRF_16b_112",
+          "action" : "",
+          "description" : " Registers s2 thru s1, inclusive, are pushed onto the stack. Behavior is unspecified if s1 is greater than s2.",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STRF_16b_112 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  if(s1 <= s2) {",
+            "    for(unsigned int r=s2.address(); r<=s1.address(); --r) {",
+            "      dmem->stword(cregs[SP],gprs[r]);",
+            "      cregs[SP] -= 4;",
+            "    }",
+            "  }",
+            "}"
+          ],
+          "shortdesc" : "STORE REGISTER FILE RANGE",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STW",
+          "-opc" : "OPC_STW_16b_113",
+          "action" : "STW[+]",
+          "description" : " Store word. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STW .U  *+SBR(R0)[s1(U4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STW_16b_113 (Gpr &s1,U4 s2)",
+            "{",
+            "  dmem->stword(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE WORD, SBR, +IMM OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STW",
+          "-opc" : "OPC_STW_16b_114",
+          "action" : "STW[+]++",
+          "description" : " Store word. The store address is calculated by addition of the SBR with s1. The store data is contained in s2. Subsequent to the store s1 is added to the SBR and the result is written to the SBR. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            "STW .U  *SBR(R0)++[s1(R4)], s2(R4)"
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STW_16b_114 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stword(cregs[SBR]+s2,s1);",
+            "  cregs[SBR] += s2;",
+            "}"
+          ],
+          "shortdesc" : "STORE WORD, SBR, +REG OFFSET, POST ADJ",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r++",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STW",
+          "-opc" : "OPC_STW_16b_115",
+          "action" : "STW[0]",
+          "description" : " Store word. s2 is the store address. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STW_16b_115 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stword(s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE WORD, ZERO OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "off2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "STW",
+          "-opc" : "OPC_STW_16b_116",
+          "action" : "STW[+]",
+          "description" : " Store word. The store address is calculated by addition of the SBR with s2. The store data is contained in s1. ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "CR_SBR",
+              "name" : "SBR"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_STW_16b_116 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  dmem->stword(cregs[SBR]+s2,s1);",
+            "}"
+          ],
+          "shortdesc" : "STORE WORD, SBR, +REG OFFSET",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "sbr2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SUBU",
+          "-opc" : "OPC_SUBU_16b_117",
+          "action" : "",
+          "description" : " s2 is subtracted from s1 using unsigned semantics. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SUBU_16b_117 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 = s1._unsigned() - s2._unsigned();",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED SUBTRACT",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SUBU",
+          "-opc" : "OPC_SUBU_16b_118",
+          "action" : "",
+          "description" : " s2 is zero extended and subtracted from s1 using unsigned semantics. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SUBU_16b_118 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 = s1._unsigned() - s2;",
+            "}"
+          ],
+          "shortdesc" : "UNSIGNED SUBTRACT, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SUB",
+          "-opc" : "OPC_SUB_16b_119",
+          "action" : "",
+          "description" : " s2 is subtracted from s1. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SUB_16b_119 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 -= s2;",
+            "}"
+          ],
+          "shortdesc" : "SUBTRACT",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SUB",
+          "-opc" : "OPC_SUB_16b_120",
+          "action" : "",
+          "description" : " s2 is zero extended and subtracted from s1. The result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SUB_16b_120 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 -= s2;",
+            "}"
+          ],
+          "shortdesc" : "SUBTRACT, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ,C"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SWAPBR",
+          "-opc" : "OPC_SWAPBR_16b_121",
+          "action" : "",
+          "description" : " The contents of the LBR and SBR are swapped.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[15:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : [],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SWAPBR_16b_121 (void)",
+            "{",
+            "  Register tmp = cregs[SBR];",
+            "  cregs[SBR] = cregs[LBR];",
+            "  cregs[LBR] = tmp;",
+            "}"
+          ],
+          "shortdesc" : "SWAP LBR and SBR",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "noopr",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "SWIZ",
+          "-opc" : "OPC_SWIZ_16b_122",
+          "action" : "",
+          "description" : " The byte order of s2 is reversed the result is written to s1. For example byte 3 of s2 is written to byte 0 of s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_SWIZ_16b_122 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1.setRange(31,24,s2.range( 7, 0));",
+            "  s1.setRange(23,16,s2.range(15, 8));",
+            "  s1.setRange(15, 8,s2.range(23,16));",
+            "  s1.setRange( 7, 0,s2.range(31,24));",
+            "}"
+          ],
+          "shortdesc" : "SWIZZLE, ENDIAN CONVERSION",
+          "state" : 
+          {
+            "def" : [],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "XOR",
+          "-opc" : "OPC_XOR_16b_123",
+          "action" : "",
+          "description" : " s1 is XORed with s2, the result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "GPR",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_XOR_16b_123 (Gpr &s1,Gpr &s2)",
+            "{",
+            "  s1 ^= s2;",
+            "}"
+          ],
+          "shortdesc" : "BITWISE EXCLUSIVE OR",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "2r",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        },
+        {
+          "-mnemonic" : "XOR",
+          "-opc" : "OPC_XOR_16b_124",
+          "action" : "",
+          "description" : " s2 is zero extended and XORed with s1, the result is written to s1.  ",
+          "encoding" : 
+          {
+            "fields" : "opc[7:0],s1[3:0],s2[3:0]",
+            "width" : 16
+          },
+          "funcunits" : 
+          [
+            ".U"
+          ],
+          "notations" : 
+          [
+            ""
+          ],
+          "operands" : 
+          [
+            {
+              "encoderule" : "GPR",
+              "name" : "s1"
+            },
+            {
+              "encoderule" : "U4",
+              "name" : "s2"
+            }
+          ],
+          "prefix" : "",
+          "pseudocode" : 
+          [
+            "void ISA::OPC_XOR_16b_124 (Gpr &s1,U4 s2)",
+            "{",
+            "  s1 ^= s2;",
+            "}",
+            ""
+          ],
+          "shortdesc" : "BITWISE EXCLUSIVE OR, U4 IMM",
+          "state" : 
+          {
+            "def" : 
+            [
+              "EQ"
+            ],
+            "use" : []
+          },
+          "suffix" : "",
+          "syntax" : "1r1ui",
+          "timing" : 
+          {
+            "branchdelay" : "0",
+            "latency" : "1",
+            "loaduse" : "0",
+            "throughput" : "1"
+          }
+        }
+      ],
+      "instructionwords" : 
+      [
+        {
+          "fields" : 
+          [
+            ".U[15:0]"
+          ],
+          "name" : "singleissue16b"
+        },
+        {
+          "fields" : 
+          [
+            ".U[15:0]",
+            ".U[15:0]"
+          ],
+          "name" : "dualissue16b"
+        },
+        {
+          "fields" : 
+          [
+            ".U[31:0]"
+          ],
+          "name" : "singleissue32b"
+        }
+      ],
+      "memory" : 
+      [
+        {
+          "access" : "r",
+          "entries" : 1024,
+          "loaddelay" : 0,
+          "name" : "IMEM",
+          "storedelay" : 0,
+          "type" : "text",
+          "width" : 16
+        },
+        {
+          "access" : "rw",
+          "entries" : 1024,
+          "loaddelay" : 1,
+          "name" : "DMEM",
+          "storedelay" : 0,
+          "type" : "data",
+          "width" : 32
+        }
+      ],
+      "namedbits" : 
+      {
+        "CSR" : 
+        {
+          "0" : "EQ",
+          "1" : "C",
+          "10" : "LT",
+          "11" : "OVF",
+          "12" : "RND0",
+          "13" : "RND1",
+          "14" : "SAT",
+          "15" : "SNRM",
+          "16" : "UDF",
+          "2" : "DV0",
+          "3" : "FEQ",
+          "4" : "FNZ",
+          "5" : "FSZ",
+          "6" : "GT",
+          "7" : "INE",
+          "8" : "INF",
+          "9" : "INV"
+        }
+      },
+      "opcodes" : 
+      {
+        "OPC_ABS_16b_0" : "8'b00000000",
+        "OPC_ADDU_16b_1" : "8'b00000001",
+        "OPC_ADDU_16b_2" : "8'b00000010",
+        "OPC_ADD_16b_3" : "8'b00000011",
+        "OPC_ADD_16b_4" : "8'b00000100",
+        "OPC_ANDN_16b_5" : "8'b00000101",
+        "OPC_AND_16b_6" : "8'b00000110",
+        "OPC_AND_16b_7" : "8'b00000111",
+        "OPC_BEQ_16b_8" : "8'b00001000",
+        "OPC_BEQ_16b_9" : "12'b000010010000",
+        "OPC_BGE_16b_10" : "8'b00001010",
+        "OPC_BGE_16b_11" : "12'b000010110000",
+        "OPC_BGT_16b_12" : "8'b00001100",
+        "OPC_BGT_16b_13" : "12'b000011010000",
+        "OPC_BKPT_16b_14" : "16'b0000111000000000",
+        "OPC_BLE_16b_15" : "8'b00001111",
+        "OPC_BLE_16b_16" : "12'b000100000000",
+        "OPC_BLT_16b_17" : "8'b00010001",
+        "OPC_BLT_16b_18" : "12'b000100100000",
+        "OPC_BNE_16b_19" : "8'b00010011",
+        "OPC_BNE_16b_20" : "12'b000101000000",
+        "OPC_B_16b_21" : "8'b00010101",
+        "OPC_B_16b_22" : "12'b000101100000",
+        "OPC_CALL_16b_24" : "12'b000110000000",
+        "OPC_CALL_23" : "8'b00010111",
+        "OPC_CMPU_16b_25" : "8'b00011001",
+        "OPC_CMPU_16b_26" : "8'b00011010",
+        "OPC_CMP_16b_27" : "8'b00011011",
+        "OPC_CMP_16b_28" : "8'b00011100",
+        "OPC_CMVEQ_16b_29" : "8'b00011101",
+        "OPC_CMVEQ_16b_30" : "8'b00011110",
+        "OPC_CMVGE_16b_31" : "8'b00011111",
+        "OPC_CMVGE_16b_32" : "8'b00100000",
+        "OPC_CMVGT_16b_33" : "8'b00100001",
+        "OPC_CMVGT_16b_34" : "8'b00100010",
+        "OPC_CMVLE_16b_35" : "8'b00100011",
+        "OPC_CMVLE_16b_36" : "8'b00100100",
+        "OPC_CMVLT_16b_37" : "8'b00100101",
+        "OPC_CMVLT_16b_38" : "8'b00100110",
+        "OPC_CMVNE_16b_39" : "8'b00100111",
+        "OPC_CMVNE_16b_40" : "8'b00101000",
+        "OPC_DCBNZ_16b_41" : "8'b00101001",
+        "OPC_DIVU_16b_42" : "8'b00101010",
+        "OPC_DIV_16b_43" : "8'b00101011",
+        "OPC_HWLP_16b_44" : "8'b00101100",
+        "OPC_LDBU_16b_45" : "8'b00101101",
+        "OPC_LDBU_16b_46" : "8'b00101110",
+        "OPC_LDBU_16b_47" : "8'b00101111",
+        "OPC_LDBU_16b_48" : "8'b00110000",
+        "OPC_LDB_16b_49" : "8'b00110001",
+        "OPC_LDB_16b_50" : "8'b00110010",
+        "OPC_LDB_16b_51" : "8'b00110011",
+        "OPC_LDB_16b_52" : "8'b00110100",
+        "OPC_LDHU_16b_53" : "8'b00110101",
+        "OPC_LDHU_16b_54" : "8'b00110110",
+        "OPC_LDHU_16b_55" : "8'b00110111",
+        "OPC_LDHU_16b_56" : "8'b00111000",
+        "OPC_LDH_16b_57" : "8'b00111001",
+        "OPC_LDH_16b_58" : "8'b00111010",
+        "OPC_LDH_16b_59" : "8'b00111011",
+        "OPC_LDH_16b_60" : "8'b00111100",
+        "OPC_LDRF_16b_61" : "8'b00111101",
+        "OPC_LDW_16b_62" : "8'b00111110",
+        "OPC_LDW_16b_63" : "8'b00111111",
+        "OPC_LDW_16b_64" : "8'b01000000",
+        "OPC_LDW_16b_65" : "8'b01000001",
+        "OPC_LMOD_16b_66" : "8'b01000010",
+        "OPC_LMZD_16b_67" : "8'b01000011",
+        "OPC_MODU_16b_68" : "8'b01000100",
+        "OPC_MOD_16b_69" : "8'b01000101",
+        "OPC_MPY2U_16b_70" : "8'b01000110",
+        "OPC_MPY2_16b_71" : "8'b01000111",
+        "OPC_MPY32HU_16b_72" : "8'b01001000",
+        "OPC_MPY32H_16b_73" : "8'b01001001",
+        "OPC_MPY32L_16b_74" : "8'b01001010",
+        "OPC_MPY4U_16b_75" : "8'b01001011",
+        "OPC_MPY4_16b_76" : "8'b01001100",
+        "OPC_MPYHU_16b_77" : "8'b01001101",
+        "OPC_MPYH_16b_78" : "8'b01001110",
+        "OPC_MPYLHU_16b_79" : "8'b01001111",
+        "OPC_MPYLH_16b_80" : "8'b01010000",
+        "OPC_MPYU_16b_81" : "8'b01010001",
+        "OPC_MPY_16b_82" : "8'b01010010",
+        "OPC_MVCSR_16b_83" : "8'b01010011",
+        "OPC_MVCSR_16b_84" : "8'b01010100",
+        "OPC_MVC_16b_85" : "8'b01010101",
+        "OPC_MVC_16b_86" : "8'b01010110",
+        "OPC_MVKU_16b_87" : "8'b01010111",
+        "OPC_MVK_16b_88" : "8'b01011000",
+        "OPC_MV_16b_89" : "8'b01011001",
+        "OPC_NOP_16b_90" : "12'b010110100000",
+        "OPC_NOT_16b_91" : "8'b01011011",
+        "OPC_OR_16b_92" : "8'b01011100",
+        "OPC_OR_16b_93" : "8'b01011101",
+        "OPC_RET_16b_94" : "16'b0101111000000000",
+        "OPC_ROT_16b_95" : "8'b01011111",
+        "OPC_RSUB_16b_96" : "8'b01100000",
+        "OPC_SEXT_16b_97" : "9'b011000010",
+        "OPC_SHL_16b_98" : "8'b01100010",
+        "OPC_SHL_16b_99" : "8'b01100011",
+        "OPC_SHRU_16b_100" : "8'b01100100",
+        "OPC_SHRU_16b_101" : "8'b01100101",
+        "OPC_SHR_16b_102" : "8'b01100110",
+        "OPC_SHR_16b_103" : "8'b01100111",
+        "OPC_STB_16b_104" : "8'b01101000",
+        "OPC_STB_16b_105" : "8'b01101001",
+        "OPC_STB_16b_106" : "8'b01101010",
+        "OPC_STB_16b_107" : "8'b01101011",
+        "OPC_STH_16b_108" : "8'b01101100",
+        "OPC_STH_16b_109" : "8'b01101101",
+        "OPC_STH_16b_110" : "8'b01101110",
+        "OPC_STH_16b_111" : "8'b01101111",
+        "OPC_STRF_16b_112" : "8'b01110000",
+        "OPC_STW_16b_113" : "8'b01110001",
+        "OPC_STW_16b_114" : "8'b01110010",
+        "OPC_STW_16b_115" : "8'b01110011",
+        "OPC_STW_16b_116" : "8'b01110100",
+        "OPC_SUBU_16b_117" : "8'b01110101",
+        "OPC_SUBU_16b_118" : "8'b01110110",
+        "OPC_SUB_16b_119" : "8'b01110111",
+        "OPC_SUB_16b_120" : "8'b01111000",
+        "OPC_SWAPBR_16b_121" : "16'b0111100100000000",
+        "OPC_SWIZ_16b_122" : "8'b01111010",
+        "OPC_XOR_16b_123" : "8'b01111011",
+        "OPC_XOR_16b_124" : "8'b01111100"
+      },
+      "pins" : 
+      [
+        {
+          "direction" : "output",
+          "name" : "vx_is_mtv",
+          "trigger" : "level",
+          "width" : 1
+        },
+        {
+          "direction" : "input",
+          "name" : "vec_vx_wrz",
+          "trigger" : "level",
+          "width" : 1
+        }
+      ],
+      "pipelines" : 
+      [
+        {
+          "graph" : "strict digraph { node  [fontname=\"fixed\"]; F0 -> D0 D0 -> E0 D0 -> LDST E0 -> E1 E0 -> F0 E1 -> F0 LDST -> E0}",
+          "length" : 4,
+          "name" : "singleissue"
+        },
+        {
+          "graph" : "strict digraph { node  [fontname=\"fixed\"]; F0  -> D0A D0A -> E0A D0A->LDST E0A -> E1A E0A -> F0 E1A -> F0 F0  -> D0B D0B -> E0B D0B->LDST E0B -> E1B E0B -> F0 E1B -> F0 LDST -> E0A LDST -> E0B}",
+          "length" : 4,
+          "name" : "dualissue"
+        }
+      ],
+      "properties" : 
+      [
+        {
+          "name" : "maxissuewidth",
+          "value" : "2"
+        },
+        {
+          "name" : "pcstepsize",
+          "value" : "1"
+        },
+        {
+          "name" : "sizeofquantum",
+          "value" : "8"
+        },
+        {
+          "name" : "insdispatch",
+          "value" : "2"
+        }
+      ],
+      "registerfiles" : 
+      [
+        {
+          "list" : "R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15",
+          "name" : "GPRS",
+          "type" : "I",
+          "width" : 32
+        },
+        {
+          "list" : "CSR,IER,IRP,LBR,SBR,SP",
+          "name" : "CREGS",
+          "type" : "I",
+          "width" : 32
+        }
+      ],
+      "syntax" : 
+      {
+        "1r"       : "%M %u %GPR%",
+        "1r1si"    : "%M %u %GPR%, %SIMM%",
+        "1r1ui"    : "%M %u %GPR%, %UIMM%",
+        "1si"      : "%M %u %SIMM%",
+        "1ui"      : "%M %u %UIMM%",
+        "2r"       : "%M %u %GPR%, %GPR%",
+        "lbr1r1ui" : "%M %u %GPR%, +%CREG%[%UIMM%]",
+        "lbr2r"    : "%M %u %GPR%, +%CREG%[%GPR%]",
+        "lbr2r++"  : "%M %u %GPR%, *%CREG%[%UIMM%]++",
+        "noopr"    : "%M %u ",
+        "off2r"    : "%M %u %GPR%, *%GPR%",
+        "sbr1r1ui" : "%M %u %GPR%, +%CREG%[%UIMM%]",
+        "sbr2r"    : "%M %u %GPR%, +%CREG%[%GPR%]",
+        "sbr2r++"  : "%M %u %GPR%, *%CREG%[%GPR%]++"
+      }
+    }
+  ],
+  "system" : 
+  {
+    "-info" : 
+    {
+      "-name" : "Vx",
+      "-version" : "0.0.1"
+    },
+    "defines" : 
+    [
+      {
+        "name" : ".B",
+        "type" : "AT_VLOG",
+        "value" : "2'b00"
+      },
+      {
+        "name" : ".DP",
+        "type" : "AT_VLOG",
+        "value" : "2'b00"
+      },
+      {
+        "name" : ".H",
+        "type" : "AT_VLOG",
+        "value" : "2'b01"
+      },
+      {
+        "name" : ".HP",
+        "type" : "AT_VLOG",
+        "value" : "2'b00"
+      },
+      {
+        "name" : ".SA",
+        "type" : "AT_VLOG",
+        "value" : "1'b0"
+      },
+      {
+        "name" : ".SB",
+        "type" : "AT_VLOG",
+        "value" : "1'b1"
+      },
+      {
+        "name" : ".SP",
+        "type" : "AT_VLOG",
+        "value" : "2'b00"
+      },
+      {
+        "name" : ".U",
+        "type" : "AT_VLOG",
+        "value" : "1'b0"
+      },
+      {
+        "name" : ".W",
+        "type" : "AT_VLOG",
+        "value" : "2'b10"
+      },
+      {
+        "name" : "Z1",
+        "type" : "AT_VLOG",
+        "value" : "1'b0"
+      },
+      {
+        "name" : "f",
+        "type" : "ENCODE_UNIT_FIELD",
+        "value" : "1'b0"
+      },
+      {
+        "name" : "mm",
+        "type" : "ASM_SYNTAX_MNEM_SUFFIX",
+        "value" : "2'b10"
+      },
+      {
+        "name" : "p",
+        "type" : "ENCODE_PARA_FIELD",
+        "value" : "1'b0"
+      }
+    ],
+    "directives" : "",
+    "files" : [],
+    "hierarchy" : "",
+    "instances" : 
+    {
+      "simd0" : "simd",
+      "cp0" : "cp"
+    },
+    "memory" : "",
+    "pins" :
+    [
+      {
+        "direction" : "input",
+        "name" : "avs_sys_address",
+        "trigger" : "level",
+        "width" : 32
+      },
+      {
+        "direction" : "input",
+        "name" : "avs_sys_byteenable",
+        "trigger" : "level",
+        "width" : 4
+      },
+      {
+        "direction" : "input",
+        "name" : "avs_sys_read",
+        "trigger" : "level",
+        "width" : 1
+      },
+      {
+        "direction" : "output",
+        "name" : "avs_sys_readdata",
+        "trigger" : "level",
+        "width" : 32
+      },
+      {
+        "direction" : "output",
+        "name" : "avs_sys_readdatavalid",
+        "trigger" : "level",
+        "width" : 1
+      },
+      {
+        "direction" : "output",
+        "name" : "avs_sys_waitrequest",
+        "trigger" : "level",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "avs_sys_write",
+        "trigger" : "level",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "avs_sys_writedata",
+        "trigger" : "level",
+        "width" : 32
+      },
+      {
+        "direction" : "output",
+        "name" : "coe_sys_ack",
+        "trigger" : "level",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "ins_sys_irq0",
+        "trigger" : "edge",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "ins_sys_irq1",
+        "trigger" : "edge",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "sys_clk",
+        "trigger" : "edge",
+        "width" : 1
+      },
+      {
+        "direction" : "input",
+        "name" : "rsi_reset_n",
+        "trigger" : "level",
+        "width" : 1
+      }
+
+    ],
+    "registers" : ""
+  },
+  "userdata" : 
+  [
+    {
+      "name" : "CoverAuthor",
+      "type" : "AT_DOCTAG",
+      "value" : "Jeff Nye"
+    },
+    {
+      "name" : "CoverCompany",
+      "type" : "AT_DOCTAG",
+      "value" : ""
+    }
+  ]
+}

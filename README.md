@@ -1,7 +1,6 @@
 # jnutils
 
-Some small code snippets, examples, idioms, etc.  These are common to my code, 
-I put them here to save me typing them in every time.
+Some small code snippets, examples, idioms, etc.  These are common to my code, I put them here to save typing.
 
 <pre>
 // --------------------------------------------------------------------------

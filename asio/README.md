@@ -13,7 +13,11 @@ disconnects the other will attempt to reconnection.
 This example assumes that the client and server both run on the same
 local host.
 
-# Requirements
+# Requirements - Partial
+
+```
+sudo apt install libboost-dev libboost-system-dev
+```
 
 You must have boost ASIO installed and in your LIB path.
 
@@ -56,7 +60,7 @@ Once connected the server terminal will show:
 
 ```
 Client connected!
-Server is busy doing some work: -
+Server is busy: -
 ```
 
 Client example commands 
