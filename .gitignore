@@ -36,4 +36,6 @@
 
 
 asio/bin
+gdb/bin
+gdb_rsp/bin
 ncurses/bin
