@@ -34,8 +34,8 @@
 *.out
 *.app
 
-
 asio/bin
 gdb/bin
 gdb_rsp/bin
 ncurses/bin
+spdlog/install
